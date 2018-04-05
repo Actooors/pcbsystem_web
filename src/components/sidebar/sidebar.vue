@@ -1,51 +1,87 @@
 <template>
   <transition name="el-zoom-in-left">
-    <div class="fullscreen" v-show="ifShowSideBar">
-      <div class="fullscreen" @click="showSideBar"></div><!--style="background-color: black; opacity: 0.2"-->
-      <div class="sidebar">
-        <h5>菜单</h5>
-        <el-menu default-active="2" class="el-menu-vertical-demo1" @open="handleOpen" @close="handleClose">
-          <el-submenu index="1">
-            <template slot="title">
-              <i class="el-icon-location"></i>
-              <span>导航一</span>
-            </template>
-            <el-menu-item-group>
-              <template slot="title"></template>
-              <el-menu-item index="1-1">选项1</el-menu-item>
-              <el-menu-item index="1-2">选项2</el-menu-item>
-            </el-menu-item-group>
-            <el-menu-item-group title="分组2">
-              <el-menu-item index="1-3">选项3</el-menu-item>
-            </el-menu-item-group>
-            <el-submenu index="1-4">
-              <template slot="title">选项4</template>
-              <el-menu-item index="1-4-1">选项1</el-menu-item>
-            </el-submenu>
-          </el-submenu>
-          <el-menu-item index="2">
-            <i class="el-icon-menu"></i>
-            <span slot="title">导航二</span>
-          </el-menu-item>
-          <el-menu-item index="3" disabled>
-            <i class="el-icon-document"></i>
-            <span slot="title">导航三</span>
-          </el-menu-item>
-          <el-menu-item index="4">
-            <i class="el-icon-setting"></i>
-            <span slot="title">导航四</span>
-          </el-menu-item>
-        </el-menu>
-      </div>
+    <div class="wrapper fullscreen" v-show="ifShowSideBar">
+      <div class="absolute-fullscreen" @click="showSideBar" style="background-color: black; opacity: 0.2"></div>
+      <div class="sidebar" ref="sidebar">
+        <div class="personinfo" ref="personinfo">
+          <div class="avatar" ref="avatar">
+            <img v-lazy="photoURL" height="95px">
+          </div>
+          <div class="info">
+            <div class="username" v-text="uName"></div>
+            <div class="userid" v-text="uId"></div>
+          </div>
+          <div class="logout">
+            <el-button size="mini" @click="_setpersoninfowidth">注销</el-button>
+          </div>
 
+        </div>
+        <div class="menu">
+          <el-menu default-active="1" class="el-menu-vertical-demo1" @open="handleOpen" @close="handleClose">
+            <el-menu-item index="1">
+              <i class="icon iconfont icon-jiaocheqiche" style="font-size: 30px;margin-right: 4px;"></i>
+              <span slot="title">公车预约</span>
+            </el-menu-item>
+            <el-menu-item index="2">
+              <i class="icon iconfont icon-yuding" style="font-size: 24px;margin-right: 8px;"></i>
+              <span slot="title">预约管理</span>
+            </el-menu-item>
+            <el-menu-item index="3">
+              <i class="el-icon-document" style="font-size: 24px;margin-right: 8px;"></i>
+              <span slot="title">预约历史</span>
+            </el-menu-item>
+            <el-menu-item index="4">
+              <i class="el-icon-setting" style="font-size: 24px;margin-right: 8px;"></i>
+              <span slot="title">个人信息</span>
+            </el-menu-item>
+          </el-menu>
+        </div>
+
+      </div>
     </div>
   </transition>
+
 </template>
 
 <script>
+  import store from 'store/store'
+  import {mapState, mapMutations} from 'vuex'
+
   export default {
     name: "sidebar",
+    store,
+    props: {
+      ifshow: {
+        type: Boolean,
+        default: false
+      },
+    },
+    data() {
+      return {
+        ifShowSideBar: this.ifshow
+      }
+    },
+    computed: mapState(['uName', 'uId', 'photoURL']),
+    watch: {
+      ifshow(val) {
+        if (val) {
+          this.$nextTick(() => {
+            this._setpersoninfowidth()
+          })
+        }
+        this.ifShowSideBar = val
+      },
+      ifShowSideBar(val) {
+        this.$emit('on-show-state-changed', val)
+      }
+    },
+    mounted(){
+      this.$nextTick(() => {
+        this._setpersoninfowidth()
+      })
+    },
     methods: {
+      ...mapMutations,
       handleOpen(key, keyPath) {
         console.log(key, keyPath);
       },
@@ -54,47 +90,21 @@
       },
       showSideBar() {
         this.ifShowSideBar = !this.ifShowSideBar
-      }
-    },
-    props: {
-      ifshow: {
-        type: Boolean,
-        default: false
-      }
-    },
-    data() {
-      return {
-        ifShowSideBar: this.ifshow
-      }
-    },
-    watch: {
-      ifshow(val) {
-        this.ifShowSideBar = val
       },
-      ifShowSideBar(val) {
-        this.$emit('on-show-state-changed', val)
+      _setpersoninfowidth() {
+        // console.log(this.$refs.sidebar.offsetLeft)
+        // console.log(this.$refs.sidebar.offsetWidth)
+        // console.log(this.$refs.personinfo.offsetLeft)
+        let width = this.$refs.sidebar.offsetLeft + this.$refs.sidebar.offsetWidth - 2 * (this.$refs.personinfo.offsetLeft - 100) - 2
+        //personinfo的css使用了translateX(-100px)因此获取到的offsetLeft比实际的多100px,这里减去
+        // console.log(width)
+        this.$refs.personinfo.setAttribute('style', 'width:' + width + 'px')
       }
     }
   }
+
 </script>
 
 <style scoped>
-  .fullscreen {
-    position: fixed;
-    top: 0;
-    left: 0;
-    height: 100%;
-    width: 100%;
-  }
-
-  .sidebar {
-    position: fixed;
-    left: 0;
-    background-color: #fff;
-    min-width: 200px;
-    width: 50%;
-    height: 100%;
-    border-right: 1px solid #DCDFE6;
-    float: left;
-  }
+  @import url('../../common/css/sidebar.css');
 </style>

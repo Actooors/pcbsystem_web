@@ -1,6 +1,5 @@
 <template>
   <div class="m-header">
-    <link rel="stylesheet" href="http://at.alicdn.com/t/font_617648_8shs54c7gbymn29.css">
     <!--<button class="icon iconfont icon-category" @click="showSideBar"></button>-->
     <slot></slot>
     <div class="text">公车预约系统</div>
@@ -31,5 +30,6 @@
     font-size: 20px;
     left:-15px;
   }
+
 </style>
 

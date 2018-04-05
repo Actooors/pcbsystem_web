@@ -1,0 +1,93 @@
+.wrapper ul {
+  /*text-align: left;*/
+  /*padding-left:20px;*/
+}
+
+.absolute-fullscreen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 200%;
+  width: 200%;
+}
+
+.fullscreen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+}
+
+.sidebar {
+  position: fixed;
+  left: 0;
+  background-color: #fff;
+  min-width: 210px;
+  width: 30%;
+  height: 100%;
+  border-right: 1px solid #DCDFE6;
+  float: left;
+  overflow: hidden;
+}
+
+.personinfo {
+  position: relative;
+  top: 30px;
+  left: 50%;
+  transform: translateX(-100px);
+  text-align: center;
+  /*margin:10px auto ;*/
+  /*z-index: 10;*/
+  height: 70px;
+  border-radius: 15%;
+  border: 1px solid #E4E7ED;
+  margin-bottom: 70px;
+}
+
+.avatar {
+  border-radius: 50%;
+  overflow: hidden;
+  height: 64px;
+  width: 64px;
+  margin-left: 10px;
+}
+
+.info {
+  margin-left: 3px;
+  width: 60%;
+  max-width: 140px;
+
+}
+
+.username {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 15px;
+  overflow: hidden;
+  margin-right: 2px;
+  margin-bottom: 4px;
+
+}
+
+.userid {
+  font-size: 14px;
+}
+
+.avatar, .info, .logout {
+  display: inline-block;
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+  float: left;
+}
+
+.menu {
+  position: relative;
+  clear: both;
+}
+
+.avatar img[lazy='error'] {
+  height: 64px;
+  width: 64px;
+}

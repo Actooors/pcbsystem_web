@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <link rel="stylesheet" href="http://at.alicdn.com/t/font_617648_jvrgszqer6jn61or.css">
     <m-header>
       <span @click="showSideBar" class="btn-sidebar"><i class="icon iconfont icon-category"></i></span>
     </m-header>
@@ -10,7 +11,6 @@
 
 <script>
   import MHeader from "components/m-header/m-header";
-  import 'common/css/base.css'
   import Sidebar from "components/sidebar/sidebar";
 
   export default {
