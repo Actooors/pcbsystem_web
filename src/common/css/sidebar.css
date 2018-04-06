@@ -33,48 +33,14 @@
 
 .personinfo {
   position: relative;
-  top: 30px;
   left: 50%;
   transform: translateX(-100px);
   text-align: center;
-  /*margin:10px auto ;*/
-  /*z-index: 10;*/
-  height: 70px;
-  border-radius: 15%;
-  border: 1px solid #E4E7ED;
-  margin-bottom: 70px;
+  height: 10%;
+  margin-top: 10%;
+  margin-bottom: 3%;
 }
-
-.avatar {
-  border-radius: 50%;
-  overflow: hidden;
-  height: 48px;
-  width: 48px;
-  margin-left: 10px;
-}
-
-.info {
-  margin-left: 3px;
-  width: 60%;
-  max-width: 140px;
-
-}
-
-.username {
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  font-size: 12px;
-  overflow: hidden;
-  margin-right: 2px;
-  margin-bottom: 4px;
-
-}
-
-.userid {
-  font-size: 14px;
-}
-
-.avatar, .info, .logout {
+.avatar, .info, .logout{
   display: inline-block;
   position: relative;
   top: 50%;
@@ -82,8 +48,51 @@
   float: left;
 }
 
+.avatar {
+  border-radius: 50%;
+  overflow: hidden;
+  height: 48px;
+  width: 48px;
+  margin-left: 5px;
+}
+
+.info {
+  /*margin-left: 0px;*/
+  width: 60%;
+  /*height: 70%;*/
+  max-width: 80px;
+  text-align: left;
+  color: #606266;
+  left: 5px;
+}
+
+.username {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 13px;
+  overflow: hidden;
+  margin-right: 2px;
+  margin-bottom: 4px;
+  height: 60%;
+}
+
+.userid {
+  font-size: 13px;
+  height: 50%;
+
+}
+
+
+.logout{
+  margin-left: 8px;
+}
+
 .menu {
   position: relative;
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  text-align: center;
   clear: both;
 }
 
@@ -93,7 +102,7 @@
 }
 .avatar img[lazy='loaded'] {
   position: absolute;
-  height: 60px;
+  height: 62px;
   left: 0px;
   width: 48px;
 }

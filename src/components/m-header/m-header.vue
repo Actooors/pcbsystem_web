@@ -2,7 +2,9 @@
   <div class="m-header">
     <!--<button class="icon iconfont icon-category" @click="showSideBar"></button>-->
     <slot></slot>
-    <div class="text">公车预约系统</div>
+    <div class="text">
+      公车预约系统
+    </div>
   </div>
 </template>
 
@@ -30,6 +32,9 @@
     font-size: 20px;
     left:-15px;
   }
+  .logout{
+    position: relative;
 
+  }
 </style>
 
