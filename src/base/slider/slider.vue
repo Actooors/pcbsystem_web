@@ -5,7 +5,7 @@
       </slot>
     </div>
     <div class="dots">
-      <span class="dot" :class="{active: currentPageIndex === index }" v-for="(item, index) in dots"></span>
+      <span class="dot" :class="{active: currentPageIndex+1 === index }" v-for="(item, index) in dots"></span>
     </div>
   </div>
 </template>
@@ -32,7 +32,7 @@
     data() {
       return {
         dots: [],
-        currentPageIndex: 0
+        currentPageIndex: -1
       }
     },
     mounted() {
@@ -97,9 +97,11 @@
           scrollY: false,
           momentum: false,
           snap: true,
-          snapLoop: this.loop,
-          snapThreshold: 0.3,
-          snapSpeed: 400
+          snap: {
+            loop: this.loop,
+            threshold: 0.3,
+            speed: 400
+          },
         })
 
         this.slider.on('scrollEnd', () => {
@@ -149,7 +151,7 @@
     white-space: nowrap;
   }
 
-  .slider-group .slider-item {
+  .slider-item {
     float: left;
     box-sizing: border-box;
     overflow: hidden;
@@ -172,7 +174,7 @@
     position: absolute;
     right: 0;
     left: 0;
-    bottom: 12px;
+    bottom: 6px;
     text-align: center;
     font-size: 0
   }
@@ -183,13 +185,15 @@
     width: 8px;
     height: 8px;
     border-radius: 50%;
-    background: aquamarine;
+    background: #F2F6FC;
+    opacity: 0.7;
   }
 
   .active {
     width: 20px;
     border-radius: 5px;
-    background: blueviolet;
+    background: #fff;
+    opacity: 0.9;
   }
 
 </style>
