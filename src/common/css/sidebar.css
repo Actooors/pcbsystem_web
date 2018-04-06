@@ -48,8 +48,8 @@
 .avatar {
   border-radius: 50%;
   overflow: hidden;
-  height: 64px;
-  width: 64px;
+  height: 48px;
+  width: 48px;
   margin-left: 10px;
 }
 
@@ -63,7 +63,7 @@
 .username {
   text-overflow: ellipsis;
   white-space: nowrap;
-  font-size: 15px;
+  font-size: 12px;
   overflow: hidden;
   margin-right: 2px;
   margin-bottom: 4px;
@@ -88,6 +88,12 @@
 }
 
 .avatar img[lazy='error'] {
-  height: 64px;
-  width: 64px;
+  height: 48px;
+  width: 48px;
+}
+.avatar img[lazy='loaded'] {
+  position: absolute;
+  height: 60px;
+  left: 0px;
+  width: 48px;
 }

@@ -5,7 +5,7 @@
       <div class="sidebar" ref="sidebar">
         <div class="personinfo" ref="personinfo">
           <div class="avatar" ref="avatar">
-            <img v-lazy="photoURL" height="95px">
+            <img v-lazy="photoURL">
           </div>
           <div class="info">
             <div class="username" v-text="uName"></div>
