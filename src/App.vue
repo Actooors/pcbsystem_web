@@ -53,11 +53,9 @@
     transform: translateY(-50%);
     padding: 10px 10px 10px 10px;
   }
-<<<<<<< HEAD
 
   .main{
     position: relative;
   }
-=======
->>>>>>> 81ff174528f8d2015dda55bf261b9145adbccd39
+
 </style>

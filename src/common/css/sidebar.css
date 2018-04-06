@@ -1,0 +1,108 @@
+.wrapper ul {
+  /*text-align: left;*/
+  /*padding-left:20px;*/
+}
+
+.absolute-fullscreen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 200%;
+  width: 200%;
+}
+
+.fullscreen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+}
+
+.sidebar {
+  position: fixed;
+  left: 0;
+  background-color: #fff;
+  min-width: 210px;
+  width: 30%;
+  height: 100%;
+  border-right: 1px solid #DCDFE6;
+  float: left;
+  overflow: hidden;
+}
+
+.personinfo {
+  position: relative;
+  left: 50%;
+  transform: translateX(-100px);
+  text-align: center;
+  height: 10%;
+  margin-top: 10%;
+  margin-bottom: 3%;
+}
+.avatar, .info, .logout{
+  display: inline-block;
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+  float: left;
+}
+
+.avatar {
+  border-radius: 50%;
+  overflow: hidden;
+  height: 48px;
+  width: 48px;
+  margin-left: 5px;
+}
+
+.info {
+  /*margin-left: 0px;*/
+  width: 60%;
+  /*height: 70%;*/
+  max-width: 80px;
+  text-align: left;
+  color: #606266;
+  left: 5px;
+}
+
+.username {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 13px;
+  overflow: hidden;
+  margin-right: 2px;
+  margin-bottom: 4px;
+  height: 60%;
+}
+
+.userid {
+  font-size: 13px;
+  height: 50%;
+
+}
+
+
+.logout{
+  margin-left: 8px;
+}
+
+.menu {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  text-align: center;
+  clear: both;
+}
+
+.avatar img[lazy='error'] {
+  height: 48px;
+  width: 48px;
+}
+.avatar img[lazy='loaded'] {
+  position: absolute;
+  height: 62px;
+  left: 0px;
+  width: 48px;
+}
