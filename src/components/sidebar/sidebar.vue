@@ -12,9 +12,8 @@
             <div class="userid" v-text="uId"></div>
           </div>
           <div class="logout">
-            <el-button size="mini" @click="_setpersoninfowidth">注销</el-button>
+            <el-button size="mini" type="primary" plain>注销</el-button>
           </div>
-
         </div>
         <div class="menu">
           <el-menu default-active="1" class="el-menu-vertical-demo1" @open="handleOpen" @close="handleClose">
@@ -64,21 +63,11 @@
     computed: mapState(['uName', 'uId', 'photoURL']),
     watch: {
       ifshow(val) {
-        if (val) {
-          this.$nextTick(() => {
-            this._setpersoninfowidth()
-          })
-        }
         this.ifShowSideBar = val
       },
       ifShowSideBar(val) {
         this.$emit('on-show-state-changed', val)
       }
-    },
-    mounted(){
-      this.$nextTick(() => {
-        this._setpersoninfowidth()
-      })
     },
     methods: {
       ...mapMutations,
@@ -91,15 +80,6 @@
       showSideBar() {
         this.ifShowSideBar = !this.ifShowSideBar
       },
-      _setpersoninfowidth() {
-        // console.log(this.$refs.sidebar.offsetLeft)
-        // console.log(this.$refs.sidebar.offsetWidth)
-        // console.log(this.$refs.personinfo.offsetLeft)
-        let width = this.$refs.sidebar.offsetLeft + this.$refs.sidebar.offsetWidth - 2 * (this.$refs.personinfo.offsetLeft - 100) - 2
-        //personinfo的css使用了translateX(-100px)因此获取到的offsetLeft比实际的多100px,这里减去
-        // console.log(width)
-        this.$refs.personinfo.setAttribute('style', 'width:' + width + 'px')
-      }
     }
   }
 

@@ -1,7 +1,10 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import User from 'components/main/user'
+import Booking from 'components/booking/booking'
+import Reservation from 'components/reservation/reservation'
+import PersonalInfo from 'components/personalinfo/personalinfo'
 import 'element-ui/lib/theme-chalk/index.css'
+
 Vue.use(Router)
 
 export default new Router({
@@ -10,12 +13,22 @@ export default new Router({
     {
       path: '/',
       name: 'root',
-      redirect: '/user'
+      redirect: '/booking'
     },
     {
-      path: '/user',
-      name: 'user',
-      component: User
+      path: '/booking',
+      name: 'booking',
+      component:Booking
+    },
+    {
+      path: '/reservation',
+      name: 'reservation',
+      component: Reservation
+    },
+    {
+      path: '/personalinfo',
+      name: 'personalinfo',
+      component: PersonalInfo
     }
   ]
 })

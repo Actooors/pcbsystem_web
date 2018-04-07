@@ -7,6 +7,10 @@ import Element from 'element-ui'
 import LazyLoad from 'vue-lazyload'
 import 'element-ui/lib/theme-chalk/index.css'
 import 'common/css/base.css'
+import MintUI from 'mint-ui'
+import 'mint-ui/lib/style.css'
+import fastclick from 'fastclick'
+
 Vue.config.productionTip = false
 Vue.use(Element)
 Vue.use(LazyLoad, {
@@ -15,10 +19,13 @@ Vue.use(LazyLoad, {
   loading: require('common/image/loading.png'),
   attempt: 1
 })
+Vue.use(MintUI)
+
+fastclick.attach(document.body)
 /* eslint-disable no-new */
-new Vue({
+var app = new Vue({
   el: '#app',
   router,
-  components: { App },
+  components: {App},
   template: '<App/>'
 })

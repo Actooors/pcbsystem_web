@@ -1,0 +1,85 @@
+.booking {
+  position: fixed;
+  top: 44px;
+  width: 100%;
+  bottom: 0;
+}
+
+.slider-wrapper {
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.information-wrapper {
+  border: 1px solid #DCDFE6;
+  border-radius: 2px;
+  position: relative;
+  margin: 10px auto;
+  background: white;
+  padding: 10px 0;
+}
+
+.item-block {
+  border-bottom: 1px solid #E4E7ED;
+  padding: 5px 5px;
+  text-align: left;
+  margin: 0 auto;
+}
+
+.item-block small {
+  margin-right: 20px
+}
+
+.item-block span {
+  margin-right: 10px
+}
+
+.btn-search {
+  font-size: 18px;
+  height: 40px;
+  margin: 20px auto 10px;
+}
+
+@media screen and (min-width: 1025px) {/*电脑端响应式布局*/
+  .slider-wrapper {
+    position: relative;
+    width: 35%;
+    overflow: hidden;
+    margin-top: 5%;
+  }
+
+  .item-block {
+    width: 50%;
+  }
+
+  .information-wrapper {
+    width: 35%;
+  }
+
+  .btn-search{
+    width: 50%;
+  }
+}
+
+@media screen and (max-width: 1024px) {/*手机端响应式布局*/
+  .slider-wrapper {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+  }
+
+  .item-block {
+    width: 90%;
+  }
+
+  .information-wrapper {
+    width: 95%;
+  }
+
+  .btn-search{
+    width: 90%;
+  }
+}
+
+

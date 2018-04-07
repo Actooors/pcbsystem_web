@@ -1,23 +1,27 @@
 <template>
-  <div id="app">
+  <div id="app" style="clear:both">
     <link rel="stylesheet" href="http://at.alicdn.com/t/font_617648_jvrgszqer6jn61or.css">
     <m-header>
       <span @click="showSideBar" class="btn-sidebar"><i class="icon iconfont icon-category"></i></span>
     </m-header>
     <sidebar :ifshow="ifShowSideBar" @on-show-state-changed="_onSideBarStateChanged"></sidebar>
-    <router-view></router-view>
+    <router-view class="main"></router-view>
   </div>
 </template>
 
 <script>
-  import MHeader from "components/m-header/m-header";
-  import Sidebar from "components/sidebar/sidebar";
+  import MHeader from "components/m-header/m-header"
+  import Sidebar from "components/sidebar/sidebar"
+  import Reservation from "components/reservation/reservation"
+  import PersonalInfo from "components/personalinfo/personalinfo"
 
   export default {
     name: 'App',
     components: {
       Sidebar,
-      MHeader
+      MHeader,
+      Reservation,
+      PersonalInfo
     },
     data() {
       return {
@@ -54,5 +58,8 @@
     padding: 10px 10px 10px 10px;
   }
 
+  .main{
+    position: relative;
+  }
 
 </style>
