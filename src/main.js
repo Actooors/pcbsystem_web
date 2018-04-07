@@ -3,15 +3,15 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
-import {Menu, MenuItem, Button} from 'element-ui'
+import Element from 'element-ui'
 import LazyLoad from 'vue-lazyload'
 import 'element-ui/lib/theme-chalk/index.css'
 import 'common/css/base.css'
+import MintUI from 'mint-ui'
+import 'mint-ui/lib/style.css'
 Vue.config.productionTip = false
-// Vue.use(Element)
-Vue.use(Menu)
-Vue.use(MenuItem)
-Vue.use(Button)
+Vue.use(Element)
+Vue.use(MintUI)
 
 Vue.use(LazyLoad, {
   preLoad: 1.3,
