@@ -12,12 +12,14 @@
 <script>
   import MHeader from "components/m-header/m-header";
   import Sidebar from "components/sidebar/sidebar";
+  import Reservation from "components/reservation/reservation";
 
   export default {
     name: 'App',
     components: {
       Sidebar,
-      MHeader
+      MHeader,
+      Reservation
     },
     data() {
       return {
