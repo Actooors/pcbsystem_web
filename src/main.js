@@ -11,16 +11,17 @@ import MintUI from 'mint-ui'
 import 'mint-ui/lib/style.css'
 Vue.config.productionTip = false
 Vue.use(Element)
-Vue.use(MintUI)
-
 Vue.use(LazyLoad, {
   preLoad: 1.3,
   error: require('common/image/user.png'),
   loading: require('common/image/loading.png'),
   attempt: 1
 })
+Vue.use(MintUI)
+
+
 /* eslint-disable no-new */
-new Vue({
+var app=new Vue({
   el: '#app',
   router,
   components: { App },
