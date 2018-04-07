@@ -5,7 +5,8 @@
       </slot>
     </div>
     <div class="dots">
-      <span class="dot" :class="{active: currentPageIndex+1 === index }" v-for="(item, index) in dots"></span>
+      <span class="dot" :class="{active: currentPageIndex+1 === index }" v-for="(item, index) in dots"
+            @click="clickDot(index)"></span>
     </div>
   </div>
 </template>
@@ -96,7 +97,7 @@
           scrollX: true,
           scrollY: false,
           momentum: false,
-          snap: true,
+          click:true,
           snap: {
             loop: this.loop,
             threshold: 0.3,
@@ -135,6 +136,9 @@
         this.timer = setTimeout(() => {
           this.slider.goToPage(pageIndex, 0, 400)
         }, this.interval)
+      },
+      clickDot(index) {
+        this.slider.goToPage(index, 0, 400)
       }
     }
   }

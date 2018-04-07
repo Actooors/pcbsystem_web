@@ -9,6 +9,8 @@ import 'element-ui/lib/theme-chalk/index.css'
 import 'common/css/base.css'
 import MintUI from 'mint-ui'
 import 'mint-ui/lib/style.css'
+import fastclick from 'fastclick'
+
 Vue.config.productionTip = false
 Vue.use(Element)
 Vue.use(LazyLoad, {
@@ -19,11 +21,11 @@ Vue.use(LazyLoad, {
 })
 Vue.use(MintUI)
 
-
+fastclick.attach(document.body)
 /* eslint-disable no-new */
-var app=new Vue({
+var app = new Vue({
   el: '#app',
   router,
-  components: { App },
+  components: {App},
   template: '<App/>'
 })

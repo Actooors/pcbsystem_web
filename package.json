@@ -12,6 +12,7 @@
   "dependencies": {
     "better-scroll": "^1.9.1",
     "element-ui": "^2.3.3",
+    "fastclick": "^1.0.6",
     "mint-ui": "^2.2.13",
     "vue": "^2.5.2",
     "vue-router": "^3.0.1",
