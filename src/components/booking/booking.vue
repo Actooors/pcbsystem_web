@@ -8,11 +8,7 @@
           </a>
         </div>
       </slider>
-      <!--<el-carousel height="150px">-->
-      <!--<el-carousel-item v-for="item in 4" :key="item">-->
-      <!--<h3>{{ item }}</h3>-->
-      <!--</el-carousel-item>-->
-      <!--</el-carousel>-->
+
     </div>
   </div>
 
@@ -65,8 +61,24 @@
   }
   .slider-wrapper {
     position: relative;
-    width: 100%;
-    overflow: hidden;
+    left:50%;
+    transform: translateX(-50%);
+  }
+
+
+  @media screen and (min-width:1025px) {
+    .slider-wrapper {
+      position: relative;
+      width: 35%;
+      overflow: hidden;
+    }
+  }
+  @media screen and (max-width:1024px) {
+    .slider-wrapper {
+      position: relative;
+      width: 100%;
+      overflow: hidden;
+    }
   }
 
 </style>

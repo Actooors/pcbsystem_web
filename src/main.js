@@ -3,12 +3,16 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
-import Element from 'element-ui'
+import {Menu, MenuItem, Button} from 'element-ui'
 import LazyLoad from 'vue-lazyload'
 import 'element-ui/lib/theme-chalk/index.css'
 import 'common/css/base.css'
 Vue.config.productionTip = false
-Vue.use(Element)
+// Vue.use(Element)
+Vue.use(Menu)
+Vue.use(MenuItem)
+Vue.use(Button)
+
 Vue.use(LazyLoad, {
   preLoad: 1.3,
   error: require('common/image/user.png'),
