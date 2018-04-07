@@ -28,12 +28,6 @@ export default new Router({
     },
     {
       path: '/reservation',
-<<<<<<< 13b3a6533d4ee39c9d26cac1594efd847aabe8df
-      name:
-        'reservation',
-      component:
-      Reservation
-=======
       name: 'reservation',
       component: Reservation
     },
@@ -41,7 +35,6 @@ export default new Router({
       path: '/personalinfo',
       name: 'personalinfo',
       component: PersonalInfo
->>>>>>> 添加个人信息框架(未修改)
     }
   ]
 })
