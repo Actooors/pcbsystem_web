@@ -1,7 +1,7 @@
 <template>
   <div class="booking">
     <div class="slider-wrapper" v-if="recommends.length">
-      <slider >
+      <slider>
         <div v-for="item in recommends">
           <a :href="item.linkUrl">
             <img class="needsclick" :src="item.picUrl">
@@ -26,7 +26,9 @@
       </div>
       <el-button type="warning" class="btn-search" @click="search">搜索</el-button>
     </div>
-
+    <datetime-range title="选择时间" :value="value" inline-desc="desc" placeholder="placeholder" start-date="2018-12-21"
+                    end-date="2018-21-22" format="YYYY-MM-DD">
+    </datetime-range>
   </div>
 
 </template>
@@ -36,6 +38,7 @@
   import Slider from 'base/slider/slider'
   import store from 'store/store'
   import {mapState, mapMutations} from 'vuex'
+  import DatetimeRange from "vux/src/components/datetime-range/index";
 
   var recommends = [
     {
@@ -64,11 +67,13 @@
     name: "booking",
     store,
     components: {
+      DatetimeRange,
       Slider
     },
     data() {
       return {
-        recommends: recommends
+        recommends: recommends,
+        value: ['2017-01-15', '03', '05']
       }
     },
     computed: mapState(['where', 'months', 'days', 'hours']),
