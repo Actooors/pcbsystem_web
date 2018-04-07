@@ -7,8 +7,6 @@ import Element from 'element-ui'
 import LazyLoad from 'vue-lazyload'
 import 'element-ui/lib/theme-chalk/index.css'
 import 'common/css/base.css'
-import MintUI from 'mint-ui'
-import 'mint-ui/lib/style.css'
 import fastclick from 'fastclick'
 
 Vue.config.productionTip = false
