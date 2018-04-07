@@ -16,19 +16,23 @@
           {{where}}
         </div>
         <div class="item-block">
-          <small>起约时间</small>
-          <span>{{months}}月{{days}}日</span>{{hours}}时
+          <datetime v-model="value7" @on-change="change" title="aaa" clear-text="today" @on-clear="setToday">
+            <small>起约时间</small>
+            <span>{{months}}月{{days}}日</span>{{hours}}时
+          </datetime>
         </div>
         <div class="item-block">
-          <small>终约时间</small>
-          <span>{{months}}月{{days}}日</span>{{hours}}时
+          <datetime v-model="value7" @on-change="change" title="aaa" clear-text="today" @on-clear="setToday">
+            <small>终约时间</small>
+            <span>{{months}}月{{days}}日</span>{{hours}}时
+          </datetime>
         </div>
+
       </div>
       <el-button type="warning" class="btn-search" @click="search">搜索</el-button>
     </div>
-    <datetime-range title="选择时间" :value="value" inline-desc="desc" placeholder="placeholder" start-date="2018-12-21"
-                    end-date="2018-21-22" format="YYYY-MM-DD">
-    </datetime-range>
+
+
   </div>
 
 </template>
@@ -38,7 +42,9 @@
   import Slider from 'base/slider/slider'
   import store from 'store/store'
   import {mapState, mapMutations} from 'vuex'
-  import DatetimeRange from "vux/src/components/datetime-range/index";
+  import Datetime from "vux/src/components/datetime/index";
+  import Group from "vux/src/components/group/index";
+  import XButton from "vux/src/components/x-button/index";
 
   var recommends = [
     {
@@ -67,13 +73,15 @@
     name: "booking",
     store,
     components: {
-      DatetimeRange,
+      XButton,
+      Group,
+      Datetime,
       Slider
     },
     data() {
       return {
         recommends: recommends,
-        value: ['2017-01-15', '03', '05']
+        value7: ''
       }
     },
     computed: mapState(['where', 'months', 'days', 'hours']),
@@ -81,6 +89,18 @@
       ...mapMutations(['setTimeToNow']),
       search() {
         console.log("调用搜索")
+      },
+      change(value) {
+        console.log('change', value)
+      },
+      setToday(value) {
+        let now = new Date()
+        let cmonth = now.getMonth() + 1
+        let day = now.getDate()
+        if (cmonth < 10) cmonth = '0' + cmonth
+        if (day < 10) day = '0' + day
+        this.value7 = now.getFullYear() + '-' + cmonth + '-' + day
+        console.log('set today ok')
       }
     },
     created() {

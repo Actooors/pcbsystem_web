@@ -8,7 +8,7 @@ import LazyLoad from 'vue-lazyload'
 import 'element-ui/lib/theme-chalk/index.css'
 import 'common/css/base.css'
 import Fastclick from 'fastclick'
-import {DatetimeRange} from 'vux'
+
 
 Vue.config.productionTip = false
 Vue.use(Element)
@@ -24,6 +24,6 @@ Fastclick.attach(document.body)
 var app = new Vue({
   el: '#app',
   router,
-  components: {App, DatetimeRange},
+  components: {App},
   template: '<App/>'
 })
