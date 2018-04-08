@@ -10,22 +10,32 @@
       </slider>
     </div>
     <div class="information-wrapper">
-      <div>
+      <div class="cells">
+        <cell
+          class="cell"
+          title="上车地点"
+          primary="content"
+          @click.native="onClickLocation"
+          :is-link=true>
+          <popup-radio
+            :readonly=false @on-hide="onChosenLocation" v-model="locationOption" :options="locationOptions"
+            style="height:25px;">
+            <p slot="popup-header" class="vux-1px-b cell-radio-slot">选择上车地点</p>
+          </popup-radio>
+        </cell>
+        <calendartime class="cell" title="起约时间" v-model="calendarValue" disable-past :postpone=3>
+          <small>起约时间</small>
+          <span>{{months}}月{{days}}日</span>{{hours}}时
+        </calendartime>
+        <!--<datetime v-model="value7" @on-change="change" title="aaa" clear-text="today" @on-clear="setToday" format="MM-DD">-->
+        <!--<small>起约时间</small>-->
+        <!--<span>{{months}}月{{days}}日</span>{{hours}}时-->
+        <!--</datetime>-->
         <div class="item-block">
-          <small>上车地点</small>
-          {{where}}
-        </div>
-        <div class="item-block">
-          <datetime v-model="value7" @on-change="change" title="aaa" clear-text="today" @on-clear="setToday">
-            <small>起约时间</small>
-            <span>{{months}}月{{days}}日</span>{{hours}}时
-          </datetime>
-        </div>
-        <div class="item-block">
-          <datetime v-model="value7" @on-change="change" title="aaa" clear-text="today" @on-clear="setToday">
-            <small>终约时间</small>
-            <span>{{months}}月{{days}}日</span>{{hours}}时
-          </datetime>
+          <!--<datetime v-model="value7" @on-change="change" title="aaa" clear-text="today" @on-clear="setToday">-->
+          <!--<small>终约时间</small>-->
+          <!--<span>{{months}}月{{days}}日</span>{{hours}}时-->
+          <!--</datetime>-->
         </div>
 
       </div>
@@ -38,13 +48,11 @@
 </template>
 
 <script>
-  import Vue from 'vue'
   import Slider from 'base/slider/slider'
   import store from 'store/store'
   import {mapState, mapMutations} from 'vuex'
-  import Datetime from "vux/src/components/datetime/index";
-  import Group from "vux/src/components/group/index";
-  import XButton from "vux/src/components/x-button/index";
+  import Calendartime from 'components/calender/calendertime'
+  import {Cell, PopupRadio} from 'vux'
 
   var recommends = [
     {
@@ -69,19 +77,23 @@
       "id": 15046
     }
   ]
+
   export default {
     name: "booking",
     store,
     components: {
-      XButton,
-      Group,
-      Datetime,
-      Slider
+      Slider,
+      Calendartime,
+      Cell,
+      PopupRadio
     },
     data() {
       return {
         recommends: recommends,
-        value7: ''
+        calendarValue: 'TODAY',
+        endDate: '',
+        locationOption: '行政楼',
+        locationOptions: ['行政楼', '北门']
       }
     },
     computed: mapState(['where', 'months', 'days', 'hours']),
@@ -90,17 +102,11 @@
       search() {
         console.log("调用搜索")
       },
-      change(value) {
-        console.log('change', value)
+      onClickLocation() {
+
       },
-      setToday(value) {
-        let now = new Date()
-        let cmonth = now.getMonth() + 1
-        let day = now.getDate()
-        if (cmonth < 10) cmonth = '0' + cmonth
-        if (day < 10) day = '0' + day
-        this.value7 = now.getFullYear() + '-' + cmonth + '-' + day
-        console.log('set today ok')
+      onChosenLocation() {
+
       }
     },
     created() {
@@ -110,4 +116,21 @@
 </script>
 <style scoped>
   @import url('../../common/css/booking.css');
+
+  .cell-radio-slot {
+    text-align: center;
+    padding: 8px 0;
+    color: #888;
+  }
+</style>
+
+<style>
+  .vux-popup-dialog .weui-cell__bd {
+    position: absolute;
+    width: 100%;
+    transform: translateX(-1em);
+  }
+  .vux-popup-dialog{
+    overflow-y: hidden;
+  }
 </style>
