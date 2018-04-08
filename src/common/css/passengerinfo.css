@@ -1,0 +1,14 @@
+@media screen and (max-width: 1024px){ /*手机端响应式布局*/
+  .UserId{
+    display: inline-flex;
+  }
+  .userid{
+    margin: auto;
+  }
+  .el-tabs__nav{
+
+  }
+}
+@media screen and (min-width: 1025px){ /*电脑端相应式布局*/
+
+}

@@ -19,7 +19,8 @@
           <el-menu default-active="1" class="el-menu-vertical-demo1" @open="handleOpen" @close="handleClose">
             <el-menu-item index="1">
               <i class="icon iconfont icon-jiaocheqiche" style="font-size: 30px;margin-right: 4px;"></i>
-              <span slot="title">公车预约</span>
+              <!--<span slot="title">公车预约</span>-->
+              <router-link to="/booking">公车预约</router-link>
             </el-menu-item>
             <el-menu-item index="2">
               <i class="icon iconfont icon-yuding" style="font-size: 24px;margin-right: 8px;"></i>
@@ -31,7 +32,8 @@
             </el-menu-item>
             <el-menu-item index="4">
               <i class="el-icon-setting" style="font-size: 24px;margin-right: 8px;"></i>
-              <span slot="title">个人信息</span>
+              <!--<span slot="title">个人信息</span>-->
+              <router-link to="/passenger/info">个人信息</router-link>
             </el-menu-item>
           </el-menu>
         </div>
