@@ -23,20 +23,8 @@
             <p slot="popup-header" class="vux-1px-b cell-radio-slot">选择上车地点</p>
           </popup-radio>
         </cell>
-        <calendartime class="cell" title="起约时间" v-model="calendarValue" disable-past :postpone=3>
-          <small>起约时间</small>
-          <span>{{months}}月{{days}}日</span>{{hours}}时
-        </calendartime>
-        <!--<datetime v-model="value7" @on-change="change" title="aaa" clear-text="today" @on-clear="setToday" format="MM-DD">-->
-        <!--<small>起约时间</small>-->
-        <!--<span>{{months}}月{{days}}日</span>{{hours}}时-->
-        <!--</datetime>-->
-        <div class="item-block">
-          <!--<datetime v-model="value7" @on-change="change" title="aaa" clear-text="today" @on-clear="setToday">-->
-          <!--<small>终约时间</small>-->
-          <!--<span>{{months}}月{{days}}日</span>{{hours}}时-->
-          <!--</datetime>-->
-        </div>
+        <calendartime class="cell" title="开始时间" v-model="calendarValueStart" disable-past :postpone=3></calendartime>
+        <calendartime class="cell" title="结束时间" v-model="calendarValueEnd" disable-past :startDate="calendarValueStart" :postpone=5></calendartime>
 
       </div>
       <el-button type="warning" class="btn-search" @click="search">搜索</el-button>
@@ -90,7 +78,8 @@
     data() {
       return {
         recommends: recommends,
-        calendarValue: 'TODAY',
+        calendarValueStart: 'TODAY',
+        calendarValueEnd: 'TODAY',
         endDate: '',
         locationOption: '行政楼',
         locationOptions: ['行政楼', '北门']
@@ -131,6 +120,6 @@
     transform: translateX(-1em);
   }
   .vux-popup-dialog{
-    overflow-y: hidden;
+    overflow-y: hidden!important;
   }
 </style>

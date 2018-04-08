@@ -14,15 +14,15 @@
         v-model="show"
         @on-show="onPopupShow"
         @on-hide="onPopupHide"
-      style="overflow-y: hidden">
+        style="overflow-y: hidden">
 
         <!--<popup-header-->
-          <!--v-if="shouldConfirm"-->
-          <!--@on-click-left="onClickLeft"-->
-          <!--@on-click-right="onClickRight"-->
-          <!--:title="popupHeaderTitle"-->
-          <!--left-text="取消"-->
-          <!--right-text="确定"></popup-header>-->
+        <!--v-if="shouldConfirm"-->
+        <!--@on-click-left="onClickLeft"-->
+        <!--@on-click-right="onClickRight"-->
+        <!--:title="popupHeaderTitle"-->
+        <!--left-text="取消"-->
+        <!--right-text="确定"></popup-header>-->
 
         <slot name="popup-before-calendar"></slot>
 
@@ -90,7 +90,8 @@
     popupHeaderTitle: String,
     displayFormat: {
       type: Function,
-      default: (value) => {
+      default: (
+        value) => {
         return typeof value === 'string' ? value : value.join(', ')
       }
     },
@@ -130,6 +131,17 @@
         }
         return false
       },
+      postponeDate() {
+        let date = null
+        if (this.startDate) {
+          console.log(this.parseDate(this.startDate))
+          date = this.parseDate(this.startDate)
+        } else {
+          date = new Date()
+
+        }
+        return format(date.setDate(date.getDate() + this.postpone), 'YYYY-MM-DD')
+      }
     },
     created() {
       let date = new Date()
@@ -143,7 +155,7 @@
           this.currentValue = pure(this.value)
         }
       }
-      this.postponeDate = format(date.setDate(date.getDate() + this.postpone), 'YYYY-MM-DD')
+
     },
     props: Props,
     methods: {
@@ -180,6 +192,9 @@
         if (!this.shouldConfirm) {
           this.show = false
         }
+      },
+      parseDate(str) {
+        return new Date(Date.parse(str.replace(/-/g, "/")))
       }
     },
     watch: {
@@ -193,17 +208,12 @@
           }
           this.currentValue = pure(newVal)
         }
-      },
-      postpone(){
-        let date = new Date()
-        this.postponeDate = format(date.setDate(date.getDate() + this.postpone), 'YYYY-MM-DD')
       }
     },
     data() {
       return {
         show: false,
         currentValue: '',
-        postponeDate: ''
       }
     }
   }
