@@ -1,10 +1,10 @@
 <template>
   <div class="passengerinfo">
-    <el-tabs v-model="activeName2" type="card" @tab-click="handleClick">
-      <el-tab-pane label="我的资料" name="first">
+    <!--<el-tabs v-model="activeName2" type="card" @tab-click="handleClick">-->
+      <!--<el-tab-pane label="我的资料" name="first">-->
         <div id="userImg">
-          <div class="UserImg">
-            <span class="userimg">头像：</span>
+          <div class="UserImg info-flex">
+            <div class="userimg">头 像：</div>
             <div class="avatar" ref="avatar">
               <img v-lazy="photoURL">
             </div>
@@ -12,27 +12,28 @@
         </div>
         <br>
         <div id="userId">
-          <div class="UserId">
-            <span class="userid">用户ID：</span>
-            <span class="id">{{id}}</span>
+          <div class="UserId info-flex">
+            <div class="userid">用户 ID：</div>
+            <div class="id">{{id}}</div>
           </div>
         </div>
         <br>
         <div id="userName">
-          <div class="UserName">
-            <span class="username">姓名：</span>
-            <span class="name">{{name}}</span>
+          <div class="UserName info-flex">
+            <div class="username">姓 名：</div>
+            <div class="name">{{name}}</div>
           </div>
         </div>
         <br>
         <div id="userPhone">
-          <div class="UserPhone">
-            <span class="userphone">联系方式：</span>
+          <div class="UserPhone info-flex">
+            <div class="userphone">联系方式：</div>
             <div class="phone">
               <el-input
                 placeholder="请输入联系电话"
                 v-model="input10"
                 clearable
+                maxlength="11"
               >
               </el-input>
             </div>
@@ -40,14 +41,9 @@
         </div>
         <br>
         <br>
-        <br>
         <div class="submit">
-          <el-button type="success">保存</el-button>
+          <el-button type="success" @click="open" >保存</el-button>
         </div>
-      </el-tab-pane>
-      <el-tab-pane label="配置管理" name="second">还在开发中...</el-tab-pane>
-      <el-tab-pane label="角色管理" name="third">还在开发中...</el-tab-pane>
-    </el-tabs>
   </div>
 </template>
 
@@ -66,6 +62,14 @@
       };
     },
     methods: {
+      open() {
+        this.$notify({
+          title: '保存成功',
+          message: '',
+          type: 'success',
+        });
+
+      },
       handleClick(tab, event) {
         console.log(tab, event);
       },
