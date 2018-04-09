@@ -12,17 +12,19 @@ export default new Router({
     {
       path: '/',
       name: 'root',
-      redirect: '/booking'
-    },
-    {
-      path: '/booking',
-      name: 'booking',
-      component:Booking
+      redirect: {name: 'booking'}
     },
     {
       path: '/passenger/info',
       name: 'passengerinfo',
-      component: PassengerInfo
-    }
+      component: PassengerInfo,
+    },
+    {
+      path: '/booking',
+      name: 'booking',
+      component: Booking
+    },
+
+
   ]
 })

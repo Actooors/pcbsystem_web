@@ -24,7 +24,8 @@
           </popup-radio>
         </cell>
         <calendartime class="cell" title="开始时间" v-model="calendarValueStart" disable-past :postpone=3></calendartime>
-        <calendartime class="cell" title="结束时间" v-model="calendarValueEnd" disable-past :startDate="calendarValueStart" :postpone=5></calendartime>
+        <calendartime class="cell" title="结束时间" v-model="calendarValueEnd" disable-past :startDate="calendarValueStart"
+                      :postpone=5></calendartime>
 
       </div>
       <el-button type="warning" class="btn-search" @click="search">搜索</el-button>
@@ -41,7 +42,7 @@
   import {mapState, mapMutations} from 'vuex'
   import Calendartime from 'components/calender/calendertime'
   import {Cell, PopupRadio} from 'vux'
-
+  import format from 'vux/src/tools/date/format'
   var recommends = [
     {
       "linkUrl": "https://y.qq.com/m/act/classic/index.html?ADTAG=jiaodiantu",
@@ -85,9 +86,9 @@
         locationOptions: ['行政楼', '北门']
       }
     },
-    computed: mapState(['where', 'months', 'days', 'hours']),
+    computed: mapState(['where', 'bDate','eDate']),
     methods: {
-      ...mapMutations(['setTimeToNow']),
+      ...mapMutations(['InitDate']),
       search() {
         console.log("调用搜索")
       },
@@ -99,7 +100,10 @@
       }
     },
     created() {
-      this.setTimeToNow()
+      this.InitDate()
+      console.log(format(this.bDate,'YYYY-MM-DD HH'))
+      console.log(format(this.eDate,'YYYY-MM-DD HH'))
+
     }
   }
 </script>
@@ -119,7 +123,8 @@
     width: 100%;
     transform: translateX(-1em);
   }
-  .vux-popup-dialog{
-    overflow-y: hidden!important;
+
+  .vux-popup-dialog {
+    overflow-y: hidden !important;
   }
 </style>
