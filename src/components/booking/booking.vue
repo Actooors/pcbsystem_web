@@ -20,11 +20,12 @@
           <popup-radio
             :readonly=false @on-hide="onChosenLocation" v-model="locationOption" :options="locationOptions"
             style="height:25px;">
-            <p slot="popup-header" class="vux-1px-b cell-radio-slot">选择上车地点</p>
+            <p slot="popup-header" class="vux-1px-b">选择上车地点</p>
           </popup-radio>
         </cell>
-        <calendartime class="cell" title="开始时间" v-model="calendarValueStart" disable-past :postpone=3></calendartime>
-        <calendartime class="cell" title="结束时间" v-model="calendarValueEnd" disable-past :startDate="calendarValueStart"
+        <calendartime class="cell" title="开始时间" popupHeaderTitle="预约开始时间" v-model="calendarValueStart" disable-past
+                      :postpone=3></calendartime>
+        <calendartime class="cell" title="结束时间" popupHeaderTitle="预约结束时间" v-model="calendarValueEnd" disable-past :startDate="calendarValueStart.split('　')[0]"
                       :postpone=5></calendartime>
 
       </div>
@@ -40,7 +41,7 @@
   import Slider from 'base/slider/slider'
   import store from 'store/store'
   import {mapState, mapMutations} from 'vuex'
-  import Calendartime from 'components/calender/calendertime'
+  import Calendartime from 'components/calendar/calendartime'
   import {Cell, PopupRadio} from 'vux'
   import format from 'vux/src/tools/date/format'
   var recommends = [
@@ -80,7 +81,7 @@
       return {
         recommends: recommends,
         calendarValueStart: 'TODAY',
-        calendarValueEnd: 'TODAY',
+        calendarValueEnd: '',
         endDate: '',
         locationOption: '行政楼',
         locationOptions: ['行政楼', '北门']
@@ -109,4 +110,15 @@
 </script>
 <style scoped>
   @import url('../../common/css/booking.css');
+</style>
+
+<style>
+  .weui-cell_radio .weui-cell__bd{
+    position: absolute;
+    left:50%;
+    transform: translateX(-50%);
+  }
+  .vux-popup-dialog {
+    overflow-y: hidden !important;
+  }
 </style>

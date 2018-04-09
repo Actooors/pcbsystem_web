@@ -49,10 +49,6 @@
   transform: translateX(-1em);
 }
 
-.vux-popup-dialog {
-  overflow-y: hidden !important;
-}
-
 @media screen and (min-width: 1025px) {
   /*电脑端响应式布局*/
   .slider-wrapper {
@@ -64,6 +60,7 @@
 
   .cells {
     width: 50%;
+    min-width: 300px;
   }
 
   .information-wrapper {
@@ -72,6 +69,7 @@
 
   .btn-search {
     width: 50%;
+    min-width: 300px;
   }
 }
 
