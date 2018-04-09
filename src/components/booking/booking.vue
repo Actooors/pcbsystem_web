@@ -23,9 +23,10 @@
             <p slot="popup-header" class="vux-1px-b">选择上车地点</p>
           </popup-radio>
         </cell>
-        <calendartime class="cell" title="开始时间" v-model="calendarValueStart" disable-past :postpone=3></calendartime>
-        <calendartime class="cell" title="结束时间" v-model="calendarValueEnd" disable-past :startDate="calendarValueStart"
-                      :postpone=5 :showPopupHeader=true></calendartime>
+        <calendartime class="cell" title="开始时间" popupHeaderTitle="预约开始时间" v-model="calendarValueStart" disable-past
+                      :postpone=3></calendartime>
+        <calendartime class="cell" title="结束时间" popupHeaderTitle="预约结束时间" v-model="calendarValueEnd" disable-past :startDate="calendarValueStart.split('　')[0]"
+                      :postpone=5></calendartime>
 
       </div>
       <el-button type="warning" class="btn-search" @click="search">搜索</el-button>
@@ -40,7 +41,7 @@
   import Slider from 'base/slider/slider'
   import store from 'store/store'
   import {mapState, mapMutations} from 'vuex'
-  import Calendartime from 'components/calender/calendertime'
+  import Calendartime from 'components/calendar/calendartime'
   import {Cell, PopupRadio} from 'vux'
   import format from 'vux/src/tools/date/format'
   var recommends = [
@@ -80,7 +81,7 @@
       return {
         recommends: recommends,
         calendarValueStart: 'TODAY',
-        calendarValueEnd: 'TODAY',
+        calendarValueEnd: '',
         endDate: '',
         locationOption: '行政楼',
         locationOptions: ['行政楼', '北门']

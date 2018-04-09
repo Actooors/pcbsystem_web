@@ -60,6 +60,7 @@
 
   .cells {
     width: 50%;
+    min-width: 300px;
   }
 
   .information-wrapper {
@@ -68,6 +69,7 @@
 
   .btn-search {
     width: 50%;
+    min-width: 300px;
   }
 }
 

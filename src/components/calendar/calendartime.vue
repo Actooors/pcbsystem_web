@@ -17,12 +17,12 @@
         style="overflow-y: hidden">
 
         <popup-header
-        v-if="shouldConfirm"
-        @on-click-left="onClickLeft"
-        @on-click-right="onClickRight"
-        :title="popupHeaderTitle"
-        left-text="取消"
-        right-text="确定"></popup-header>
+          v-if="shouldConfirm"
+          @on-click-left="onClickLeft"
+          @on-click-right="onClickRight"
+          :title="popupHeaderTitle"
+          left-text="取消"
+          right-text="确定"></popup-header>
 
         <slot name="popup-before-calendar"></slot>
 
@@ -53,11 +53,26 @@
 
       </popup>
     </div>
+    <div class="timePicker" v-transfer-dom>
+      <popup v-model="timePickerShow">
+        <popup-header
+          @on-click-left="onTimePickerClickLeft"
+          @on-click-right="onTimePickerClickRight"
+          :title="popupHeaderTitle"
+          left-text="取消"
+          right-text="确定"></popup-header>
+        <Picker
+          :data="pickerData"
+          v-model="pickerValue">
+
+        </Picker>
+      </popup>
+    </div>
   </div>
 </template>
 
 <script>
-  import {InlineCalendar, Popup, Cell, TransferDom, PopupHeader} from 'vux'
+  import {Cell, InlineCalendar, Picker, Popup, PopupHeader, TransferDom} from 'vux'
   import props from 'vux/src/components/inline-calendar/props'
   import format from 'vux/src/tools/date/format'
 
@@ -90,8 +105,7 @@
     popupHeaderTitle: String,
     displayFormat: {
       type: Function,
-      default: (
-        value) => {
+      default: (value) => {
         return typeof value === 'string' ? value : value.join(', ')
       }
     },
@@ -108,7 +122,7 @@
   }
 
   export default {
-    name: 'calendar',
+    name: 'calendartime',
     directives: {
       TransferDom
     },
@@ -116,7 +130,9 @@
       InlineCalendar,
       Popup,
       PopupHeader,
-      Cell
+      Cell,
+      Picker,
+      TransferDom
     },
     computed: {
       shouldConfirm() {
@@ -145,8 +161,15 @@
     created() {
       let date = new Date()
       if (this.value === 'TODAY') {
+        if (date.getMinutes() < 30) {
+          date.setHours(date.getHours() + 1)
+          date.setMinutes(0)
+        } else {
+          date.setHours(date.getHours() + 1)
+          date.setMinutes(30)
+        }
         this.currentValue = format(date, 'YYYY-MM-DD')
-        this.$emit('input', this.currentValue)
+        this.$emit('input', format(date, 'YYYY-MM-DD　HH:mm'))
       } else {
         if (this.getType(this.value) === 'string') {
           this.currentValue = this.value
@@ -174,7 +197,8 @@
       onClickRight() {
         this.show = false
         const value = pure(this.currentValue)
-        this.$emit('input', value)
+        this.timePickerShow = true
+        // this.$emit('input', value)
       },
       onClick() {
         if (!this.readonly) {
@@ -184,18 +208,32 @@
       onCalendarValueChange(val) {
         if (!this.shouldConfirm) {
           this.show = false
-          this.$emit('input', pure(val))
+          // this.$emit('input', pure(val))
+
         }
+
       },
       onSelectSingleDate() {
         if (!this.shouldConfirm) {
-          console.log('!!!click')
           this.show = false
+          this.timePickerShow = true
         }
       },
       parseDate(str) {
         return new Date(Date.parse(str.replace(/-/g, "/")))
-      }
+      },
+      onTimePickerClickLeft() {
+        this.timePickerShow = false
+        this.currentValue = pure(this.value)
+      },
+      onTimePickerClickRight() {
+        this.timePickerShow = false
+        let date = this.parseDate(this.currentValue)
+        date.setHours(this.pickerValue[0])
+        date.setMinutes(this.pickerValue[1])
+        const value = pure(format(date, 'YYYY-MM-DD　HH:mm'))
+        this.$emit('input', value)
+      },
     },
     watch: {
       value(newVal, oldVal) {
@@ -214,6 +252,9 @@
       return {
         show: false,
         currentValue: '',
+        timePickerShow: false,
+        pickerData: [['08', '09', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22'], ['00', '30']],
+        pickerValue: []
       }
     }
   }
