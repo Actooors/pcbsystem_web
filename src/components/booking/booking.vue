@@ -20,12 +20,12 @@
           <popup-radio
             :readonly=false @on-hide="onChosenLocation" v-model="locationOption" :options="locationOptions"
             style="height:25px;">
-            <p slot="popup-header" class="vux-1px-b cell-radio-slot">选择上车地点</p>
+            <p slot="popup-header" class="vux-1px-b">选择上车地点</p>
           </popup-radio>
         </cell>
         <calendartime class="cell" title="开始时间" v-model="calendarValueStart" disable-past :postpone=3></calendartime>
         <calendartime class="cell" title="结束时间" v-model="calendarValueEnd" disable-past :startDate="calendarValueStart"
-                      :postpone=5></calendartime>
+                      :postpone=5 :showPopupHeader=true></calendartime>
 
       </div>
       <el-button type="warning" class="btn-search" @click="search">搜索</el-button>
@@ -109,4 +109,15 @@
 </script>
 <style scoped>
   @import url('../../common/css/booking.css');
+</style>
+
+<style>
+  .weui-cell_radio .weui-cell__bd{
+    position: absolute;
+    left:50%;
+    transform: translateX(-50%);
+  }
+  .vux-popup-dialog {
+    overflow-y: hidden !important;
+  }
 </style>

@@ -16,13 +16,13 @@
         @on-hide="onPopupHide"
         style="overflow-y: hidden">
 
-        <!--<popup-header-->
-        <!--v-if="shouldConfirm"-->
-        <!--@on-click-left="onClickLeft"-->
-        <!--@on-click-right="onClickRight"-->
-        <!--:title="popupHeaderTitle"-->
-        <!--left-text="取消"-->
-        <!--right-text="确定"></popup-header>-->
+        <popup-header
+        v-if="shouldConfirm"
+        @on-click-left="onClickLeft"
+        @on-click-right="onClickRight"
+        :title="popupHeaderTitle"
+        left-text="取消"
+        right-text="确定"></popup-header>
 
         <slot name="popup-before-calendar"></slot>
 
@@ -134,7 +134,6 @@
       postponeDate() {
         let date = null
         if (this.startDate) {
-          console.log(this.parseDate(this.startDate))
           date = this.parseDate(this.startDate)
         } else {
           date = new Date()
@@ -190,6 +189,7 @@
       },
       onSelectSingleDate() {
         if (!this.shouldConfirm) {
+          console.log('!!!click')
           this.show = false
         }
       },
