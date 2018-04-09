@@ -1,14 +1,68 @@
-.UserImg{
-  display: inline-flex;
+#userId{
+  padding-bottom: 20px;
+}
+
+#userImg{
+  margin-top: 10px;
 }
 .userimg{
-  margin: auto;
+  float: left;
+  margin-left: 65px;
+  margin-top: 11px;
 }
+
+.avatar {
+  border-radius: 50%;
+  overflow: hidden;
+  height: 48px;
+  width: 48px;
+  margin-left: 5px;
+}
+
+.avatar img[lazy='error'] {
+  height: 48px;
+  width: 48px;
+}
+
+.avatar img[lazy='loaded'] {
+  position: absolute;
+  height: 62px;
+  left: 0px;
+  width: 48px;
+}
+
 .UserId{
-  display: inline-flex;
+  float: left;
+  margin-left: 65px;
 }
-.userid{
-  margin: auto;
+
+#userName{
+  padding-bottom: 20px;
+}
+
+.UserName{
+  float: left;
+  margin-left: 65px;
+}
+
+.userphone{
+  float: left;
+  margin-top: 6px;
+}
+
+.UserPhone{
+  float: left;
+  margin-left: 65px;
+}
+
+.phone{
+  display: inline-block;
+  width: 150px;
+}
+
+.submit{
+  float: left;
+  margin-left: 65px;
 }
 
 @media screen and (max-width: 1024px){ /*手机端响应式布局*/

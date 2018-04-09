@@ -109,22 +109,4 @@
 </script>
 <style scoped>
   @import url('../../common/css/booking.css');
-
-  .cell-radio-slot {
-    text-align: center;
-    padding: 8px 0;
-    color: #888;
-  }
-</style>
-
-<style>
-  .vux-popup-dialog .weui-cell__bd {
-    position: absolute;
-    width: 100%;
-    transform: translateX(-1em);
-  }
-
-  .vux-popup-dialog {
-    overflow-y: hidden !important;
-  }
 </style>
