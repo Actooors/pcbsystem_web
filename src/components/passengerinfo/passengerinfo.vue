@@ -52,8 +52,11 @@
 </template>
 
 <script>
+  import store from 'store/store'
+  import {mapState} from 'vuex'
   export default {
     name: "passengerinfo",
+    store,
     data() {
       return {
         id: '16121670',
@@ -76,7 +79,8 @@
         this.dialogImageUrl = file.url;
         this.dialogVisible = true;
       }
-    }
+    },
+    computed:mapState(['photoURL'])
   }
 </script>
 
