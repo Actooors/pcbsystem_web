@@ -54,7 +54,7 @@
       </popup>
     </div>
     <div class="timePicker" v-transfer-dom>
-      <popup v-model="timePickerShow">
+      <popup v-model="timePickerShow" @on-show="handleTimePickerShow">
         <popup-header
           @on-click-left="onTimePickerClickLeft"
           @on-click-right="onTimePickerClickRight"
@@ -116,8 +116,8 @@
       }
     },
     afterDate: {
-      type: Date,
-      default: () => parseDate('1970-1-1 00:00:00')
+      type: String,
+      default: '1970-1-1'
     },
     // for test only
     shouldTransferDom: {
@@ -206,11 +206,9 @@
       },
       onClickRight() {
         this.show = false
-        const value = pure(this.currentValue)
+        // const value = pure(this.currentValue)
         this.timePickerShow = true
-        //调整pickerTimerData的范围到afterDate之后
-        console.log(value)
-        // this.$emit('input', value)
+
       },
       onClick() {
         if (!this.readonly) {
@@ -221,11 +219,6 @@
         if (!this.shouldConfirm) {
           this.show = false
           // this.$emit('input', pure(val))
-          //调整pickerTimerData的范围到afterDate之后
-          const value = pure(this.currentValue)
-          if (value === pure(dateFormat(this.afterDate, 'YYYY-MM-DD'))) {
-            this.$emit('onSameDay', value)
-          }
         }
 
       },
@@ -233,6 +226,11 @@
         if (!this.shouldConfirm) {
           this.show = false
           this.timePickerShow = true
+          //调整pickerTimerData的范围到afterDate之后
+          // console.log(this.currentValue)
+          // console.log('emit')
+          // console.log(value)
+          // console.log(pure(dateFormat(this.afterDate, 'YYYY-MM-DD')))
         }
       },
       onTimePickerClickLeft() {
@@ -246,7 +244,19 @@
         date.setMinutes(this.pickerValue[1])
         const value = pure(dateFormat(date, 'YYYY-MM-DD　HH:mm'))
         this.$emit('input', value)
+        console.log('timer'+this.currentValue)
       },
+      handleTimePickerShow(){
+        //调整pickerTimerData的范围到afterDate之后
+        setTimeout(()=>{
+          const value = pure(this.currentValue.split('　')[0])
+          if (value === pure(dateFormat(this.afterDate, 'YYYY-MM-DD'))) {
+            this.$emit('on-same-day', value)}
+            console.log(value)
+            console.log(this.currentValue)
+
+        },20)
+      }
     },
     watch: {
       value(newVal, oldVal) {
@@ -259,7 +269,7 @@
           }
           this.currentValue = pure(newVal)
         }
-      }
+      },
     },
     data() {
       return {

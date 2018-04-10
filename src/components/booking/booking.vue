@@ -26,7 +26,8 @@
                       :postpone=3></calendartime>
         <calendartime class="cell" title="结束时间" popupHeaderTitle="预约结束时间" v-model="calendarValueEnd" disable-past
                       :startDate="calendarValueStart.split('　')[0]"
-                      :postpone=5 :pickerTimeData="pickerTimeData" @on-same-day="handleSameDay"></calendartime>
+                      :postpone=5 :pickerTimeData="pickerTimeData" :afterDate="calendarValueStart.split('　')[0]"
+                      @on-same-day="handleSameDay"></calendartime>
 
       </div>
       <el-button type="warning" class="btn-search" @click="search">搜索</el-button>
@@ -86,7 +87,7 @@
         endDate: '',
         locationOption: '行政楼',
         locationOptions: ['行政楼', '北门'],
-        pickerTimeDataOrigin: [],
+        pickerTimeDataOrigin: [['08', '09', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22'], ['00', '30']],
         pickerTimeData: [['08', '09', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22'], ['00', '30']]
       }
     },
@@ -109,8 +110,15 @@
           return -1
         }
       },
-      handleSameDay(){
-
+      handleSameDay(val) {
+        console.log(val)
+        let tmp = this.pickerTimeDataOrigin[0].filter((x) => {
+          console.log(parseInt(x))
+          console.log(parseInt(this.calendarValueStart.split('　')[1]))
+          return parseInt(x) > parseInt(this.calendarValueStart.split('　')[1])
+        })
+        console.log(tmp)
+        this.$set(this.pickerTimeData, 0, tmp)
       }
     },
     created() {
