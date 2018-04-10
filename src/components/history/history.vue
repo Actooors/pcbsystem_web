@@ -1,6 +1,6 @@
 <template>
   <div class="card" >
-    <el-card class="box-card" v-for="car in cars">
+    <el-card class="box-card" v-for="car in cars" :key="car.value">
       <div slot="header" class="clearfix">
         <span class="card_name">{{car.date}}</span>
       </div>

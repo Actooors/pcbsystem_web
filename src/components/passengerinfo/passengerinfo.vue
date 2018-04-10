@@ -87,10 +87,10 @@
 
       },
       handleClick(tab, event) {
-        console.log(tab, event);
+        // console.log(tab, event);
       },
       handleRemove(file, fileList) {
-        console.log(file, fileList);
+        // console.log(file, fileList);
       },
       handlePictureCardPreview(file) {
         this.dialogImageUrl = file.url;
@@ -105,7 +105,7 @@
             return parseInt(x)===0 || parseInt(x)
           }).join('')
         })
-        console.log(this.input10)
+        // console.log(this.input10)
 
       }
     }
