@@ -62,7 +62,7 @@
           left-text="取消"
           right-text="确定"></popup-header>
         <Picker
-          :data="pickerData"
+          :data="pickerTimeData"
           v-model="pickerValue">
 
         </Picker>
@@ -74,7 +74,7 @@
 <script>
   import {Cell, InlineCalendar, Picker, Popup, PopupHeader, TransferDom} from 'vux'
   import props from 'vux/src/components/inline-calendar/props'
-  import format from 'vux/src/tools/date/format'
+  import {parseDate, dateFormat} from "../../common/js/dateformat";
 
   const getType = (value) => {
     if (typeof value === 'string') {
@@ -108,6 +108,16 @@
       default: (value) => {
         return typeof value === 'string' ? value : value.join(', ')
       }
+    },
+    pickerTimeData: {
+      type: Array,
+      default: () => {
+        return [['08', '09', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22'], ['00', '30']]
+      }
+    },
+    afterDate: {
+      type: Date,
+      default: () => parseDate('1970-1-1 00:00:00')
     },
     // for test only
     shouldTransferDom: {
@@ -150,12 +160,12 @@
       postponeDate() {
         let date = null
         if (this.startDate) {
-          date = this.parseDate(this.startDate)
+          date = parseDate(this.startDate)
         } else {
           date = new Date()
 
         }
-        return format(date.setDate(date.getDate() + this.postpone), 'YYYY-MM-DD')
+        return dateFormat(date.setDate(date.getDate() + this.postpone), 'YYYY-MM-DD')
       }
     },
     created() {
@@ -168,8 +178,8 @@
           date.setHours(date.getHours() + 1)
           date.setMinutes(30)
         }
-        this.currentValue = format(date, 'YYYY-MM-DD')
-        this.$emit('input', format(date, 'YYYY-MM-DD　HH:mm'))
+        this.currentValue = dateFormat(date, 'YYYY-MM-DD')
+        this.$emit('input', dateFormat(date, 'YYYY-MM-DD　HH:mm'))
       } else {
         if (this.getType(this.value) === 'string') {
           this.currentValue = this.value
@@ -198,6 +208,8 @@
         this.show = false
         const value = pure(this.currentValue)
         this.timePickerShow = true
+        //调整pickerTimerData的范围到afterDate之后
+        console.log(value)
         // this.$emit('input', value)
       },
       onClick() {
@@ -209,7 +221,11 @@
         if (!this.shouldConfirm) {
           this.show = false
           // this.$emit('input', pure(val))
-
+          //调整pickerTimerData的范围到afterDate之后
+          const value = pure(this.currentValue)
+          if (value === pure(dateFormat(this.afterDate, 'YYYY-MM-DD'))) {
+            this.$emit('onSameDay', value)
+          }
         }
 
       },
@@ -219,19 +235,16 @@
           this.timePickerShow = true
         }
       },
-      parseDate(str) {
-        return new Date(Date.parse(str.replace(/-/g, "/")))
-      },
       onTimePickerClickLeft() {
         this.timePickerShow = false
         this.currentValue = pure(this.value)
       },
       onTimePickerClickRight() {
         this.timePickerShow = false
-        let date = this.parseDate(this.currentValue)
+        let date = parseDate(this.currentValue)
         date.setHours(this.pickerValue[0])
         date.setMinutes(this.pickerValue[1])
-        const value = pure(format(date, 'YYYY-MM-DD　HH:mm'))
+        const value = pure(dateFormat(date, 'YYYY-MM-DD　HH:mm'))
         this.$emit('input', value)
       },
     },
@@ -253,7 +266,6 @@
         show: false,
         currentValue: '',
         timePickerShow: false,
-        pickerData: [['08', '09', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22'], ['00', '30']],
         pickerValue: []
       }
     }
