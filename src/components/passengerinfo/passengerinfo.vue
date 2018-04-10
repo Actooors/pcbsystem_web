@@ -5,42 +5,50 @@
     <div id="userImg">
       <div class="UserImg info-flex">
         <div class="userimg">头 像：</div>
-        <div class="avatar">
-          <div class="img">
-            <img v-lazy="photoURL">
+        <el-tooltip class="item" effect="dark" content="用户头像" placement="right">
+          <div class="avatar">
+            <div class="img">
+              <img v-lazy="photoURL">
+            </div>
           </div>
-        </div>
+        </el-tooltip>
       </div>
     </div>
     <br>
     <div id="userId">
       <div class="UserId info-flex">
         <div class="userid">用户 ID：</div>
-        <div class="id">{{id}}</div>
+        <el-tooltip class="item" effect="dark" content="用户ID" placement="right">
+          <div class="id">{{id}}</div>
+        </el-tooltip>
       </div>
     </div>
     <br>
     <div id="userName">
       <div class="UserName info-flex">
         <div class="username">姓 名：</div>
-        <div class="name">{{name}}</div>
+        <el-tooltip class="item" effect="dark" content="用户姓名" placement="right">
+          <div class="name">{{name}}</div>
+        </el-tooltip>
       </div>
     </div>
     <br>
     <div id="userPhone">
       <div class="UserPhone info-flex">
         <div class="userphone">联系方式：</div>
-        <div class="phone">
-          <el-input
-            type="text"
-            name="text1"
-            placeholder="请输入联系电话"
-            v-model="input10"
-            clearable
-            maxlength="11"
-          >
-          </el-input>
-        </div>
+        <el-tooltip class="item" effect="dark" content="联系方式" placement="right">
+          <div class="phone">
+            <el-input
+              type="text"
+              name="text1"
+              placeholder="请输入联系电话"
+              v-model="input10"
+              clearable
+              maxlength="11"
+            >
+            </el-input>
+          </div>
+        </el-tooltip>
       </div>
     </div>
     <br>
