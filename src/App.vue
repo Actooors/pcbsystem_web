@@ -13,13 +13,15 @@
   import MHeader from "components/m-header/m-header"
   import Sidebar from "components/sidebar/sidebar"
   import PassengerInfo from "components/passengerinfo/passengerinfo"
+  import History from 'components/history/history'
 
   export default {
     name: 'App',
     components: {
       Sidebar,
       MHeader,
-      PassengerInfo
+      PassengerInfo,
+      History
     },
     data() {
       return {
