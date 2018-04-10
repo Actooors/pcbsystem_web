@@ -106,7 +106,6 @@
           }).join('')
         })
         // console.log(this.input10)
-
       }
     }
   }
