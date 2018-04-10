@@ -25,9 +25,11 @@
         <calendartime class="cell" title="开始时间" popupHeaderTitle="预约开始时间" v-model="calendarValueStart" disable-past
                       :postpone=3></calendartime>
         <calendartime class="cell" title="结束时间" popupHeaderTitle="预约结束时间" v-model="calendarValueEnd" disable-past
-                      :startDate="calendarValueStart.split('　')[0]"
+                      :startDate="startDate"
                       :postpone=5 :pickerTimeData="pickerTimeData" :afterDate="calendarValueStart.split('　')[0]"
-                      @on-same-day="handleSameDay"></calendartime>
+                      @on-selected-date="handleOnSelectedDate"></calendartime>
+        <!--<calendartime class="cell" title="结束时间" popupHeaderTitle="预约结束时间" v-model="calendarValueEnd" disable-past-->
+        <!--:postpone=5></calendartime>-->
 
       </div>
       <el-button type="warning" class="btn-search" @click="search">搜索</el-button>
@@ -82,7 +84,7 @@
     data() {
       return {
         recommends: recommends,
-        calendarValueStart: 'TODAY',
+        calendarValueStart: '',
         calendarValueEnd: '',
         endDate: '',
         locationOption: '行政楼',
@@ -91,7 +93,20 @@
         pickerTimeData: [['08', '09', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22'], ['00', '30']]
       }
     },
-    computed: mapState(['where', 'bDate', 'eDate']),
+    computed: {
+      ...mapState(['where', 'bDate', 'eDate']),
+      startDate() {
+        let selectedStartDate = parseDate(this.calendarValueStart.split('　').join(' '))
+        let endTime = new Date(selectedStartDate)
+        endTime.setHours(parseInt(this.pickerTimeDataOrigin[0][this.pickerTimeDataOrigin[0].length - 1]))
+        endTime.setMinutes(parseInt(this.pickerTimeDataOrigin[1][this.pickerTimeDataOrigin[1].length - 1]))
+        if (this.compareDate(selectedStartDate, endTime, 1) >= 0) {
+          return dateFormat(selectedStartDate.setDate(selectedStartDate.getDate() + 1), 'YYYY-MM-DD')
+        } else {
+          return this.calendarValueStart.split('　')[0]
+        }
+      }
+    },
     methods: {
       ...mapMutations(['InitDate']),
       search() {
@@ -110,21 +125,32 @@
           return -1
         }
       },
-      handleSameDay(val) {
-        console.log(val)
+      handleOnSelectedDate(val) {
+        // console.log(val)
+        let startDate = this.calendarValueStart.split('　')
+        if (val !== startDate[0]) {
+          // console.log(val)
+          // console.log(startDate[0])
+
+          this.pickerTimeData = Object.assign([], this.pickerTimeDataOrigin)
+          return
+        }
+        let startTime = startDate[1].split(':')
         let tmp = this.pickerTimeDataOrigin[0].filter((x) => {
-          console.log(parseInt(x))
-          console.log(parseInt(this.calendarValueStart.split('　')[1]))
-          return parseInt(x) > parseInt(this.calendarValueStart.split('　')[1])
+          return parseInt(x) > parseInt(startTime[0])
         })
-        console.log(tmp)
+        // console.log(tmp)
         this.$set(this.pickerTimeData, 0, tmp)
+        if (parseInt(startTime[0]) + 1 == parseInt(this.pickerTimeDataOrigin[0][this.pickerTimeDataOrigin[0].length - 1])
+          && startTime[1] == '30') {
+          this.$set(this.pickerTimeData, 1, ['30'])
+        }
       }
     },
     created() {
       this.InitDate()
-      console.log(dateFormat(this.bDate, 'YYYY-MM-DD HH'))
-      console.log(dateFormat(this.eDate, 'YYYY-MM-DD HH'))
+      // console.log(dateFormat(this.bDate, 'YYYY-MM-DD HH'))
+      // console.log(dateFormat(this.eDate, 'YYYY-MM-DD HH'))
     },
     watch: {
       calendarValueStart(newVal) {
@@ -136,8 +162,9 @@
         if (this.compareDate(startDate, endDate, 1) >= 0) {
           //  当差距不超过1小时的时候是不合理的时间
           this.calendarValueEnd = ''
+          // console.log('changed')
         }
-      },
+      }
     }
   }
 </script>

@@ -54,7 +54,7 @@
       </popup>
     </div>
     <div class="timePicker" v-transfer-dom>
-      <popup v-model="timePickerShow" @on-show="handleTimePickerShow">
+      <popup v-model="timePickerShow">
         <popup-header
           @on-click-left="onTimePickerClickLeft"
           @on-click-right="onTimePickerClickRight"
@@ -197,7 +197,7 @@
       onPopupHide() {
         this.$emit('on-hide')
         // reset value to show value
-        this.currentValue = pure(this.value)
+        // this.currentValue = pure(this.value)
       },
       getType,
       onClickLeft() {
@@ -208,7 +208,14 @@
         this.show = false
         // const value = pure(this.currentValue)
         this.timePickerShow = true
-
+        this.$nextTick(()=>{
+          let spaceIndex = this.currentValue.indexOf(' ')
+          if (spaceIndex !== -1) {
+            this.$emit('on-selected-date', this.currentValue.substring(0, spaceIndex))
+          } else {
+            this.$emit('on-selected-date', this.currentValue)
+          }
+        })
       },
       onClick() {
         if (!this.readonly) {
@@ -226,7 +233,16 @@
         if (!this.shouldConfirm) {
           this.show = false
           this.timePickerShow = true
-          //调整pickerTimerData的范围到afterDate之后
+          this.$nextTick(()=>{
+            let spaceIndex = this.currentValue.indexOf(' ')
+            if (spaceIndex !== -1) {
+              this.$emit('on-selected-date', this.currentValue.substring(0, spaceIndex))
+            } else {
+              this.$emit('on-selected-date', this.currentValue)
+            }
+          })
+          // 调整pickerTimerData的范围到afterDate之后
+
           // console.log(this.currentValue)
           // console.log('emit')
           // console.log(value)
@@ -240,26 +256,17 @@
       onTimePickerClickRight() {
         this.timePickerShow = false
         let date = parseDate(this.currentValue)
+        // console.log('picker'+this.currentValue)
         date.setHours(this.pickerValue[0])
         date.setMinutes(this.pickerValue[1])
         const value = pure(dateFormat(date, 'YYYY-MM-DD　HH:mm'))
         this.$emit('input', value)
-        console.log('timer'+this.currentValue)
+        // console.log('timer'+this.currentValue)
       },
-      handleTimePickerShow(){
-        //调整pickerTimerData的范围到afterDate之后
-        setTimeout(()=>{
-          const value = pure(this.currentValue.split('　')[0])
-          if (value === pure(dateFormat(this.afterDate, 'YYYY-MM-DD'))) {
-            this.$emit('on-same-day', value)}
-            console.log(value)
-            console.log(this.currentValue)
-
-        },20)
-      }
     },
     watch: {
       value(newVal, oldVal) {
+        // console.log('watch'+this.currentValue)
         if (this.getType(this.value) === 'string') {
           this.currentValue = newVal
           this.$emit('on-change', newVal)
