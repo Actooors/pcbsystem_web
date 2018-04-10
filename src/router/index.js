@@ -1,8 +1,8 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Booking from 'components/booking/booking'
-import Reservation from 'components/reservation/reservation'
-import PersonalInfo from 'components/personalinfo/personalinfo'
+import PassengerInfo from 'components/passengerinfo/passengerinfo'
+import History from 'components/history/history'
 import 'element-ui/lib/theme-chalk/index.css'
 
 Vue.use(Router)
@@ -13,22 +13,23 @@ export default new Router({
     {
       path: '/',
       name: 'root',
-      redirect: '/booking'
+      redirect: {name: 'booking'}
+    },
+    {
+      path: '/passenger/info',
+      name: 'passengerinfo',
+      component: PassengerInfo,
     },
     {
       path: '/booking',
       name: 'booking',
-      component:Booking
+      component: Booking
     },
     {
-      path: '/reservation',
-      name: 'reservation',
-      component: Reservation
-    },
-    {
-      path: '/personalinfo',
-      name: 'personalinfo',
-      component: PersonalInfo
+      path: '/history',
+      name: 'history',
+      component: History
     }
+
   ]
 })

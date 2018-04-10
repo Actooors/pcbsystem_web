@@ -12,16 +12,16 @@
 <script>
   import MHeader from "components/m-header/m-header"
   import Sidebar from "components/sidebar/sidebar"
-  import Reservation from "components/reservation/reservation"
-  import PersonalInfo from "components/personalinfo/personalinfo"
+  import PassengerInfo from "components/passengerinfo/passengerinfo"
+  import History from 'components/history/history'
 
   export default {
     name: 'App',
     components: {
       Sidebar,
       MHeader,
-      Reservation,
-      PersonalInfo
+      PassengerInfo,
+      History
     },
     data() {
       return {
@@ -42,11 +42,9 @@
 
 <style>
   #app {
-    font-family: 'Avenir', Helvetica, Arial, sans-serif;
+    /*font-family: 'Avenir', Helvetica, Arial, sans-serif;*/
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    display: flex;
-    display: -webkit-flex;
   }
 
   .btn-sidebar {
@@ -62,4 +60,8 @@
     position: relative;
   }
 
+</style>
+<style lang="less">
+  @import '~vux/src/styles/reset.less';
+  /*@import '~vux/src/styles/1px.less';*/
 </style>

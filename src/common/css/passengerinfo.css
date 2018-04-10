@@ -1,0 +1,106 @@
+#userId{
+  padding-bottom: 10px;
+}
+
+#userImg{
+  margin-top: 30px;
+  margin-bottom: 1px;
+}
+
+.UserImg{
+  display: flex;
+  margin: 0 auto;
+  width: 200px;
+}
+
+.userimg{
+  float: left;
+  margin: 14px 0 auto;
+  flex: 1;
+}
+
+.avatar {
+  border-radius: 50%;
+  flex: 2;
+  height: 62px;
+  width: 48px;
+}
+
+.avatar img[lazy='error'] {
+  height: 48px;
+  width: 48px;
+}
+
+.img{
+  border-radius: 50%;
+  height: 48px;
+  width: 48px;
+  overflow: hidden;
+}
+
+img{
+  height: 62px;
+  width: 48px;
+}
+
+.div img[lazy='loaded'] {
+  position: absolute;
+  height: 62px;
+  width: 48px;
+}
+
+.UserId{
+  margin: 0 auto;
+  width: 400px;
+  display: flex;
+}
+
+.userid{
+  flex: 1;
+}
+
+.id{
+  flex: 2;
+}
+
+#userName{
+  padding-bottom: 10px;
+}
+
+.UserName{
+  margin-left: 65px;
+}
+
+.info-flex{
+  display: flex;
+  width:300px;
+  margin: 0 auto;
+  text-align: left;
+}
+.info-flex div:first-child{
+  flex: 1;
+}
+.info-flex div:nth-child(2){
+  flex: 2;
+}
+
+.userphone{
+  float: left;
+  margin-top: 6px;
+}
+
+.UserPhone{
+}
+
+.phone{
+  width: 110px;
+
+}
+
+
+@media screen and (max-width: 1024px){ /*手机端响应式布局*/
+
+}
+@media screen and (min-width: 1025px){ /*电脑端相应式布局*/
+
+}

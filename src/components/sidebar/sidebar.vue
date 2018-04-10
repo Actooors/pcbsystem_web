@@ -16,8 +16,8 @@
           </div>
         </div>
         <div class="menu">
-          <el-menu default-active="1" class="el-menu-vertical-demo1" @open="handleOpen" @close="handleClose">
-            <el-menu-item index="1">
+          <el-menu :router=true @select="showSideBar"><!--default-active=""-->
+            <el-menu-item index="/booking">
               <i class="icon iconfont icon-jiaocheqiche" style="font-size: 30px;margin-right: 4px;"></i>
               <span slot="title">公车预约</span>
             </el-menu-item>
@@ -25,11 +25,11 @@
               <i class="icon iconfont icon-yuding" style="font-size: 24px;margin-right: 8px;"></i>
               <span slot="title">预约管理</span>
             </el-menu-item>
-            <el-menu-item index="3">
+            <el-menu-item index="/history">
               <i class="el-icon-document" style="font-size: 24px;margin-right: 8px;"></i>
               <span slot="title">预约历史</span>
             </el-menu-item>
-            <el-menu-item index="4">
+            <el-menu-item index="/passenger/info">
               <i class="el-icon-setting" style="font-size: 24px;margin-right: 8px;"></i>
               <span slot="title">个人信息</span>
             </el-menu-item>
@@ -71,12 +71,6 @@
     },
     methods: {
       ...mapMutations,
-      handleOpen(key, keyPath) {
-        console.log(key, keyPath);
-      },
-      handleClose(key, keyPath) {
-        console.log(key, keyPath);
-      },
       showSideBar() {
         this.ifShowSideBar = !this.ifShowSideBar
       },
