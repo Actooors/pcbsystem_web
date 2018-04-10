@@ -4,7 +4,7 @@
 
 #userImg{
   margin-top: 30px;
-  margin-bottom: 10px;
+  margin-bottom: 1px;
 }
 
 .UserImg{
@@ -22,7 +22,7 @@
 .avatar {
   border-radius: 50%;
   flex: 2;
-  height: 48px;
+  height: 62px;
   width: 48px;
 }
 
@@ -31,10 +31,21 @@
   width: 48px;
 }
 
-.avatar img[lazy='loaded'] {
+.img{
+  border-radius: 50%;
+  height: 48px;
+  width: 48px;
+  overflow: hidden;
+}
+
+img{
+  height: 62px;
+  width: 48px;
+}
+
+.div img[lazy='loaded'] {
   position: absolute;
   height: 62px;
-  left: 0px;
   width: 48px;
 }
 
@@ -71,9 +82,6 @@
 }
 .info-flex div:nth-child(2){
   flex: 2;
-}
-.name{
-
 }
 
 .userphone{
