@@ -1,0 +1,12 @@
+.result-dialog .weui-dialog{
+  max-width: none !important;
+  width: 94% !important;
+  height: 95% !important;
+  overflow-y: hidden !important;
+}
+/*.result-dialog .weui-dialog{*/
+  /*max-width: none !important;*/
+  /*width: 400px !important;*/
+  /*height: 500px !important;*/
+  /*overflow-y: hidden !important;*/
+/*}*/

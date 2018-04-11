@@ -1,95 +1,156 @@
-  .booking {
-    position: fixed;
-    top: 44px;
-    width: 100%;
-    bottom: 0;
-  }
+.booking {
+  position: fixed;
+  top: 44px;
+  width: 100%;
+  bottom: 0;
+}
 
+.slider-wrapper {
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.information-wrapper {
+  border: 1px solid #DCDFE6;
+  border-radius: 2px;
+  position: relative;
+  margin: 10px auto;
+  background: white;
+  padding: 10px 0;
+  box-shadow: 2px 2px 10px #e6ceb2;
+}
+
+.cells {
+  /*padding: 15px 5px 5px;*/
+  text-align: left;
+  margin: 0 auto;
+}
+
+.cells .cell {
+  border-bottom: 1px solid #E4E7ED;
+}
+
+.btn-search {
+  font-size: 18px;
+  height: 40px;
+  margin: 20px auto 10px;
+}
+
+.cell-radio-slot {
+  text-align: center;
+  padding: 8px 0;
+  color: #888;
+}
+
+.vux-popup-dialog .weui-cell__bd {
+  position: absolute;
+  width: 100%;
+  transform: translateX(-1em);
+}
+
+.vux-close {
+  /*margin-top: 16px;*/
+  /*margin-bottom: 16px;*/
+  margin: auto 0;
+}
+
+.result-dialog-title {
+  line-height: 30px;
+  color: #666;
+}
+
+.car-info-wrapper {
+  box-shadow: 1px 1px 2px #e6ceb2;
+  border: 1px solid #DCDFE6;
+  background: white;
+  border-radius: 2px;
+  width: 90%;
+  margin: 20px auto;
+  display: flex;
+  align-items: center;
+  padding: 10px 10px;
+  overflow: hidden;
+}
+
+.avatar {
+  max-height: 64px;
+  max-width: 64px;
+  flex: 1;
+}
+
+.info {
+  margin-left: 1em;
+  flex: 2;
+  max-width: 47%;
+  text-align: left;
+}
+.operation{
+  flex:1;
+}
+.info-item{
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.item-tag{
+  padding: 0.1em 0.2em;
+  border: 1px solid #FCFFF3;
+  border-radius: 0.3em;
+  background: #F2F6FC;
+}
+.item-value{
+  /*display: inline-block;*/
+  text-align: center;
+  font-size: 14px;
+  margin-left: 0.6em;
+  padding: 0.1em 0.2em;
+  border: 1px solid #F5FFF3;
+  border-radius: 0.3em;
+
+  /*background: #F2F6FC;*/
+}
+@media screen and (min-width: 1025px) {
+  /*电脑端响应式布局*/
   .slider-wrapper {
     position: relative;
-    left: 50%;
-    transform: translateX(-50%);
-  }
-
-  .information-wrapper {
-    border: 1px solid #DCDFE6;
-    border-radius: 2px;
-    position: relative;
-    margin: 10px auto;
-    background: white;
-    padding: 10px 0;
-    box-shadow:2px 2px 10px #e6ceb2;
+    width: 35%;
+    overflow: hidden;
+    margin-top: 5%;
   }
 
   .cells {
-    /*padding: 15px 5px 5px;*/
-    text-align: left;
-    margin: 0 auto;
+    width: 50%;
+    min-width: 300px;
   }
 
-  .cells .cell{
-    border-bottom: 1px solid #E4E7ED;
+  .information-wrapper {
+    width: 35%;
   }
 
   .btn-search {
-    font-size: 18px;
-    height: 40px;
-    margin: 20px auto 10px;
+    width: 50%;
+    min-width: 300px;
   }
+}
 
-  .cell-radio-slot {
-    text-align: center;
-    padding: 8px 0;
-    color: #888;
-  }
-
-  .vux-popup-dialog .weui-cell__bd {
-    position: absolute;
+@media screen and (max-width: 1024px) {
+  /*手机端响应式布局*/
+  .slider-wrapper {
+    position: relative;
     width: 100%;
-    transform: translateX(-1em);
+    overflow: hidden;
   }
 
-  @media screen and (min-width: 1025px) {
-    /*电脑端响应式布局*/
-    .slider-wrapper {
-      position: relative;
-      width: 35%;
-      overflow: hidden;
-      margin-top: 5%;
-    }
-
-    .cells {
-      width: 50%;
-      min-width: 300px;
-    }
-
-    .information-wrapper {
-      width: 35%;
-    }
-
-    .btn-search {
-      width: 50%;
-      min-width: 300px;
-    }
+  .cells {
+    width: 90%;
   }
 
-  @media screen and (max-width: 1024px) {
-    /*手机端响应式布局*/
-    .slider-wrapper {
-      position: relative;
-      width: 100%;
-      overflow: hidden;
-    }
-
-    .cells {
-      width: 90%;
-    }
-
-    .information-wrapper {
-      width: 95%;
-    }
-
-    .btn-search {
-      width: 90%;
-    }
+  .information-wrapper {
+    width: 95%;
   }
+
+  .btn-search {
+    width: 90%;
+  }
+}

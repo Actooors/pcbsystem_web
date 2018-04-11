@@ -35,9 +35,37 @@
       <el-button type="warning" class="btn-search" @click="search">搜索</el-button>
     </div>
 
-
+    <div class="result-dialog-wrapper">
+      <x-dialog v-model="showResults" class="result-dialog">
+        <p class="result-dialog-title">可选车辆</p>
+        <div class="img-box" style="height:90%;padding:15px 0;overflow:scroll;-webkit-overflow-scrolling:touch;">
+          <div v-for="(item, index) of resultItems.data" class="car-info-wrapper" :key="item.value">
+            <img v-lazy="item.avatar" class="avatar">
+            <div class="info">
+              <p class="info-item">
+                <span class="item-tag">司机</span>
+                <span class="item-value">{{item.owner}}</span>
+              </p>
+              <p class="info-item">
+                <span class="item-tag">车型</span>
+                <span class="item-value">{{item.model}}</span>
+              </p>
+              <p class="info-item">
+                <span class="item-tag">载客</span>
+                <span class="item-value">{{item.capacity}}</span>
+              </p>
+            </div>
+            <div class="operation">
+              <x-button :gradients="['#FF5E3A', '#FF9500']" class="btn-book" mini>预约</x-button>
+            </div>
+          </div>
+        </div>
+        <div @click="showResults=false">
+          <span class="vux-close"></span>
+        </div>
+      </x-dialog>
+    </div>
   </div>
-
 </template>
 
 <script>
@@ -45,8 +73,9 @@
   import store from 'store/store'
   import {mapState, mapMutations} from 'vuex'
   import Calendartime from 'components/calendar/calendartime'
-  import {Cell, PopupRadio} from 'vux'
-  import {parseDate, dateFormat} from "../../common/js/dateformat";
+  import {Cell, PopupRadio, Popup, XDialog, XButton} from 'vux'
+  import {parseDate, dateFormat} from "../../common/js/dateformat"
+  import axios from 'axios'
 
   var recommends = [
     {
@@ -76,10 +105,13 @@
     name: "booking",
     store,
     components: {
+      Popup,
       Slider,
       Calendartime,
       Cell,
-      PopupRadio
+      PopupRadio,
+      XDialog,
+      XButton
     },
     data() {
       return {
@@ -90,7 +122,9 @@
         locationOption: '行政楼',
         locationOptions: ['行政楼', '北门'],
         pickerTimeDataOrigin: [['08', '09', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22'], ['00', '30']],
-        pickerTimeData: [['08', '09', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22'], ['00', '30']]
+        pickerTimeData: [['08', '09', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22'], ['00', '30']],
+        showResults: false,
+        resultItems: []
       }
     },
     computed: {
@@ -111,6 +145,20 @@
       ...mapMutations(['InitDate']),
       search() {
         console.log("调用搜索")
+        axios.get('/api/retrieval')
+          .then((res) => {
+            if (res.data.code === "SUCCESS" && res.data.data.length) {
+              console.log("yes", res.data)
+              this.resultItems = res.data
+              this.showResults = true
+            } else {
+              console.log(res.data)
+            }
+          })
+          .catch((e) => {
+            console.log(e)
+          })
+
       },
       compareDate(startDate, endDate, hours = 0) {//输入不合法返回-2，endDate-startDate不超过hours小时返回1，相等返回0，超过hours小时返回-1
         if (!startDate || !endDate)
@@ -170,4 +218,10 @@
 </script>
 <style scoped>
   @import url('../../common/css/booking.css');
+</style>
+<style lang="less" scoped>
+  @import '~vux/src/styles/close';
+</style>
+<style>
+  @import url('../../common/css/booking-global.css');
 </style>

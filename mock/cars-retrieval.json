@@ -4,6 +4,7 @@
     "owner": "邹启明",
     "licence": "沪A 0001",
     "model": "奥迪A8",
+    "capacity": 4,
     "cid": 32
   },
   {
@@ -11,6 +12,7 @@
     "owner": "马剑锋",
     "licence": "沪A 0002",
     "model": "保时捷",
+    "capacity": 3,
     "cid": 33
   },
   {
@@ -18,6 +20,7 @@
     "owner": "严颖敏",
     "licence": "沪A 0003",
     "model": "法拉利",
+    "capacity": 5,
     "cid": 34
   },
   {
@@ -25,6 +28,7 @@
     "owner": "戴东波",
     "licence": "沪A 0004",
     "model": "兰博基尼",
+    "capacity": 6,
     "cid": 35
   },
   {
@@ -32,6 +36,7 @@
     "owner": "啊哈磊",
     "licence": "沪A 0005",
     "model": "劳斯莱斯",
+    "capacity": 3,
     "cid": 36
   },
   {
@@ -39,6 +44,7 @@
     "owner": "张三",
     "licence": "沪A 0006",
     "model": "奥迪A8",
+    "capacity": 4,
     "cid": 37
   },
   {
@@ -46,6 +52,7 @@
     "owner": "李四",
     "licence": "沪A 0007",
     "model": "保时捷",
+    "capacity": 3,
     "cid": 38
   },
   {
@@ -53,6 +60,7 @@
     "owner": "王二",
     "licence": "沪A 0008",
     "model": "法拉利",
+    "capacity": 2,
     "cid": 39
   },
   {
@@ -60,6 +68,7 @@
     "owner": "麻子",
     "licence": "沪A 0009",
     "model": "兰博基尼",
+    "capacity": 6,
     "cid": 40
   },
   {
@@ -67,6 +76,7 @@
     "owner": "孙五",
     "licence": "沪A 0010",
     "model": "劳斯莱斯",
+    "capacity": 3,
     "cid": 41
   }
 ]
