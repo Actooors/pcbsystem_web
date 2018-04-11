@@ -5,38 +5,31 @@
     <div id="userImg">
       <div class="UserImg info-flex">
         <div class="userimg">头 像：</div>
-        <el-tooltip class="item" effect="dark" content="用户头像" placement="right">
           <div class="avatar">
             <div class="img">
               <img v-lazy="photoURL">
             </div>
           </div>
-        </el-tooltip>
       </div>
     </div>
     <br>
     <div id="userId">
       <div class="UserId info-flex">
         <div class="userid">用户 ID：</div>
-        <el-tooltip class="item" effect="dark" content="用户ID" placement="right">
           <div class="id">{{id}}</div>
-        </el-tooltip>
       </div>
     </div>
     <br>
     <div id="userName">
       <div class="UserName info-flex">
         <div class="username">姓 名：</div>
-        <el-tooltip class="item" effect="dark" content="用户姓名" placement="right">
           <div class="name">{{name}}</div>
-        </el-tooltip>
       </div>
     </div>
     <br>
     <div id="userPhone">
       <div class="UserPhone info-flex">
         <div class="userphone">联系方式：</div>
-        <el-tooltip class="item" effect="dark" content="联系方式" placement="right">
           <div class="phone">
             <el-input
               type="text"
@@ -48,7 +41,6 @@
             >
             </el-input>
           </div>
-        </el-tooltip>
       </div>
     </div>
     <br>
