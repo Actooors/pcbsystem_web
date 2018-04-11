@@ -171,15 +171,3 @@
 <style scoped>
   @import url('../../common/css/booking.css');
 </style>
-
-<style>
-  .weui-cell_radio .weui-cell__bd {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-  }
-
-  .vux-popup-dialog {
-    overflow-y: hidden !important;
-  }
-</style>
