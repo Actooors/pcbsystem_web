@@ -1,12 +1,25 @@
-.result-dialog .weui-dialog{
-  max-width: none !important;
+.result-dialog .weui-dialog {
   width: 94% !important;
   height: 95% !important;
   overflow-y: hidden !important;
+  transform: translate3d(0, 0, 0) !important;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin: auto;
 }
-/*.result-dialog .weui-dialog{*/
-  /*max-width: none !important;*/
-  /*width: 400px !important;*/
-  /*height: 500px !important;*/
-  /*overflow-y: hidden !important;*/
-/*}*/
+.confirm-dialog .weui-mask{
+  z-index: 5000;
+}
+@media screen and (max-width: 1024px) {
+  .result-dialog .weui-dialog {
+    max-width: none !important;
+  }
+}
+
+@media screen and (min-width: 1025px) {
+  .result-dialog .weui-dialog {
+    max-width: 500px !important;
+  }
+}

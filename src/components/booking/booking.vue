@@ -35,10 +35,11 @@
       <el-button type="warning" class="btn-search" @click="search">搜索</el-button>
     </div>
 
-    <div class="result-dialog-wrapper">
+    <div class="result-dialog-wrapper" v-if="showResults">
       <x-dialog v-model="showResults" class="result-dialog">
         <p class="result-dialog-title">可选车辆</p>
         <div class="img-box" style="height:90%;padding:15px 0;overflow:scroll;-webkit-overflow-scrolling:touch;">
+          <div class="result-dialog-title2">共找到{{resultItems.data.length}}条符合条件的结果</div>
           <div v-for="(item, index) of resultItems.data" class="car-info-wrapper" :key="item.value">
             <img v-lazy="item.avatar" class="avatar">
             <div class="info">
@@ -56,15 +57,47 @@
               </p>
             </div>
             <div class="operation">
-              <x-button :gradients="['#FF5E3A', '#FF9500']" class="btn-book" mini>预约</x-button>
+              <x-button :gradients="['#FF5E3A', '#FF9500']" class="btn-book" @click.native="handleBooking(item)" mini>预约
+              </x-button>
             </div>
           </div>
         </div>
-        <div @click="showResults=false">
+        <div @click="showResults=false" class="btn-close">
           <span class="vux-close"></span>
         </div>
       </x-dialog>
     </div>
+    <div class="confirm-dialog">
+      <confirm
+        v-model="showConfirm"
+        :close-on-confirm="false"
+        title="确认预约"
+        @on-confirm="handleOnConfirm">
+        <div class="confirm-info">
+          <p class="info-item">
+            <span class="item-tag">开始</span>
+            <span class="item-value">{{calendarValueStart}}</span>
+          </p>
+          <p class="info-item">
+            <span class="item-tag">结束</span>
+            <span class="item-value">{{calendarValueEnd}}</span>
+          </p>
+          <p class="info-item">
+            <span class="item-tag">司机</span>
+            <span class="item-value">{{thisItem.owner}}</span>
+          </p>
+          <p class="info-item">
+            <span class="item-tag">车型</span>
+            <span class="item-value">{{thisItem.model}}</span>
+          </p>
+          <p class="info-item">
+            <span class="item-tag">载客</span>
+            <span class="item-value">{{thisItem.capacity}}</span>
+          </p>
+        </div>
+      </confirm>
+    </div>
+
   </div>
 </template>
 
@@ -73,7 +106,7 @@
   import store from 'store/store'
   import {mapState, mapMutations} from 'vuex'
   import Calendartime from 'components/calendar/calendartime'
-  import {Cell, PopupRadio, Popup, XDialog, XButton} from 'vux'
+  import {Cell, PopupRadio, Popup, XDialog, XButton, Confirm} from 'vux'
   import {parseDate, dateFormat} from "../../common/js/dateformat"
   import axios from 'axios'
 
@@ -111,7 +144,8 @@
       Cell,
       PopupRadio,
       XDialog,
-      XButton
+      XButton,
+      Confirm
     },
     data() {
       return {
@@ -124,7 +158,9 @@
         pickerTimeDataOrigin: [['08', '09', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22'], ['00', '30']],
         pickerTimeData: [['08', '09', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22'], ['00', '30']],
         showResults: false,
-        resultItems: []
+        resultItems: [],
+        showConfirm: false,
+        thisItem: {}
       }
     },
     computed: {
@@ -193,6 +229,13 @@
           && startTime[1] == '30') {
           this.$set(this.pickerTimeData, 1, ['30'])
         }
+      },
+      handleBooking(item) {
+        this.thisItem = item;
+        this.showConfirm = true
+      },
+      handleOnConfirm() {
+
       }
     },
     created() {

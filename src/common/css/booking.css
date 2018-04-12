@@ -55,9 +55,18 @@
   margin: auto 0;
 }
 
+.btn-close {
+  height:10px;
+}
+
 .result-dialog-title {
   line-height: 30px;
   color: #666;
+}
+
+.result-dialog-title2 {
+  position: relative;
+  bottom: -0.5em;
 }
 
 .car-info-wrapper {
@@ -74,6 +83,7 @@
 }
 
 .avatar {
+  margin-left: 1em;
   max-height: 64px;
   max-width: 64px;
   flex: 1;
@@ -85,21 +95,25 @@
   max-width: 47%;
   text-align: left;
 }
-.operation{
-  flex:1;
+
+.operation {
+  flex: 1;
 }
-.info-item{
+
+.info-item {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
-.item-tag{
+
+.item-tag {
   padding: 0.1em 0.2em;
   border: 1px solid #FCFFF3;
   border-radius: 0.3em;
   background: #F2F6FC;
 }
-.item-value{
+
+.item-value {
   /*display: inline-block;*/
   text-align: center;
   font-size: 14px;
@@ -109,6 +123,15 @@
   border-radius: 0.3em;
 
   /*background: #F2F6FC;*/
+}
+.img-box{
+  overflow-x: hidden !important;
+}
+.confirm-info{
+  max-width: 80%;
+  text-align: left;
+  margin: 0 auto;
+  line-height: 1.7em;
 }
 @media screen and (min-width: 1025px) {
   /*电脑端响应式布局*/
@@ -153,4 +176,6 @@
   .btn-search {
     width: 90%;
   }
+
+
 }
