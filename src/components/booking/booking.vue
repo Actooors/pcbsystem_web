@@ -109,6 +109,7 @@
   import {Cell, PopupRadio, Popup, XDialog, XButton, Confirm} from 'vux'
   import {parseDate, dateFormat} from "../../common/js/dateformat"
   import axios from 'axios'
+  import Vue from 'vue'
 
   var recommends = [
     {
@@ -180,7 +181,10 @@
     methods: {
       ...mapMutations(['InitDate']),
       search() {
-        console.log("调用搜索")
+        if (!this.calendarValueStart || !this.calendarValueEnd) {
+          this.$notify.info({title: '请先选择预约起止时间！'})
+          return
+        }
         axios.get('/api/retrieval')
           .then((res) => {
             if (res.data.code === "SUCCESS" && res.data.data.length) {
