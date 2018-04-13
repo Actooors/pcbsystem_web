@@ -109,7 +109,6 @@
   import {Cell, PopupRadio, Popup, XDialog, XButton, Confirm} from 'vux'
   import {parseDate, dateFormat} from "../../common/js/dateformat"
   import axios from 'axios'
-  import Vue from 'vue'
 
   var recommends = [
     {
