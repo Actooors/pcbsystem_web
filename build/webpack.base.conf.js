@@ -32,7 +32,8 @@ const webpackConfig = {
       'base': resolve('src/base'),
       'components': resolve('src/components'),
       'router': resolve('src/router'),
-      'store': resolve('src/store')
+      'store': resolve('src/store'),
+      'group': resolve('src/group')
     }
   },
   module: {

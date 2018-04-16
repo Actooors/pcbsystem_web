@@ -21,7 +21,7 @@ export default new Router({
       component: PassengerInfo,
     },
     {
-      path: '/booking',
+      path: '/passenger/booking',
       name: 'booking',
       component: Booking
     },
