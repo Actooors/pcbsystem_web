@@ -17,22 +17,26 @@
         </div>
         <div class="menu">
           <el-menu :router=true @select="showSideBar"><!--default-active=""-->
-            <el-menu-item index="booking">
-              <i class="icon iconfont icon-jiaocheqiche" style="font-size: 30px;margin-right: 4px;"></i>
-              <span slot="title">公车预约</span>
+            <el-menu-item v-for="item of items" :index="item.index" :key="item.value">
+              <i :class="item.iconClass" :style="item.iconStyle"></i>
+              <span slot="title" v-text="item.title"></span>
             </el-menu-item>
-            <el-menu-item index="2">
-              <i class="icon iconfont icon-yuding" style="font-size: 24px;margin-right: 8px;"></i>
-              <span slot="title">预约管理</span>
-            </el-menu-item>
-            <el-menu-item index="history">
-              <i class="el-icon-document" style="font-size: 24px;margin-right: 8px;"></i>
-              <span slot="title">预约历史</span>
-            </el-menu-item>
-            <el-menu-item index="info">
-              <i class="el-icon-setting" style="font-size: 24px;margin-right: 8px;"></i>
-              <span slot="title">个人信息</span>
-            </el-menu-item>
+            <!--<el-menu-item index="booking">-->
+              <!--<i class="icon iconfont icon-jiaocheqiche" style="font-size: 30px;margin-right: 4px;"></i>-->
+              <!--<span slot="title">公车预约</span>-->
+            <!--</el-menu-item>-->
+            <!--<el-menu-item index="2">-->
+              <!--<i class="icon iconfont icon-yuding" style="font-size: 24px;margin-right: 8px;"></i>-->
+              <!--<span slot="title">预约管理</span>-->
+            <!--</el-menu-item>-->
+            <!--<el-menu-item index="history">-->
+              <!--<i class="el-icon-document" style="font-size: 24px;margin-right: 8px;"></i>-->
+              <!--<span slot="title">预约历史</span>-->
+            <!--</el-menu-item>-->
+            <!--<el-menu-item index="info">-->
+              <!--<i class="el-icon-setting" style="font-size: 24px;margin-right: 8px;"></i>-->
+              <!--<span slot="title">个人信息</span>-->
+            <!--</el-menu-item>-->
           </el-menu>
         </div>
 
@@ -44,7 +48,7 @@
 
 <script>
   import store from 'store/store'
-  import {mapState, mapMutations} from 'vuex'
+  import {mapMutations, mapState} from 'vuex'
 
   export default {
     name: "sidebar",
@@ -54,6 +58,12 @@
         type: Boolean,
         default: false
       },
+      items:{
+        type: Array,
+        default(){
+          return []
+        }
+      }
     },
     data() {
       return {

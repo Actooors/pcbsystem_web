@@ -4,6 +4,7 @@ import Booking from 'components/booking/booking'
 import PassengerInfo from 'components/passengerinfo/passengerinfo'
 import History from 'components/history/history'
 import Passenger from 'group/passenger'
+import Driver from 'group/driver'
 import 'element-ui/lib/theme-chalk/index.css'
 
 
@@ -16,8 +17,7 @@ export default new Router({
       path: '/',
       name: 'root',
       redirect: {name: 'booking'}
-    },
-    {
+    }, {
       path: '/passenger',
       component: Passenger,
       children: [{
@@ -37,6 +37,26 @@ export default new Router({
         component: History
       }]
     },
+    {
+      path: '/driver',
+      component: Driver,
+      children: [{
+        path: '',
+        redirect: {name: 'booking'}
+      }, {
+        path: 'booking',
+        name: 'booking',
+        component: Booking
+      }, {
+        path: 'info',
+        name: 'passengerinfo',
+        component: PassengerInfo,
+      }, {
+        path: 'history',
+        name: 'history',
+        component: History
+      }]
+    }
 
   ]
 })
