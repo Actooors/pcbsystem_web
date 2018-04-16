@@ -17,7 +17,7 @@
         </div>
         <div class="menu">
           <el-menu :router=true @select="showSideBar"><!--default-active=""-->
-            <el-menu-item index="/booking">
+            <el-menu-item index="booking">
               <i class="icon iconfont icon-jiaocheqiche" style="font-size: 30px;margin-right: 4px;"></i>
               <span slot="title">公车预约</span>
             </el-menu-item>
@@ -25,11 +25,11 @@
               <i class="icon iconfont icon-yuding" style="font-size: 24px;margin-right: 8px;"></i>
               <span slot="title">预约管理</span>
             </el-menu-item>
-            <el-menu-item index="/history">
+            <el-menu-item index="history">
               <i class="el-icon-document" style="font-size: 24px;margin-right: 8px;"></i>
               <span slot="title">预约历史</span>
             </el-menu-item>
-            <el-menu-item index="/passenger/info">
+            <el-menu-item index="info">
               <i class="el-icon-setting" style="font-size: 24px;margin-right: 8px;"></i>
               <span slot="title">个人信息</span>
             </el-menu-item>

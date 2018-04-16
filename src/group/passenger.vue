@@ -5,7 +5,7 @@
       <span @click="showSideBar" class="btn-sidebar"><i class="icon iconfont icon-category"></i></span>
     </m-header>
     <sidebar :ifshow="ifShowSideBar" @on-show-state-changed="_onSideBarStateChanged"></sidebar>
-    <router-view class="main"></router-view>
+    <router-view></router-view>
   </div>
 </template>
 
@@ -45,9 +45,5 @@
     top: 50%;
     transform: translateY(-50%);
     padding: 10px 10px 10px 10px;
-  }
-
-  .main {
-    position: relative;
   }
 </style>

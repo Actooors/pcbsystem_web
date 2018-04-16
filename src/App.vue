@@ -1,6 +1,7 @@
 <template>
-  <div id="app" style="clear:both">
-    <passenger></passenger>
+  <div id="app">
+    <router-view></router-view>
+    <!--<passenger v-if="userType==='passenger'"></passenger>-->
   </div>
 </template>
 
@@ -11,6 +12,11 @@
     name: 'App',
     components: {
       Passenger
+    },
+    data() {
+      return {
+        userType: 'passenger'
+      }
     }
 
   }
