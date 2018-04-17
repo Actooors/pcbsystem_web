@@ -3,8 +3,10 @@ import Router from 'vue-router'
 import Booking from 'components/booking/booking'
 import PassengerInfo from 'components/passengerinfo/passengerinfo'
 import History from 'components/history/history'
+import Manage from 'components/manage/manage'
 import Passenger from 'group/passenger'
 import Driver from 'group/driver'
+import Requests from 'components/requests/requests'
 import 'element-ui/lib/theme-chalk/index.css'
 
 
@@ -23,39 +25,51 @@ export default new Router({
       children: [{
         path: '',
         redirect: {name: 'booking'}
-      }, {
-        path: 'booking',
-        name: 'booking',
-        component: Booking
-      }, {
-        path: 'info',
-        name: 'passengerinfo',
-        component: PassengerInfo,
-      }, {
-        path: 'history',
-        name: 'history',
-        component: History
-      }]
+      },
+        {
+          path: 'booking',
+          name: 'booking',
+          component: Booking
+        },
+        {
+          path: 'info',
+          name: 'passengerinfo',
+          component: PassengerInfo,
+        },
+        {
+          path: 'history',
+          name: 'history',
+          component: History
+        },
+        {
+          path: 'manage',
+          name: 'manage',
+          component: Manage,
+        }
+      ]
     },
     {
       path: '/driver',
       component: Driver,
       children: [{
         path: '',
-        redirect: {name: 'booking'}
-      }, {
-        path: 'booking',
-        name: 'booking',
-        component: Booking
-      }, {
-        path: 'info',
-        name: 'passengerinfo',
-        component: PassengerInfo,
-      }, {
-        path: 'history',
-        name: 'history',
-        component: History
-      }]
+        redirect: {name: 'requests'}
+      },
+        {
+          path: 'requests',
+          name: 'requests',
+          component: Requests
+        },
+        {
+          path: 'info',
+          name: 'passengerinfo',
+          component: PassengerInfo,
+        },
+        {
+          path: 'history',
+          name: 'history',
+          component: History
+        }]
     }
 
   ]

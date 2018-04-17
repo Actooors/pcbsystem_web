@@ -16,42 +16,45 @@
         @current-change="handleCurrentChange1"
         :current-page.sync="currentPage3"
         layout="prev, pager, next"
-        page-size="2"
+        page-size="10"
         :current-page="pageNo"
         :total="parseInt(totalcars)">
       </el-pagination>
     </div>
+      <tabbar>
+        <tabbar-item show-dot>
+          <img slot="icon" src="../../common/image/icon_nav_msg.png">
+          <span slot="label">正在进行</span>
+        </tabbar-item>
+        <tabbar-item badge="2">
+          <img slot="icon" src="../../common/image/icon_nav_article.png">
+          <span slot="label">正在申请</span>
+        </tabbar-item>
+        <tabbar-item badge="99+" link="/components/history/history">
+          <img slot="icon" src="../../common/image/icon_nav_cell.png">
+          <span slot="label">预约历史</span>
+        </tabbar-item>
+      </tabbar>
   </div>
 </template>
 
 <script>
+  import {Tabbar, TabbarItem} from 'vux'
   export default {
-    name: "",
+    name: "history",
     data() {
       return {
-        totalcars: 20,
+        totalcars: 3,
         pageNo: 1,
+        components: {
+          Tabbar,
+          TabbarItem
+        },
         cars: [
           {date: '2018年4月5日', license: '沪A-11111'},
           {date: '2018年4月6日', license: '沪A-22222'},
-          {date: '2018年4月7日', license: '沪A-33333'},
-          {date: '2018年4月8日', license: '沪A-44444'},
-          {date: '2018年4月9日', license: '沪A-55555'},
-          {date: '2018年4月10日', license: '沪A-66666'},
-          {date: '2018年4月11日', license: '沪A-77777'},
-          {date: '2018年4月12日', license: '沪A-88888'},
-          {date: '2018年4月13日', license: '沪A-99999'},
-          {date: '2018年4月14日', license: '沪A-00000'},
-          {date: '2018年4月5日', license: '沪A-11111'},
-          {date: '2018年4月6日', license: '沪A-22222'},
-          {date: '2018年4月7日', license: '沪A-33333'},
-          {date: '2018年4月8日', license: '沪A-44444'},
-          {date: '2018年4月9日', license: '沪A-55555'},
-          {date: '2018年4月10日', license: '沪A-66666'},
-          {date: '2018年4月11日', license: '沪A-77777'},
-          {date: '2018年4月12日', license: '沪A-88888'},
-          {date: '2018年4月13日', license: '沪A-99999'},
-          {date: '2018年4月14日', license: '沪A-00000'},
+          {date: '2018年4月7日', license: '沪A-33333'}
+
         ]
       }
     },
