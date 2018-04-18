@@ -8,20 +8,20 @@
       :ifshow="ifShowSideBar"
       @on-show-state-changed="_onSideBarStateChanged"
       :items="sidebarItems"></sidebar>
-    <tabbar>
-      <tabbar-item show-dot link="../../components/progress/progress">
-        <img slot="icon" src="../common/image/icon_nav_msg.png">
-        <span slot="label">正在进行</span>
-      </tabbar-item>
-      <tabbar-item badge="2" link="../../components/applying/applying">
-        <img slot="icon" src="../common/image/icon_nav_article.png">
-        <span slot="label">正在申请</span>
-      </tabbar-item>
-      <tabbar-item badge="99+" link="../../components/history/history">
-        <img slot="icon" src="../common/image/icon_nav_cell.png">
-        <span slot="label">预约历史</span>
-      </tabbar-item>
-    </tabbar>
+    <!--<tabbar>-->
+      <!--<tabbar-item show-dot link="../../components/progress/progress">-->
+        <!--<img slot="icon" src="../common/image/icon_nav_msg.png">-->
+        <!--<span slot="label">正在进行</span>-->
+      <!--</tabbar-item>-->
+      <!--<tabbar-item badge="2" link="../../components/applying/applying">-->
+        <!--<img slot="icon" src="../common/image/icon_nav_article.png">-->
+        <!--<span slot="label">正在申请</span>-->
+      <!--</tabbar-item>-->
+      <!--<tabbar-item badge="99+" link="../../components/history/history">-->
+        <!--<img slot="icon" src="../common/image/icon_nav_cell.png">-->
+        <!--<span slot="label">预约历史</span>-->
+      <!--</tabbar-item>-->
+    <!--</tabbar>-->
     <router-view></router-view>
   </div>
 </template>
@@ -57,11 +57,6 @@
               iconClass: 'icon iconfont icon-yuding',
               iconStyle: 'font-size: 24px;margin-right: 8px',
               title: '预约管理'
-            },{
-              index: 'history',
-              iconClass: 'el-icon-document',
-              iconStyle: 'font-size: 24px;margin-right: 8px',
-              title: '预约历史'
             },{
               index: 'info',
               iconClass: 'el-icon-setting',

@@ -40,11 +40,6 @@ export default new Router({
           path: 'history',
           name: 'history',
           component: History
-        },
-        {
-          path: 'manage',
-          name: 'manage',
-          component: Manage,
         }
       ]
     },
@@ -69,6 +64,11 @@ export default new Router({
           path: 'history',
           name: 'history',
           component: History
+        },
+        {
+          path: 'manage',
+          name: 'manage',
+          component: Manage,
         }]
     }
 

@@ -39,7 +39,6 @@
             <!--</el-menu-item>-->
           </el-menu>
         </div>
-
       </div>
     </div>
   </transition>
@@ -91,4 +90,10 @@
 
 <style scoped>
   @import url('../../common/css/sidebar.css');
+</style>
+
+<style>
+  .sidebar .el-menu{
+    border-right: 0;
+  }
 </style>
