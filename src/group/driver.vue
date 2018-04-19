@@ -31,32 +31,35 @@
     import Sidebar from "components/sidebar/sidebar"
     import PassengerInfo from "components/passengerinfo/passengerinfo"
     import Requests from "components/requests/requests"
-
-
-
+    import History from "components/history/history"
+    import Applying from "components/applying/applying"
+    import Progressing from "components/progressing/progressing"
     export default {
         name: "driver",
         components:{
           Sidebar,
           MHeader,
           PassengerInfo,
-          Requests
+          Requests,
+          History,
+          Applying,
+          Progressing
         },
         data(){
           return {
             ifShowSideBar: false,
             sidebarItems:[{
-              index: 'requests',
+              index: '/driver/requests',
               iconClass: 'icon iconfont icon-jiaocheqiche',
               iconStyle: 'font-size: 30px;margin-right: 4px',
               title: '预约请求'
             },{
-              index: 'manage',
+              index: '/driver/manage',
               iconClass: 'icon iconfont icon-yuding',
               iconStyle: 'font-size: 24px;margin-right: 8px',
               title: '预约管理'
             },{
-              index: 'info',
+              index: '/driver/info',
               iconClass: 'el-icon-setting',
               iconStyle: 'font-size: 24px;margin-right: 8px',
               title: '个人信息'

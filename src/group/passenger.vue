@@ -17,9 +17,6 @@
   import Sidebar from "components/sidebar/sidebar"
   import PassengerInfo from "components/passengerinfo/passengerinfo"
   import Manage from "components/manage/manage"
-  import History from "components/history/history"
-  import Progressing from "components/progressing/progressing"
-  import Applying from "components/applying/applying"
   import {Tabbar, TabbarItem} from 'vux'
   export default {
     name: "passenger",
@@ -27,10 +24,7 @@
       Sidebar,
       MHeader,
       PassengerInfo,
-      Progressing,
-      Applying,
       Manage,
-      History,
       Tabbar,
       TabbarItem
     },
@@ -38,17 +32,17 @@
       return {
         ifShowSideBar: false,
         sidebarItems:[{
-          index: 'booking',
+          index: '/passenger/booking',
           iconClass: 'icon iconfont icon-jiaocheqiche',
           iconStyle: 'font-size: 30px;margin-right: 4px',
           title: '公车预约'
         },{
-          index: 'manage',
+          index: '/passenger/manage',
           iconClass: 'icon iconfont icon-yuding',
           iconStyle: 'font-size: 24px;margin-right: 8px',
           title: '预约管理'
         },{
-          index: 'info',
+          index: '/passenger/info',
           iconClass: 'el-icon-setting',
           iconStyle: 'font-size: 24px;margin-right: 8px',
           title: '个人信息'

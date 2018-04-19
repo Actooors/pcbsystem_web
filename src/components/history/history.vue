@@ -26,6 +26,7 @@
 
 <script>
   import {Tabbar, TabbarItem} from 'vux'
+
   export default {
     name: "history",
     data() {
@@ -55,8 +56,8 @@
         this.pageNo = val;
       },
     },
-    props:{
-      pageSize:{
+    props: {
+      pageSize: {
         type: Number
       }
     }
