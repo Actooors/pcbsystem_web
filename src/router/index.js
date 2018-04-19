@@ -7,6 +7,8 @@ import Manage from 'components/manage/manage'
 import Passenger from 'group/passenger'
 import Driver from 'group/driver'
 import Requests from 'components/requests/requests'
+import Progressing from 'components/progressing/progressing'
+import Applying from 'components/applying/applying'
 import 'element-ui/lib/theme-chalk/index.css'
 
 
@@ -37,9 +39,25 @@ export default new Router({
           component: PassengerInfo,
         },
         {
-          path: 'history',
-          name: 'history',
-          component: History
+          path: 'manage',
+          // name: 'manage',
+          component: Manage,
+          children: [{
+            path: '',
+            redirect: {name: 'progressing'},
+          }, {
+            path: 'progressing',
+            name: 'progressing',
+            component: Progressing,
+          }, {
+            path: 'applying',
+            name: 'applying',
+            component: Applying
+          }, {
+            path: 'history',
+            name: 'history',
+            component: History
+          }]
         }
       ]
     },
@@ -59,17 +77,8 @@ export default new Router({
           path: 'info',
           name: 'passengerinfo',
           component: PassengerInfo,
-        },
-        {
-          path: 'history',
-          name: 'history',
-          component: History
-        },
-        {
-          path: 'manage',
-          name: 'manage',
-          component: Manage,
-        }]
+        }
+      ]
     }
 
   ]

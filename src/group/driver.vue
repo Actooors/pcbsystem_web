@@ -30,19 +30,17 @@
     import MHeader from "components/m-header/m-header"
     import Sidebar from "components/sidebar/sidebar"
     import PassengerInfo from "components/passengerinfo/passengerinfo"
-    import Manage from "components/manage/manage"
-    import History from "components/history/history"
-    import {Tabbar, TabbarItem} from 'vux'
+    import Requests from "components/requests/requests"
+
+
+
     export default {
         name: "driver",
         components:{
           Sidebar,
           MHeader,
           PassengerInfo,
-          Manage,
-          History,
-          Tabbar,
-          TabbarItem
+          Requests
         },
         data(){
           return {

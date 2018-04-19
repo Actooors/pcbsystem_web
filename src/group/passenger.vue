@@ -16,13 +16,23 @@
   import MHeader from "components/m-header/m-header"
   import Sidebar from "components/sidebar/sidebar"
   import PassengerInfo from "components/passengerinfo/passengerinfo"
-
+  import Manage from "components/manage/manage"
+  import History from "components/history/history"
+  import Progressing from "components/progressing/progressing"
+  import Applying from "components/applying/applying"
+  import {Tabbar, TabbarItem} from 'vux'
   export default {
     name: "passenger",
     components: {
       Sidebar,
       MHeader,
-      PassengerInfo
+      PassengerInfo,
+      Progressing,
+      Applying,
+      Manage,
+      History,
+      Tabbar,
+      TabbarItem
     },
     data() {
       return {
@@ -37,11 +47,6 @@
           iconClass: 'icon iconfont icon-yuding',
           iconStyle: 'font-size: 24px;margin-right: 8px',
           title: '预约管理'
-        },{
-          index: 'history',
-          iconClass: 'el-icon-document',
-          iconStyle: 'font-size: 24px;margin-right: 8px',
-          title: '预约历史'
         },{
           index: 'info',
           iconClass: 'el-icon-setting',
