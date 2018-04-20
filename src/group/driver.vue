@@ -8,20 +8,6 @@
       :ifshow="ifShowSideBar"
       @on-show-state-changed="_onSideBarStateChanged"
       :items="sidebarItems"></sidebar>
-    <!--<tabbar>-->
-      <!--<tabbar-item show-dot link="../../components/progress/progress">-->
-        <!--<img slot="icon" src="../common/image/icon_nav_msg.png">-->
-        <!--<span slot="label">正在进行</span>-->
-      <!--</tabbar-item>-->
-      <!--<tabbar-item badge="2" link="../../components/applying/applying">-->
-        <!--<img slot="icon" src="../common/image/icon_nav_article.png">-->
-        <!--<span slot="label">正在申请</span>-->
-      <!--</tabbar-item>-->
-      <!--<tabbar-item badge="99+" link="../../components/history/history">-->
-        <!--<img slot="icon" src="../common/image/icon_nav_cell.png">-->
-        <!--<span slot="label">预约历史</span>-->
-      <!--</tabbar-item>-->
-    <!--</tabbar>-->
     <router-view></router-view>
   </div>
 </template>
@@ -31,9 +17,7 @@
     import Sidebar from "components/sidebar/sidebar"
     import PassengerInfo from "components/passengerinfo/passengerinfo"
     import Requests from "components/requests/requests"
-    import History from "components/history/history"
-    import Applying from "components/applying/applying"
-    import Progressing from "components/progressing/progressing"
+    import Repair from "components/repair/repair"
     export default {
         name: "driver",
         components:{
@@ -41,9 +25,7 @@
           MHeader,
           PassengerInfo,
           Requests,
-          History,
-          Applying,
-          Progressing
+          Repair
         },
         data(){
           return {
@@ -54,10 +36,10 @@
               iconStyle: 'font-size: 30px;margin-right: 4px',
               title: '预约请求'
             },{
-              index: '/driver/manage',
+              index: '/driver/repair',
               iconClass: 'icon iconfont icon-yuding',
               iconStyle: 'font-size: 24px;margin-right: 8px',
-              title: '预约管理'
+              title: '车辆报修'
             },{
               index: '/driver/info',
               iconClass: 'el-icon-setting',

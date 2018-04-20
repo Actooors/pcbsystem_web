@@ -1,0 +1,8 @@
+@media screen and (min-width: 1025px) {
+  .requests-form-red{
+    width:40%;
+  }
+  .requests-form-yellow{
+    width:40%;
+  }
+}

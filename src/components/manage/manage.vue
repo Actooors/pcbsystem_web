@@ -20,7 +20,7 @@
 <script>
   import {Tabbar, TabbarItem} from 'vux'
   export default {
-    name: "",
+    name: "manage",
     components: {
       Tabbar,
       TabbarItem

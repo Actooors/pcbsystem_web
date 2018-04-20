@@ -9,6 +9,7 @@ import Driver from 'group/driver'
 import Requests from 'components/requests/requests'
 import Progressing from 'components/progressing/progressing'
 import Applying from 'components/applying/applying'
+import Repair from 'components/repair/repair'
 import 'element-ui/lib/theme-chalk/index.css'
 
 
@@ -72,6 +73,11 @@ export default new Router({
           path: 'requests',
           name: 'requests',
           component: Requests
+        },
+        {
+          path: 'repair',
+          name: 'repair',
+          component: Repair
         },
         {
           path: 'info',

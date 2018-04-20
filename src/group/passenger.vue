@@ -17,6 +17,9 @@
   import Sidebar from "components/sidebar/sidebar"
   import PassengerInfo from "components/passengerinfo/passengerinfo"
   import Manage from "components/manage/manage"
+  import History from "components/history/history"
+  import Applying from "components/applying/applying"
+  import Progressing from "components/progressing/progressing"
   import {Tabbar, TabbarItem} from 'vux'
   export default {
     name: "passenger",
@@ -25,6 +28,9 @@
       MHeader,
       PassengerInfo,
       Manage,
+      History,
+      Applying,
+      Progressing,
       Tabbar,
       TabbarItem
     },
