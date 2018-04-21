@@ -13,7 +13,7 @@
 <script>
   import MHeader from "components/m-header/m-header"
   import Sidebar from "base/sidebar/sidebar"
-  import PassengerInfo from "components/passengerinfo/passengerinfo"
+  import PassengerInfo from "components/personalinfo/personalinfo"
   import Requests from "components/requests/requests"
   import Repair from "components/repair/repair"
 

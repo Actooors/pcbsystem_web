@@ -1,13 +1,12 @@
 <template>
   <div>
-
+    345
   </div>
 </template>
 
 <script>
-  import SideBar from 'base/sidebar/sidebar'
   export default {
-    name: ""
+    name: "msg"
   }
 </script>
 
