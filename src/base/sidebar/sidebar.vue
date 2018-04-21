@@ -1,7 +1,8 @@
 <template>
   <transition name="el-zoom-in-left">
-    <div class="wrapper fullscreen" v-show="value">
-      <div class="absolute-fullscreen" v-if="overlay" @click="showSideBar" style="background-color: black; opacity: 0.2"></div>
+    <div :class="{'wrapper fullscreen':overlay}" v-show="value">
+      <div class="absolute-fullscreen" v-if="overlay" @click="showSideBar"
+           style="background-color: black; opacity: 0.2"></div>
       <div class="sidebar" ref="sidebar">
         <div class="personinfo" ref="personinfo">
           <div class="avatar" ref="avatar">
