@@ -71,7 +71,6 @@
         .then((res) => {
           this.itemsOrigin['driver'] = res.data.data
           this.items['driver'] = this.itemsOrigin['driver']
-          this.$set(this.items['driver'], 0, this.items['driver'][0])
         })
         .catch((e) => {
           console.log(e)

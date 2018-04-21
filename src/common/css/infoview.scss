@@ -4,12 +4,9 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  width: 90%;
   margin: 1em auto;
   text-align: left;
   .box-card {
-    min-width: 350px;
-    width: 30%;
     margin: .5em .5em;
     .card-header {
       .uname {
@@ -64,4 +61,36 @@
     margin: .5em .5em;
     height: 0;
   }
+}
+
+@media screen and (min-width: 1024px) {
+  .search {
+    width: 40%;
+    margin: 1em auto;
+  }
+  .card-wrapper{
+    width: 90%;
+    .box-card{
+      width: 30%;
+      min-width: 350px;
+    }
+  }
+
+}
+
+@media screen and (max-width: 1023px) {
+  .search {
+    width: 95%;
+    margin: {
+      left: auto;
+      right: auto;
+    }
+  }
+  .card-wrapper {
+    width: 100%;
+    .box-card{
+      width: 100%;
+    }
+  }
+
 }
