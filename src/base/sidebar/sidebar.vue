@@ -1,6 +1,6 @@
 <template>
   <transition name="el-zoom-in-left">
-    <div class="wrapper fullscreen" v-show="ifShowSideBar">
+    <div class="wrapper fullscreen" v-show="value">
       <div class="absolute-fullscreen" @click="showSideBar" style="background-color: black; opacity: 0.2"></div>
       <div class="sidebar" ref="sidebar">
         <div class="personinfo" ref="personinfo">
@@ -21,22 +21,6 @@
               <i :class="item.iconClass" :style="item.iconStyle"></i>
               <span slot="title" v-text="item.title"></span>
             </el-menu-item>
-            <!--<el-menu-item index="booking">-->
-              <!--<i class="icon iconfont icon-jiaocheqiche" style="font-size: 30px;margin-right: 4px;"></i>-->
-              <!--<span slot="title">公车预约</span>-->
-            <!--</el-menu-item>-->
-            <!--<el-menu-item index="2">-->
-              <!--<i class="icon iconfont icon-yuding" style="font-size: 24px;margin-right: 8px;"></i>-->
-              <!--<span slot="title">预约管理</span>-->
-            <!--</el-menu-item>-->
-            <!--<el-menu-item index="history">-->
-              <!--<i class="el-icon-document" style="font-size: 24px;margin-right: 8px;"></i>-->
-              <!--<span slot="title">预约历史</span>-->
-            <!--</el-menu-item>-->
-            <!--<el-menu-item index="info">-->
-              <!--<i class="el-icon-setting" style="font-size: 24px;margin-right: 8px;"></i>-->
-              <!--<span slot="title">个人信息</span>-->
-            <!--</el-menu-item>-->
           </el-menu>
         </div>
       </div>
@@ -53,35 +37,25 @@
     name: "sidebar",
     store,
     props: {
-      ifshow: {
+      value: {
         type: Boolean,
         default: false
       },
-      items:{
+      items: {
         type: Array,
-        default(){
+        default() {
           return []
         }
       }
     },
-    data() {
-      return {
-        ifShowSideBar: this.ifshow
-      }
-    },
-    computed: mapState(['uName', 'uId', 'photoURL']),
-    watch: {
-      ifshow(val) {
-        this.ifShowSideBar = val
-      },
-      ifShowSideBar(val) {
-        this.$emit('on-show-state-changed', val)
-      }
+    computed: {
+      ...mapState(['uName', 'uId', 'photoURL']),
     },
     methods: {
       ...mapMutations,
       showSideBar() {
-        this.ifShowSideBar = !this.ifShowSideBar
+
+        this.$emit('input', !this.value)
       },
     }
   }
@@ -93,7 +67,7 @@
 </style>
 
 <style>
-  .sidebar .el-menu{
+  .sidebar .el-menu {
     border-right: 0;
   }
 </style>
