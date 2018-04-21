@@ -1,15 +1,11 @@
 <template>
   <div class="root">
-    <div class="card">
-      <el-card class="box-card" v-for="car in cars" :key="car.value">
-        <div slot="header" class="clearfix">
-          <span class="card_name">{{car.date}}</span>
-        </div>
-        <div class="text_item">
-          预约公车 {{car.license}}
-        </div>
-      </el-card>
+    <div>
+      <form-preview header-label="申请状态" v-for="(item,index) of items" :header-value="item.state" :body-items="list"
+                    :class="item.state==='失败'?'requests-form-red':'requests-form-green'"
+                    :key="item.value"></form-preview>
     </div>
+
     <div class="block" style="margin: 50px auto">
       <el-pagination
         @size-change="handleSizeChange"
@@ -25,24 +21,45 @@
 </template>
 
 <script>
-  import {Tabbar, TabbarItem} from 'vux'
+  import {Tabbar, TabbarItem, FormPreview} from 'vux'
 
   export default {
     name: "history",
+    components: {
+      Tabbar,
+      TabbarItem,
+      FormPreview
+    },
     data() {
       return {
         totalcars: 3,
         pageNo: 1,
-        components: {
-          Tabbar,
-          TabbarItem
-        },
-        cars: [
-          {date: '2018年4月5日', license: '沪A-11111'},
-          {date: '2018年4月6日', license: '沪A-22222'},
-          {date: '2018年4月7日', license: '沪A-33333'}
-
-        ]
+        items: [
+          {
+            state: "成功",
+          },
+          {
+            state: "失败",
+          }
+        ],
+        list: [
+          {
+            label: '申请人',
+            value: '李瑞轩'
+          },
+          {
+            label: '起始时间',
+            value: '2018-04-18　08:00'
+          },
+          {
+            label: '结束时间',
+            value: '2018-04-19　08:00'
+          },
+          {
+            label: '车辆牌照',
+            value: '沪A-11111'
+          }
+        ],
       }
     },
     methods: {
@@ -66,4 +83,29 @@
 
 <style scoped>
   @import url('../../common/css/history.css');
+</style>
+
+<style>
+  .requests-form-red{
+    width: 100%;
+    margin: 20px auto;
+
+  }
+  .requests-form-red:hover{
+    box-shadow: 1px 1px 100px #e64a47;
+  }
+  .requests-form-green{
+    width: 100%;
+    margin: 20px auto;
+
+  }
+  .requests-form-green:hover{
+    box-shadow: 1px 1px 100px #07e629;
+  }
+  .requests-form-red .weui-form-preview__hd .weui-form-preview__value {
+    color: red;
+  }
+  .requests-form-green .weui-form-preview__hd .weui-form-preview__value {
+    color: green;
+  }
 </style>
