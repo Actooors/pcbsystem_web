@@ -16,7 +16,7 @@
           </div>
         </div>
         <div class="menu">
-          <el-menu :router=true @select="showSideBar"><!--default-active=""-->
+          <el-menu :router=true @select="showSideBar" :default-active="activeIndex"><!--default-active=""-->
             <el-menu-item v-for="item of items" :index="item.index" :key="item.value">
               <i :class="item.iconClass" :style="item.iconStyle"></i>
               <span slot="title" v-text="item.title"></span>
@@ -48,15 +48,26 @@
         }
       }
     },
+    data() {
+      return {
+        activeIndex: ''
+      }
+    },
     computed: {
       ...mapState(['uName', 'uId', 'photoURL']),
     },
     methods: {
       ...mapMutations,
       showSideBar() {
-
         this.$emit('input', !this.value)
       },
+    },
+    mounted() {
+      //index为前2级
+      this.activeIndex = this.$router.currentRoute.path.split('/').filter((x, index) => {
+        return index < 3
+      }).join('/')
+      console.log(this.activeIndex)
     }
   }
 

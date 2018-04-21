@@ -12,6 +12,7 @@ import Applying from 'components/applying/applying'
 import Repair from 'components/repair/repair'
 import Admin from 'group/admin'
 import UserManagement from 'components/usermanagement/usermanagement'
+import MessageCenter from 'components/messagecenter/messagecenter'
 import 'element-ui/lib/theme-chalk/index.css'
 
 
@@ -93,8 +94,12 @@ export default new Router({
       component: Admin,
       children: [{
         path: '',
-        redirect: {name: 'usermanagement'}
+        redirect: {name: 'messagecenter'}
       }, {
+        path:'message',
+        name:'messagecenter',
+        component: MessageCenter
+      },{
         path: 'usermanagement',
         name: 'usermanagement',
         component: UserManagement

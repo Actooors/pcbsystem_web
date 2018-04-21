@@ -1,15 +1,18 @@
 <template>
-  <div class="root-wrapper">
+  <div>
 
   </div>
 </template>
 
 <script>
+
+
   export default {
-    name: "usermanagement"
+    name: "usermanagement",
+    components: {},
   }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 
 </style>
