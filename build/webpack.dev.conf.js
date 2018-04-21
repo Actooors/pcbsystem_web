@@ -14,6 +14,7 @@ const express = require('express')
 const app = express()
 var apiRoutes = express.Router()
 var dataCarsRetrieval = require('../mock/cars-retrieval')
+var dataDriverInfo = require('../mock/driver-info')
 app.use('/api', apiRoutes)
 
 const HOST = process.env.HOST
@@ -35,6 +36,13 @@ const devWebpackConfig = merge(baseWebpackConfig, {
           code: "SUCCESS",
           message: null,
           data: dataCarsRetrieval
+        })
+      })
+      app.get('/api/driverinfo', (req, res) => {
+        res.json({
+          code: "SUCCESS",
+          message: null,
+          data: dataDriverInfo
         })
       })
     },

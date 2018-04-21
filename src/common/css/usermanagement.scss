@@ -6,8 +6,17 @@
   border-left: none;
   .tabs {
     height: 100%;
+    overflow-y: scroll;
     .el-tabs__header {
       margin-left: 1em;
+    }
+    .cards {
+      width: 60%;
+      margin: 1em auto;
+      text-align: left;
+      .box-card {
+        margin-top: 1em;
+      }
     }
   }
 
