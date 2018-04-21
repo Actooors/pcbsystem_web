@@ -13,11 +13,11 @@
 <script>
   import MHeader from "components/m-header/m-header"
   import Sidebar from "base/sidebar/sidebar"
-  import PassengerInfo from "components/passengerinfo/passengerinfo"
+  import PassengerInfo from "components/personalinfo/personalinfo"
   import Manage from "components/manage/manage"
-  import History from "components/history/history"
-  import Applying from "components/applying/applying"
-  import Progressing from "components/progressing/progressing"
+  import History from "components/manage/history"
+  import Applying from "components/manage/applying"
+  import Progressing from "components/manage/progressing"
   import {Tabbar, TabbarItem} from 'vux'
 
   export default {

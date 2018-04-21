@@ -1,14 +1,16 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Booking from 'components/booking/booking'
-import PassengerInfo from 'components/passengerinfo/passengerinfo'
-import History from 'components/history/history'
+import PersonalInfo from 'components/personalinfo/personalinfo'
+import History from 'components/manage/history'
 import Manage from 'components/manage/manage'
 import Passenger from 'group/passenger'
 import Driver from 'group/driver'
 import Requests from 'components/requests/requests'
-import Progressing from 'components/progressing/progressing'
-import Applying from 'components/applying/applying'
+import Progressing from 'components/manage/progressing'
+import Applying from 'components/manage/applying'
+import Form from 'components/repair/form'
+import Msg from 'components/repair/msg'
 import Repair from 'components/repair/repair'
 import Admin from 'group/admin'
 import UserManagement from 'components/usermanagement/usermanagement'
@@ -40,7 +42,7 @@ export default new Router({
         {
           path: 'info',
           name: 'passengerinfo',
-          component: PassengerInfo,
+          component: PersonalInfo,
         },
         {
           path: 'manage',
@@ -79,13 +81,24 @@ export default new Router({
         },
         {
           path: 'repair',
-          name: 'repair',
-          component: Repair
+          component: Repair,
+          children: [{
+            path: '',
+            redirect: {name: 'form'},
+          }, {
+            path: 'form',
+            name: 'form',
+            component: Form
+          }, {
+            path: 'msg',
+            name: 'msg',
+            component: Msg
+          }]
         },
         {
           path: 'info',
-          name: 'passengerinfo',
-          component: PassengerInfo,
+          name: 'driverinfo',
+          component: PersonalInfo,
         }
       ]
     },
