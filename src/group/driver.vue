@@ -1,6 +1,6 @@
 <template>
   <div>
-    <m-header>
+    <m-header title="公车预约系统司机端">
       <span @click="showSideBar" class="btn-sidebar"><i class="icon iconfont icon-category"></i></span>
     </m-header>
     <sidebar

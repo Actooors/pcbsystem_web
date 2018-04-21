@@ -27,7 +27,7 @@
       }
     },
     mounted() {
-      console.log('mounted!')
+      // console.log('mounted!')
       axios.get('/api/retrieval')
         .then((res) => {
           console.log(res.data)

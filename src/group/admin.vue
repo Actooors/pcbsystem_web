@@ -1,6 +1,6 @@
 <template>
   <div class="root-wrapper">
-    <m-header>
+    <m-header title="公车预约系统管理端">
       <span @click="showSideBar" class="btn-sidebar"><i class="icon iconfont icon-category" v-if="media===0"></i></span>
     </m-header>
     <side-bar :value=true :items="sidebarItems" :overlay=false v-if="media===1"></side-bar>
@@ -50,7 +50,7 @@
         clearTimeout(timer)
         timer = setTimeout(() => {
           this.media = document.body.clientWidth >= 1024 ? 1 : 0
-          console.log(this.media)
+          // console.log(this.media)
         }, 200)
       }
     }

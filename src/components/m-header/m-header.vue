@@ -2,15 +2,19 @@
   <div class="m-header">
     <!--<button class="icon iconfont icon-category" @click="showSideBar"></button>-->
     <slot></slot>
-    <div class="text">
-      公车预约系统
-    </div>
+    <div class="text" v-text="title"></div>
   </div>
 </template>
 
 <script>
   export default {
     name: "m-header",
+    props: {
+      title: {
+        type: String,
+        default: '公车预约系统'
+      }
+    }
   }
 </script>
 
@@ -24,15 +28,17 @@
     font-size: 0;
     background-color: #409EFF;
   }
+
   .text {
-    position:relative;
+    position: relative;
     display: inline-flex;
     vertical-align: top;
     line-height: 44px;
     font-size: 20px;
-    left:-15px;
+    left: -15px;
   }
-  .logout{
+
+  .logout {
     position: relative;
 
   }
