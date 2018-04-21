@@ -23,10 +23,11 @@
           </popup-radio>
         </cell>
         <calendartime class="cell" title="开始时间" popupHeaderTitle="预约开始时间" v-model="calendarValueStart" disable-past
-                      :postpone=3></calendartime>
+                      :postpone=3 :pickerTimeData="pickerTimeDataStart"
+                      @on-selected-date="handleOnSelectedDateStart"></calendartime>
         <calendartime class="cell" title="结束时间" popupHeaderTitle="预约结束时间" v-model="calendarValueEnd" disable-past
                       :startDate="startDate"
-                      :postpone=5 :pickerTimeData="pickerTimeData" :afterDate="calendarValueStart.split('　')[0]"
+                      :postpone=5 :pickerTimeData="pickerTimeData"
                       @on-selected-date="handleOnSelectedDate"></calendartime>
         <!--<calendartime class="cell" title="结束时间" popupHeaderTitle="预约结束时间" v-model="calendarValueEnd" disable-past-->
         <!--:postpone=5></calendartime>-->
@@ -157,6 +158,7 @@
         locationOptions: ['行政楼', '北门'],
         pickerTimeDataOrigin: [['08', '09', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22'], ['00', '30']],
         pickerTimeData: [['08', '09', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22'], ['00', '30']],
+        pickerTimeDataStart: [['08', '09', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22'], ['00', '30']],
         showResults: false,
         resultItems: [],
         showConfirm: false,
@@ -175,6 +177,9 @@
         } else {
           return this.calendarValueStart.split('　')[0]
         }
+      },
+      nowString() {
+        return dateFormat(new Date(), 'YYYY-MM-DD hh:mm:ss');
       }
     },
     methods: {
@@ -216,9 +221,6 @@
         // console.log(val)
         let startDate = this.calendarValueStart.split('　')
         if (val !== startDate[0]) {
-          // console.log(val)
-          // console.log(startDate[0])
-
           this.pickerTimeData = Object.assign([], this.pickerTimeDataOrigin)
           return
         }
@@ -237,8 +239,24 @@
         this.thisItem = item;
         this.showConfirm = true
       },
+      handleOnSelectedDateStart(val) {
+        let now = new Date()
+        let startTime = [now.getHours(), now.getMinutes()]
+        if (val !== dateFormat(now, 'YYYY-MM-DD')) {
+          this.pickerTimeDataStart = Object.assign([], this.pickerTimeDataOrigin)
+          return
+        }
+        let tmp = this.pickerTimeDataOrigin[0].filter((x) => {
+          return parseInt(x) > parseInt(startTime[0])
+        })
+        this.$set(this.pickerTimeDataStart, 0, tmp)
+        if (parseInt(startTime[0]) + 1 == parseInt(this.pickerTimeDataOrigin[0][this.pickerTimeDataOrigin[0].length - 1])
+          && startTime[1] == '30') {
+          this.$set(this.pickerTimeDataStart, 1, ['30'])
+        }
+      },
       handleOnConfirm() {
-
+        console.log('確定預約')
       }
     },
     created() {
