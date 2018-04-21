@@ -35,9 +35,70 @@
       <el-button type="warning" class="btn-search" @click="search">搜索</el-button>
     </div>
 
+    <div class="result-dialog-wrapper" v-if="showResults">
+      <x-dialog v-model="showResults" class="result-dialog">
+        <p class="result-dialog-title">可选车辆</p>
+        <div class="img-box" style="height:90%;padding:15px 0;overflow:scroll;-webkit-overflow-scrolling:touch;">
+          <div class="result-dialog-title2">共找到{{resultItems.data.length}}条符合条件的结果</div>
+          <div v-for="(item, index) of resultItems.data" class="car-info-wrapper" :key="item.value">
+            <img v-lazy="item.avatar" class="avatar">
+            <div class="info">
+              <p class="info-item">
+                <span class="item-tag">司机</span>
+                <span class="item-value">{{item.owner}}</span>
+              </p>
+              <p class="info-item">
+                <span class="item-tag">车型</span>
+                <span class="item-value">{{item.model}}</span>
+              </p>
+              <p class="info-item">
+                <span class="item-tag">载客</span>
+                <span class="item-value">{{item.capacity}}</span>
+              </p>
+            </div>
+            <div class="operation">
+              <x-button :gradients="['#FF5E3A', '#FF9500']" class="btn-book" @click.native="handleBooking(item)" mini>预约
+              </x-button>
+            </div>
+          </div>
+        </div>
+        <div @click="showResults=false" class="btn-close">
+          <span class="vux-close"></span>
+        </div>
+      </x-dialog>
+    </div>
+    <div class="confirm-dialog">
+      <confirm
+        v-model="showConfirm"
+        :close-on-confirm="false"
+        title="确认预约"
+        @on-confirm="handleOnConfirm">
+        <div class="confirm-info">
+          <p class="info-item">
+            <span class="item-tag">开始</span>
+            <span class="item-value">{{calendarValueStart}}</span>
+          </p>
+          <p class="info-item">
+            <span class="item-tag">结束</span>
+            <span class="item-value">{{calendarValueEnd}}</span>
+          </p>
+          <p class="info-item">
+            <span class="item-tag">司机</span>
+            <span class="item-value">{{thisItem.owner}}</span>
+          </p>
+          <p class="info-item">
+            <span class="item-tag">车型</span>
+            <span class="item-value">{{thisItem.model}}</span>
+          </p>
+          <p class="info-item">
+            <span class="item-tag">载客</span>
+            <span class="item-value">{{thisItem.capacity}}</span>
+          </p>
+        </div>
+      </confirm>
+    </div>
 
   </div>
-
 </template>
 
 <script>
@@ -45,8 +106,9 @@
   import store from 'store/store'
   import {mapState, mapMutations} from 'vuex'
   import Calendartime from 'components/calendar/calendartime'
-  import {Cell, PopupRadio} from 'vux'
-  import {parseDate, dateFormat} from "../../common/js/dateformat";
+  import {Cell, PopupRadio, Popup, XDialog, XButton, Confirm} from 'vux'
+  import {parseDate, dateFormat} from "../../common/js/dateformat"
+  import axios from 'axios'
 
   var recommends = [
     {
@@ -76,10 +138,14 @@
     name: "booking",
     store,
     components: {
+      Popup,
       Slider,
       Calendartime,
       Cell,
-      PopupRadio
+      PopupRadio,
+      XDialog,
+      XButton,
+      Confirm
     },
     data() {
       return {
@@ -90,7 +156,11 @@
         locationOption: '行政楼',
         locationOptions: ['行政楼', '北门'],
         pickerTimeDataOrigin: [['08', '09', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22'], ['00', '30']],
-        pickerTimeData: [['08', '09', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22'], ['00', '30']]
+        pickerTimeData: [['08', '09', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22'], ['00', '30']],
+        showResults: false,
+        resultItems: [],
+        showConfirm: false,
+        thisItem: {}
       }
     },
     computed: {
@@ -110,7 +180,24 @@
     methods: {
       ...mapMutations(['InitDate']),
       search() {
-        console.log("调用搜索")
+        if (!this.calendarValueStart || !this.calendarValueEnd) {
+          this.$notify.info({title: '请先选择预约起止时间！'})
+          return
+        }
+        axios.get('/api/retrieval')
+          .then((res) => {
+            if (res.data.code === "SUCCESS" && res.data.data.length) {
+              console.log("yes", res.data)
+              this.resultItems = res.data
+              this.showResults = true
+            } else {
+              console.log(res.data)
+            }
+          })
+          .catch((e) => {
+            console.log(e)
+          })
+
       },
       compareDate(startDate, endDate, hours = 0) {//输入不合法返回-2，endDate-startDate不超过hours小时返回1，相等返回0，超过hours小时返回-1
         if (!startDate || !endDate)
@@ -145,6 +232,13 @@
           && startTime[1] == '30') {
           this.$set(this.pickerTimeData, 1, ['30'])
         }
+      },
+      handleBooking(item) {
+        this.thisItem = item;
+        this.showConfirm = true
+      },
+      handleOnConfirm() {
+
       }
     },
     created() {
@@ -171,15 +265,9 @@
 <style scoped>
   @import url('../../common/css/booking.css');
 </style>
-
+<style lang="less" scoped>
+  @import '~vux/src/styles/close';
+</style>
 <style>
-  .weui-cell_radio .weui-cell__bd {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-  }
-
-  .vux-popup-dialog {
-    overflow-y: hidden !important;
-  }
+  @import url('../../common/css/booking-global.css');
 </style>

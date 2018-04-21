@@ -1,5 +1,5 @@
 .wrapper{
-  z-index: 10;
+  z-index: 10000;
 }
 .absolute-fullscreen {
   position: fixed;
@@ -22,7 +22,7 @@
   left: 0;
   background-color: #fff;
   min-width: 210px;
-  width: 30%;
+  width: 20%;
   height: 100%;
   border-right: 1px solid #DCDFE6;
   float: left;
