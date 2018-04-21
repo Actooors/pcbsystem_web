@@ -115,10 +115,6 @@
         return [['08', '09', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22'], ['00', '30']]
       }
     },
-    afterDate: {
-      type: String,
-      default: '1970-1-1'
-    },
     // for test only
     shouldTransferDom: {
       type: Boolean,
@@ -241,12 +237,6 @@
               this.$emit('on-selected-date', this.currentValue)
             }
           })
-          // 调整pickerTimerData的范围到afterDate之后
-
-          // console.log(this.currentValue)
-          // console.log('emit')
-          // console.log(value)
-          // console.log(pure(dateFormat(this.afterDate, 'YYYY-MM-DD')))
         }
       },
       onTimePickerClickLeft() {

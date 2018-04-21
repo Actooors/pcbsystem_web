@@ -1,0 +1,29 @@
+[
+  {
+    "avatar": "http://services.shu.edu.cn/User/showPhoto.aspx",
+    "uname": "莫之章",
+    "uid": 16121663,
+    "license": "沪A0001",
+    "model": "死飞",
+    "capacity": 4,
+    "cid": 32
+  },
+  {
+    "avatar": "http://services.shu.edu.cn/User/showPhoto.aspx",
+    "uname": "ooobsidian",
+    "uid": 16121670,
+    "license": "沪A0002",
+    "model": "凤凰",
+    "capacity": 4,
+    "cid": 34
+  },
+  {
+    "avatar": "http://services.shu.edu.cn/User/showPhoto.aspx",
+    "uname": "xw001",
+    "uid": 16121666,
+    "license": "沪A0003",
+    "model": "永久",
+    "capacity": 4,
+    "cid": 35
+  }
+]

@@ -12,3 +12,25 @@ html body{
   font-family: "Helvetica Neue",Helvetica,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","微软雅黑",Arial,sans-serif;
 }
 
+.weui-cell_radio .weui-cell__bd {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.vux-popup-dialog {
+  overflow-y: hidden !important;
+}
+
+@media screen and (min-width: 1025px) {
+  /*电脑端响应式布局*/
+  .vux-popup-dialog {
+    width: 600px !important;
+    left: 50% !important;
+    transform: translateX(-50%);
+  }
+}
+@media screen and (max-width: 1024px) {
+  /*手机端响应式布局*/
+
+}

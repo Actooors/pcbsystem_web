@@ -32,7 +32,8 @@ const webpackConfig = {
       'base': resolve('src/base'),
       'components': resolve('src/components'),
       'router': resolve('src/router'),
-      'store': resolve('src/store')
+      'store': resolve('src/store'),
+      'group': resolve('src/group')
     }
   },
   module: {
@@ -70,6 +71,10 @@ const webpackConfig = {
           limit: 10000,
           name: utils.assetsPath('fonts/[name].[hash:7].[ext]')
         }
+      },
+      {
+        test: /\.scss$/,
+        loaders: ["style", "css", "sass"]
       }
     ]
   },
