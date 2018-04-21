@@ -1,6 +1,5 @@
 <template>
   <div>
-    <link rel="stylesheet" href="http://at.alicdn.com/t/font_617648_jvrgszqer6jn61or.css">
     <m-header>
       <span @click="showSideBar" class="btn-sidebar"><i class="icon iconfont icon-category"></i></span>
     </m-header>

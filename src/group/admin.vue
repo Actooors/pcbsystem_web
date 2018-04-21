@@ -1,10 +1,9 @@
 <template>
   <div class="root-wrapper">
-    <link rel="stylesheet" href="http://at.alicdn.com/t/font_617648_jvrgszqer6jn61or.css">
     <m-header>
       <span @click="showSideBar" class="btn-sidebar"><i class="icon iconfont icon-category"></i></span>
     </m-header>
-    <side-bar v-model="ifShowSideBar" :items="sidebarItems"></side-bar>
+    <side-bar value=true :items="sidebarItems" :overlay=false></side-bar>
     <router-view></router-view>
   </div>
 </template>
@@ -24,9 +23,14 @@
         ifShowSideBar: false,
         sidebarItems:[{
           index: '/admin/message',
-          iconClass: 'icon iconfont icon-jiaocheqiche',
-          iconStyle: 'font-size: 30px;margin-right: 4px',
+          iconClass: 'el-icon-message',
+          iconStyle: 'font-size: 22px',
           title: '消息中心'
+        },{
+          index: '/admin/usermanagement',
+          iconClass: 'icon iconfont icon-LC_icon_user_fill_confirm',
+          iconStyle: 'font-size: 22px;margin-right:6px',
+          title: '用户管理'
         }]
       }
     },

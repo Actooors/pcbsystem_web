@@ -1,7 +1,7 @@
 <template>
   <transition name="el-zoom-in-left">
     <div class="wrapper fullscreen" v-show="value">
-      <div class="absolute-fullscreen" @click="showSideBar" style="background-color: black; opacity: 0.2"></div>
+      <div class="absolute-fullscreen" v-if="overlay" @click="showSideBar" style="background-color: black; opacity: 0.2"></div>
       <div class="sidebar" ref="sidebar">
         <div class="personinfo" ref="personinfo">
           <div class="avatar" ref="avatar">
@@ -46,6 +46,10 @@
         default() {
           return []
         }
+      },
+      overlay: {
+        type: Boolean,
+        default: true
       }
     },
     data() {
@@ -65,9 +69,9 @@
     mounted() {
       //index为前2级
       this.activeIndex = this.$router.currentRoute.path.split('/').filter((x, index) => {
-        return index < 3
+        return index <= 2
       }).join('/')
-      console.log(this.activeIndex)
+      // console.log(this.activeIndex)
     }
   }
 
