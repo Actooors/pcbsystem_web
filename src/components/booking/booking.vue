@@ -37,7 +37,7 @@
     </div>
 
     <div class="result-dialog-wrapper" v-if="showResults">
-      <x-dialog v-model="showResults" class="result-dialog">
+      <x-dialog v-model="showResults" class="result-dialog" hide-on-blur>
         <p class="result-dialog-title">可选车辆</p>
         <div class="img-box" style="height:90%;padding:15px 0;overflow:scroll;-webkit-overflow-scrolling:touch;">
           <div class="result-dialog-title2">共找到{{resultItems.data.length}}条符合条件的结果</div>

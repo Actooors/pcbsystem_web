@@ -6,8 +6,17 @@
     <div class="card-wrapper" ref="cardWrapper">
       <el-card class="box-card" v-for="(item,index) of itemsRender" :key="item.value">
         <div slot="header" class="clearfix card-header">
-          <span class="uname" v-text="item.uname"></span>
-          <el-button style="float: right; padding: 3px 0" type="text">详情</el-button>
+          <span class="uname"
+                v-text="item.ustate!=='正常'?item.uname+'('+item.ustate+')':item.uname"
+                :style="item.ustate!=='正常'?'color: '+colorMap[item.ustate]:'#000'"></span>
+          <el-button style="clear: right;float:right;padding: 3px 0" type="text" v-if="buttonTitle"
+                     @click.native="handleOnButtonClick(index)">
+            {{buttonTitle}}
+          </el-button>
+          <el-button style="clear: right;float:right;padding: 3px 0" type="text" v-if="buttonTitle2"
+                     @click.native="handleOnButtonClick2(index)">
+            {{buttonTitle2}}
+          </el-button>
         </div>
         <div class="card-body">
           <img v-lazy="item.avatar" class="avatar">
@@ -30,8 +39,13 @@
 </template>
 
 <script>
+  import {Masker} from 'vux'
+
   export default {
     name: "infoview",
+    components: {
+      Masker
+    },
     props: {
       items: {
         type: Array,
@@ -40,10 +54,25 @@
       itemMap: {
         type: Object
       },
+      colorMap: {
+        type: Object
+      },
       searchDelay: {
         type: Number,
         default: 250
-      }
+      },
+      buttonTitle: {
+        type: String
+      },
+      onButtonClick: {
+        type: Function
+      },
+      buttonTitle2: {
+        type: String
+      },
+      onButtonClick2: {
+        type: Function
+      },
     },
     data() {
       return {
@@ -72,6 +101,12 @@
           this.itemsRender = this.items
         }
         this.$forceUpdate(this.$refs.cardWrapper)
+      },
+      handleOnButtonClick(index) {
+        this.$emit('on-button-click', index)
+      },
+      handleOnButtonClick2(index) {
+        this.$emit('on-button-click2', index)
       }
     },
     watch: {
@@ -86,8 +121,13 @@
         }, this.searchDelay)
       },
     },
+    computed: {
+      titleColorStyle() {
+        return 'color:' + this.titleColor
+      }
+    },
     mounted() {
-      console.log(this.items)
+      // console.log(this.items)
     }
   }
 </script>

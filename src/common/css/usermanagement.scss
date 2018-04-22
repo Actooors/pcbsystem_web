@@ -13,8 +13,23 @@
       margin-left: 1em;
     }
   }
-
+  .logs-dialog {
+    .vux-close {
+      margin-top: 8px;
+      margin-bottom: 8px;
+    }
+    .content-box {
+      width: 500px;
+      margin-left:auto;
+      margin-right:auto;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+    }
+  }
 }
+
 @media screen and (min-width: 1024px) {
   .page-wrapper {
     left: 20%;
