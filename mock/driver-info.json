@@ -6,7 +6,8 @@
     "license": "沪A0001",
     "model": "死飞",
     "capacity": 4,
-    "cid": 32
+    "cid": 32,
+    "ustate":"正常"
   },
   {
     "avatar": "http://services.shu.edu.cn/User/showPhoto.aspx",
@@ -15,7 +16,8 @@
     "license": "沪A0002",
     "model": "凤凰",
     "capacity": 4,
-    "cid": 34
+    "cid": 34,
+    "ustate":"冻结"
   },
   {
     "avatar": "http://services.shu.edu.cn/User/showPhoto.aspx",
@@ -24,6 +26,7 @@
     "license": "沪A0003",
     "model": "永久",
     "capacity": 4,
-    "cid": 35
+    "cid": 35,
+    "ustate":"报修"
   }
 ]
