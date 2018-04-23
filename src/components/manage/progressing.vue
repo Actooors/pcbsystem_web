@@ -1,6 +1,6 @@
 <template>
   <div>
-    <form-preview header-label="申请状态" v-for="(item,index) of items" :header-value="item.state" :body-items="item.list"
+    <form-preview header-label="预约状态" v-for="(item,index) of items" :header-value="item.state" :body-items="item.list"
                   :class="item.state==='正在进行'?'progressing-form-yellow':null"
                   :key="item.value"></form-preview>
   </div>
