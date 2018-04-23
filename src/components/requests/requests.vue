@@ -1,6 +1,6 @@
 <template>
   <div>
-    <form-preview header-label="申请状态" v-for="(item,index) of items" :header-value="item.state" :body-items="list"
+    <form-preview header-label="申请状态" v-for="(item,index) of items" :header-value="item.state" :body-items="item.list"
                   :class="item.state==='已经结束'?'requests-form-red':'requests-form-yellow'"
                   :key="item.value"></form-preview>
   </div>
@@ -18,26 +18,50 @@
         items: [
           {
             state: "正在进行",
+            list:
+              [
+                {
+                  label: '申请人',
+                  value: '李瑞轩'
+                },
+                {
+                  label: '联系方式',
+                  value: '18109171575'
+                },
+                {
+                  label: '起始时间',
+                  value: '2018-04-18　08:00'
+                },
+                {
+                  label: '结束时间',
+                  value: '2018-04-19　08:00'
+                }
+              ]
           },
           {
             state: "已经结束",
+            list:
+              [
+                {
+                  label: '申请人',
+                  value: '殷子良'
+                },
+                {
+                  label: '联系方式',
+                  value: '18916999181'
+                },
+                {
+                  label: '起始时间',
+                  value: '2018-04-18　08:00'
+                },
+                {
+                  label: '结束时间',
+                  value: '2018-04-19　08:00'
+                }
+              ]
           }
         ],
-        list:
-          [
-            {
-              label: '申请人',
-              value: '李瑞轩'
-            },
-            {
-              label: '起始时间',
-              value: '2018-04-18　08:00'
-            },
-            {
-              label: '结束时间',
-              value: '2018-04-19　08:00'
-            }
-          ],
+
         // buttons: [
         //   {
         //     style: 'primary',
