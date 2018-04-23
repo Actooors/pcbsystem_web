@@ -25,6 +25,10 @@
                   value: '李瑞轩'
                 },
                 {
+                  label: '上车地点',
+                  value: '行政楼'
+                },
+                {
                   label: '联系方式',
                   value: '18109171575'
                 },
@@ -45,6 +49,10 @@
                 {
                   label: '申请人',
                   value: '殷子良'
+                },
+                {
+                  label: '上车地点',
+                  value: '北门'
                 },
                 {
                   label: '联系方式',
@@ -82,25 +90,30 @@
 </style>
 
 <style>
-  .requests-form-red{
+  .requests-form-red {
     width: 100%;
     margin: 20px auto;
 
   }
-  .requests-form-red:hover{
+
+  .requests-form-red:hover {
     box-shadow: 1px 1px 100px #e64a47;
   }
-  .requests-form-yellow{
+
+  .requests-form-yellow {
     width: 100%;
     margin: 20px auto;
 
   }
-  .requests-form-yellow:hover{
+
+  .requests-form-yellow:hover {
     box-shadow: 1px 1px 100px #e6c737;
   }
+
   .requests-form-red .weui-form-preview__hd .weui-form-preview__value {
     color: red;
   }
+
   .requests-form-yellow .weui-form-preview__hd .weui-form-preview__value {
     color: #e6c737;
   }
