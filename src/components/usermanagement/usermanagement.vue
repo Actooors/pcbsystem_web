@@ -2,64 +2,43 @@
   <div class="page-wrapper">
     <el-tabs type="border-card" class="tabs">
       <el-tab-pane label="乘客用户">
-        <div class="search">
-          <el-input placeholder="搜索..." v-model="searchInput" class="input"></el-input>
-          <div class="card-wrapper" ref="passenger">
-            <el-card class="box-card" v-for="(item,index) of items['passenger']" :key="item.value">
-              <div slot="header" class="clearfix card-header">
-                <span class="uname" v-text="item.uname"></span>
-                <el-button style="float: right; padding: 3px 0" type="text">详情</el-button>
-              </div>
-              <div class="card-body">
-                <img v-lazy="item.avatar" class="avatar">
-                <div class="card-pinfo">
-                  <p class="info-item" v-for="(value,key) of itemMap">
-                    <span class="item-tag" v-text="value"></span>
-                    <span class="item-value">{{item[key]}}</span>
-                  </p>
-                </div>
-              </div>
-            </el-card>
-            <div class="empty-box-card"></div><!--最大列数为n, 填充n-2个高度为0的块使最后一排左对齐-->
-            <div class="empty-box-card"></div>
-          </div>
-        </div>
-
+        <info-view :items="items['passenger']" :item-map="itemMap['passenger']"
+                   button-title="记录查询" @on-button-click=""></info-view>
       </el-tab-pane>
-
-
       <el-tab-pane label="司机用户">
-        <div class="search">
-          <el-input placeholder="搜索..." v-model="searchInputDriver" class="input"></el-input>
-        </div>
-        <div class="card-wrapper" ref="driver">
-          <el-card class="box-card" v-for="(item,index) of items['driver']" :key="item.value">
-            <div slot="header" class="clearfix card-header">
-              <span class="uname" v-text="item.uname"></span>
-              <el-button style="float: right; padding: 3px 0" type="text">详情</el-button>
-            </div>
-            <div class="card-body">
-              <img v-lazy="item.avatar" class="avatar">
-              <div class="card-pinfo">
-                <p class="info-item" v-for="(value,key) of itemMap">
-                  <span class="item-tag" v-text="value"></span>
-                  <span class="item-value">{{item[key]}}</span>
-                </p>
-              </div>
-            </div>
-          </el-card>
-          <div class="empty-box-card"></div><!--最大列数为n, 填充n-2个高度为0的块使最后一排左对齐-->
-          <div class="empty-box-card"></div>
-        </div>
+        <info-view :items="items['driver']"
+                   :item-map="itemMap['driver']"
+                   :color-map="colorMap"
+                   button-title="记录查询" @on-button-click="handleOnLogButtonClickDriver"
+                   button-title2="操作" @on-button-click2="handleOnOperationButtonClickDriver"></info-view>
       </el-tab-pane>
     </el-tabs>
+    <div class="logs-dialog-wrapper" v-if="showLogs">
+      <x-dialog v-model="showLogs" class="logs-dialog" hide-on-blur>
+        <p class="logs-dialog-title">预约记录</p>
+        <div class="content-box">
+          <img src="https://ws1.sinaimg.cn/large/663d3650gy1fq6824ur1dj20ia0pydlm.jpg" style="width: 100%;">
+        </div>
+        <div @click="showLogs=false">
+          <span class="vux-close"></span>
+        </div>
+      </x-dialog>
+    </div>
+
+
   </div>
 </template>
 <script>
   import axios from 'axios'
+  import InfoView from 'components/infoview/infoview'
+  import {XDialog} from 'vux'
 
   export default {
     name: "usermanagement",
+    components: {
+      InfoView,
+      XDialog
+    },
     data() {
       return {
         searchInput: '',
@@ -82,6 +61,7 @@
             model: '奥迪A8',
             capacity: 4,
             cid: 32,
+            ustate: '正常'
           },]
         },
         items: {
@@ -89,64 +69,49 @@
           driver: []
         },
         itemMap: {
-          uname: '司机',
-          uid: '工号',
-          cid: '车辆id',
-          license: '车牌号',
-          model: '车型',
-          capacity: '载客数'
+          passenger: {
+            uname: '姓名',
+            uid: '工号',
+          },
+          driver: {
+            uname: '姓名',
+            uid: '工号',
+            cid: '车辆ID',
+            license: '车牌号',
+            model: '车型',
+            capacity: '载客数'
+          }
         },
-        inputTimer: undefined
+        inputTimer: undefined,
+        showLogs: false,
+        showOperationMenu: false,
+        operationUsername: '',
+        operationMenuDriver: ['冻结用户', '删除用户'],
+        colorMap: {
+          '冻结': '#8cc5ff',
+          '报修': '#A0DB94'
+        }
       }
     },
     mounted() {
-      // console.log('mounted!')
       axios.get('/api/driverinfo')
         .then((res) => {
           this.itemsOrigin['driver'] = res.data.data
-          this.items = Object.assign([], this.itemsOrigin)
+          this.items['driver'] = this.itemsOrigin['driver']
         })
         .catch((e) => {
           console.log(e)
         })
     },
     methods: {
-      resultFilter(val, userType) {
-        if (val !== '') {
-          let result = Object.assign([], this.itemsOrigin[userType].filter((obj) => {
-            for (let key in obj) {
-              if (typeof(obj[key]) != 'String') {
-                if (obj[key].toString().indexOf(val) !== -1)
-                  return true
-              }
-              else if (obj[key].indexOf(val) !== -1) {
-                return true
-              }
-            }
-            return false
-          }))
-          this.items[userType] = result
-          userType == 'driver' && this.$forceUpdate(this.$refs.driver)
-          userType == 'passenger' && this.$forceUpdate(this.$refs.passenger)
-        } else {
-          this.items[userType] = this.itemsOrigin[userType]
-          userType == 'driver' && this.$forceUpdate(this.$refs.driver)
-          userType == 'passenger' && this.$forceUpdate(this.$refs.passenger)
-        }
-      }
-    },
-    watch: {
-      searchInput(val) {
-        clearTimeout(this.inputTimer)
-        this.inputTimer = setTimeout(() => {
-          this.resultFilter(val, 'passenger')
-        }, 500)
+      handleOnLogButtonClickDriver(index) {
+        this.showLogs = true
+
       },
-      searchInputDriver(val) {
-        clearTimeout(this.inputTimer)
-        this.inputTimer = setTimeout(() => {
-          this.resultFilter(val, 'driver')
-        }, 500)
+      handleOnOperationButtonClickDriver(index) {
+        this.showOperationMenu = true
+        console.log(index, this.items['driver'])
+        this.operationUsername = this.items['driver'][index].uname
       }
     }
   }
@@ -154,4 +119,16 @@
 
 <style lang="scss" scoped>
   @import '../../common/css/usermanagement';
+</style>
+<style lang="less" scoped>
+  @import '~vux/src/styles/close';
+</style>
+
+<style lang="scss">
+  .logs-dialog {
+    .weui-dialog {
+      max-width: none;
+    }
+  }
+
 </style>

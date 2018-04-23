@@ -1,0 +1,95 @@
+@import '~element-ui/packages/theme-chalk/src/common/var.scss';
+
+.card-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 1em auto;
+  text-align: left;
+  .box-card {
+    margin: .5em .5em;
+    .card-header {
+      .uname {
+        font-size: $--font-size-large;
+        font-weight: bold;
+      }
+    }
+    .card-body {
+      display: flex;
+      .avatar {
+        margin-top: auto;
+        margin-bottom: auto;
+        max-height: 128px;
+        max-width: 88px;
+      }
+      .card-pinfo {
+        margin-left: 1em;
+        .info-item {
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          display: flex;
+          .item-tag {
+            float: left;
+            text-align: justify;
+            text-align-last: justify;
+            min-width: 3.5em;
+            padding: 0.1em 0.2em;
+            border: 1px solid #FCFFF3;
+            border-radius: 0.3em;
+            background: #F2F6FC;
+          }
+          .item-value {
+            margin: {
+              top: auto;
+              bottom: auto;
+              left: .6em;
+            }
+            height: 100%;
+            display: inline-block;
+            font-size: 14px;
+            padding: 0.1em 0.2em;
+          }
+        }
+      }
+    }
+  }
+  .empty-box-card {
+    min-width: 350px;
+    width: 30%;
+    margin: .5em .5em;
+    height: 0;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .search {
+    width: 40%;
+    margin: 1em auto;
+  }
+  .card-wrapper {
+    width: 90%;
+    .box-card {
+      width: 30%;
+      min-width: 350px;
+    }
+  }
+
+}
+
+@media screen and (max-width: 1023px) {
+  .search {
+    width: 95%;
+    margin: {
+      left: auto;
+      right: auto;
+    }
+  }
+  .card-wrapper {
+    width: 100%;
+    .box-card {
+      width: 100%;
+    }
+  }
+
+}

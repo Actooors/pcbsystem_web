@@ -26,10 +26,10 @@
   width: 300px;
 }
 @media screen and (min-width: 1025px) {
-  .requests-form-red{
+  .history-form-red{
     width:40%;
   }
-  .requests-form-green{
+  .history-form-green{
     width:40%;
   }
 }
