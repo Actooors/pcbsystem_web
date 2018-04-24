@@ -24,20 +24,27 @@
         </div>
       </x-dialog>
     </div>
-
+    <actionsheet
+      v-model="showOperationMenu"
+      :menus="operationMenuDriver"
+      theme="android">      <!--@on-click-menu="click"-->
+      <!--@on-after-hide="log('after hide')"-->
+      <!--@on-after-show="log('after show')"-->
+    </actionsheet>
 
   </div>
 </template>
 <script>
   import axios from 'axios'
   import InfoView from 'components/infoview/infoview'
-  import {XDialog} from 'vux'
+  import {XDialog, Actionsheet} from 'vux'
 
   export default {
     name: "usermanagement",
     components: {
       InfoView,
-      XDialog
+      XDialog,
+      Actionsheet
     },
     data() {
       return {
@@ -86,7 +93,11 @@
         showLogs: false,
         showOperationMenu: false,
         operationUsername: '',
-        operationMenuDriver: ['冻结用户', '删除用户'],
+        operationMenuDriver: [
+          {label: '', type: 'disabled'},
+          {label: '<div style="text-align: center; color: #1AAD19">冻结用户</div>'},
+          {label: '<div style="text-align: center; color: #E64340">删除用户</div>'},
+          {label: '<div style="text-align: center">取消</div>'}],
         colorMap: {
           '冻结': '#8cc5ff',
           '报修': '#A0DB94'
@@ -102,16 +113,31 @@
         .catch((e) => {
           console.log(e)
         })
-    },
+    }
+    ,
     methods: {
       handleOnLogButtonClickDriver(index) {
         this.showLogs = true
 
-      },
+      }
+      ,
       handleOnOperationButtonClickDriver(index) {
         this.showOperationMenu = true
         console.log(index, this.items['driver'])
         this.operationUsername = this.items['driver'][index].uname
+        let state = this.items['driver'][index].ustate
+        let len = this.operationUsername.length
+        let styleAppend = ''
+        let nameAppend = ''
+        if (state !== '正常') {
+          let color = this.colorMap[state]
+          styleAppend = 'color: ' + color + ';'
+          nameAppend = '(' + state + ')'
+        }
+        this.operationMenuDriver[0].label =
+          "<div style='text-align: center; font-weight: bold; font-size: 18px;" + styleAppend + "'>" +
+          this.operationUsername + nameAppend +
+          "</div>"
       }
     }
   }
