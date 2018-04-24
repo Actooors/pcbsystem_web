@@ -52,7 +52,7 @@
               },
               {
                 label: '报修原因',
-                value: '2018-04-19　08:00'
+                value: '其他'
               },
               {
                 label: '车辆牌照',
@@ -75,7 +75,7 @@
     methods: {
       SeeReason() {
         this.$vux.alert.show({
-          title: '报修原因',
+          title: '失败原因',
           content: '李瑞轩太帅了！！'
         })
       }
