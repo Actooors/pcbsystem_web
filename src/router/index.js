@@ -18,12 +18,13 @@ import MessageCenter from 'components/messagecenter/messagecenter'
 import Begin from 'components/requests/begin'
 import Progress from 'components/requests/progress'
 import End from 'components/requests/end'
+import Login from 'components/login/login'
 import 'element-ui/lib/theme-chalk/index.css'
 
 
 Vue.use(Router)
-
-export default new Router({
+const defaultTitle = "上海大学公车预约系统"
+const router = new Router({
   mode: 'history',
   routes: [
     {
@@ -73,26 +74,27 @@ export default new Router({
     {
       path: '/driver',
       component: Driver,
+      meta: {title: '公车预约系统司机端'},
       children: [{
         path: '',
         redirect: {name: 'requests'}
       },
         {
           path: 'requests',
-          // name: 'requests',
+          name: 'requests',
           component: Requests,
           children: [{
             path: '',
-            redirect: {name:'begin'}
-          },{
+            redirect: {name: 'begin'}
+          }, {
             path: 'begin',
             name: 'begin',
             component: Begin
-          },{
+          }, {
             path: 'progress',
             name: 'progress',
             component: Progress
-          },{
+          }, {
             path: 'end',
             name: 'end',
             component: End
@@ -124,19 +126,45 @@ export default new Router({
     {
       path: '/admin',
       component: Admin,
+      meta: {title: '公车预约系统管理端'},
       children: [{
         path: '',
         redirect: {name: 'messagecenter'}
       }, {
-        path:'message',
-        name:'messagecenter',
+        path: 'message',
+        name: 'messagecenter',
         component: MessageCenter
-      },{
+      }, {
         path: 'usermanagement',
         name: 'usermanagement',
         component: UserManagement
       }]
+    },
+    {
+      path: '/login',
+      name: 'login',
+      component: Login
     }
-
   ]
 })
+
+router.beforeEach((to, from, next) => {
+  console.log(to)
+  let len = to.matched.length
+  if (to.meta.title) {
+    document.title = to.meta.title
+  } else {
+    for (var i = len - 1; i >= 0 && !to.matched[i].meta.title; i--) ;
+    if (i >= 0) {
+      document.title = to.matched[i].meta.title
+    } else {
+      document.title = defaultTitle
+    }
+  }
+  next()
+})
+
+export default router
+
+
+
