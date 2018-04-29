@@ -10,7 +10,7 @@
   import {FormPreview} from 'vux'
 
   export default {
-    name: "progress",
+    name: "progresss",
     components: {
       FormPreview
     },

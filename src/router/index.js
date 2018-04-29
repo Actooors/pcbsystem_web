@@ -19,6 +19,9 @@ import Begin from 'components/requests/begin'
 import Progress from 'components/requests/progress'
 import End from 'components/requests/end'
 import Login from 'components/login/login'
+import Passengers from 'components/usermanagement/passengers'
+import Drivers from 'components/usermanagement/drivers'
+import Cars from 'components/usermanagement/cars'
 import 'element-ui/lib/theme-chalk/index.css'
 
 
@@ -137,7 +140,23 @@ const router = new Router({
       }, {
         path: 'usermanagement',
         name: 'usermanagement',
-        component: UserManagement
+        component: UserManagement,
+        children: [{
+          path: '',
+          redirect: {name: 'passenagers'}
+        },{
+          path: 'passenagers',
+          name: 'passenagers',
+          component: Passengers
+        },{
+          path: 'drivers',
+          name: 'drivers',
+          component: Drivers
+        },{
+          path: 'cars',
+          name: 'cars',
+          component: Cars
+        }]
       }]
     },
     {

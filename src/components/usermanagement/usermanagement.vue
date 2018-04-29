@@ -1,11 +1,11 @@
 <template>
   <div class="page-wrapper">
-    <el-tabs type="border-card" class="tabs" v-model="nowTab">
+    <el-tabs type="border-card" class="tabs" v-model="nowTab" @tab-click="handleOnTabClick">
       <el-tab-pane label="乘客用户">
         <info-view :items="items['passenger']"
                    :item-map="itemMap['passenger']"
                    :color-map="colorMap"
-                   button-title="记录查询" @on-button-click="handleOnLogButtonClickUser"
+                   button-title="记录查询" @on-button-click="handleOnLogButtonClick"
                    button-title2="操作" @on-button-click2="handleOnOperationButtonClickPassenger">>
         </info-view>
       </el-tab-pane>
@@ -13,42 +13,22 @@
         <info-view :items="items['driver']"
                    :item-map="itemMap['driver']"
                    :color-map="colorMap"
-                   button-title="记录查询" @on-button-click="handleOnLogButtonClickDriver"
+                   button-title="记录查询" @on-button-click="handleOnLogButtonClick"
                    button-title2="操作" @on-button-click2="handleOnOperationButtonClickDriver"></info-view>
       </el-tab-pane>
       <el-tab-pane label="公车">
         <info-view :items="items['car']"
                    :item-map="itemMap['car']"
                    :color-map="colorMap"
-                   button-title="记录查询" @on-button-click="handleOnLogButtonClickCar"
+                   button-title="记录查询" @on-button-click="handleOnLogButtonClick"
                    button-title2="操作" @on-button-click2="handleOnOperationButtonClickCar"></info-view>
       </el-tab-pane>
     </el-tabs>
     <div class="logs-dialog-wrapper" v-if="showLogs">
       <x-dialog v-model="showLogs" class="logs-dialog" hide-on-blur style="height: 800px">
-        <!--<p class="logs-dialog-title">查看记录</p>-->
-        <!--<div class="content-box">-->
-        <!--<img src="https://ws1.sinaimg.cn/large/663d3650gy1fq6824ur1dj20ia0pydlm.jpg" style="width: 100%;">-->
-        <!--</div>-->
-        <tab :line-width=2 active-color="#38C972" v-model="index">
-          <tab-item class="vux-center" :selected="demo1 === item" v-for="(item, index) in list1" @click="demo1 = item"
-                    :key="index">{{item}}
-          </tab-item>
-        </tab>
-        <swiper v-model="index" height="800px" :show-dots="false">
-          <swiper-item v-for="(item, index) in list1" :key="index">
-            <div class="tab-swiper vux-center">
-              <div>
-                <form-preview header-label="预约状态" v-for="(item,index) in items1" :header-value="item.state"
-                              :body-items="item.list"
-                              :class="item.state==='正在进行'?'progressing-form-yellow':null"
-                              :key="item.value">
 
-                </form-preview>
-              </div>
-            </div>
-          </swiper-item>
-        </swiper>
+        <router-view></router-view>
+
         <div @click="showLogs=false">
           <span class="vux-close"></span>
         </div>
@@ -103,57 +83,6 @@
     },
     data() {
       return {
-        demo1: '正在进行',
-        demo2: '',
-        demo3: '',
-        index: 0,
-        list1: ['正在进行', '正在申请', '预约历史'],
-        list2: [],
-        list3: [],
-        items1: [
-          {
-            state: "正在进行",
-            list: [
-              {
-                label: '申请人',
-                value: '李瑞轩'
-              },
-              {
-                label: '起始时间',
-                value: '2018-04-18　08:00'
-              },
-              {
-                label: '结束时间',
-                value: '2018-04-19　08:00'
-              },
-              {
-                label: '车辆牌照',
-                value: '沪A-11111'
-              }
-            ],
-          },
-          {
-            state: "正在进行",
-            list: [
-              {
-                label: '申请人',
-                value: '殷子良'
-              },
-              {
-                label: '起始时间',
-                value: '2018-04-20　08:00'
-              },
-              {
-                label: '结束时间',
-                value: '2018-04-21　08:00'
-              },
-              {
-                label: '车辆牌照',
-                value: '沪B-12345'
-              }
-            ],
-          }
-        ],
         searchInput: '',
         searchInputDriver: '',
         itemsOrigin: {
@@ -251,13 +180,7 @@
     }
     ,
     methods: {
-      handleOnLogButtonClickDriver(index) {
-        this.showLogs = true
-      },
-      handleOnLogButtonClickUser(index) {
-        this.showLogs = true
-      },
-      handleOnLogButtonClickCar(index) {
+      handleOnLogButtonClick(index) {
         this.showLogs = true
       },
       handleOnOperationButtonClickDriver(index, type = "driver") {
@@ -294,6 +217,13 @@
       },
       handleOnPlusButtonClick() {
 
+      },
+      handleOnTabClick(now) {
+        console.log(now)
+        var map = ['passenagers', 'drivers', 'cars']
+
+        this.$router.push({name: map[now.index]})
+
       }
     }
   }
@@ -308,23 +238,9 @@
 </style>
 
 <style>
-  .weui-dialog{
-    height: 90%;
-  }
-  .vux-slider{
-    height:90%;
-  }
-  .progressing-form-yellow {
-    width: 100%;
-    margin: 20px auto;
-  }
-
-  .progressing-form-yellow:hover {
-    box-shadow: 1px 1px 100px yellow;
-  }
-
-  .progressing-form-yellow .weui-form-preview__hd .weui-form-preview__value {
-    color: #d4bb00;
+  .vux-close {
+    bottom: 0;
+    position: fixed;
   }
 </style>
 

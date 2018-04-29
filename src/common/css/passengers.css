@@ -1,0 +1,16 @@
+
+.applying-form-green .weui-form-preview__hd .weui-form-preview__value {
+  color: green;
+}
+
+.progressing-form-yellow .weui-form-preview__hd .weui-form-preview__value {
+  color: #d4bb00;
+}
+
+.history-form-red .weui-form-preview__hd .weui-form-preview__value {
+  color: red;
+}
+
+.history-form-green .weui-form-preview__hd .weui-form-preview__value {
+  color: green;
+}
