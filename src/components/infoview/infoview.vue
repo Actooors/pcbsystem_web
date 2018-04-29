@@ -55,7 +55,8 @@
         type: Object
       },
       colorMap: {
-        type: Object
+        type: Object,
+        require: true
       },
       searchDelay: {
         type: Number,

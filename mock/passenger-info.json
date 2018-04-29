@@ -1,0 +1,34 @@
+[
+  {
+    "avatar": "http://services.shu.edu.cn/User/showPhoto.aspx",
+    "uname": "莫之章",
+    "department": "计算机学院",
+    "Tel.": "18916999181",
+    "uid": 16121663,
+    "ustate": "正常"
+  },
+  {
+    "avatar": "http://services.shu.edu.cn/User/showPhoto.aspx",
+    "uname": "徐文",
+    "department": "教务处",
+    "Tel.": "18916999181",
+    "uid": 16121666,
+    "ustate": "冻结"
+  },
+  {
+    "avatar": "http://services.shu.edu.cn/User/showPhoto.aspx",
+    "uname": "李瑞轩",
+    "department": "学工办",
+    "Tel.": "18916999181",
+    "uid": 16121670,
+    "ustate": "正常"
+  },
+  {
+    "avatar": "http://services.shu.edu.cn/User/showPhoto.aspx",
+    "uname": "苗伟华",
+    "department": "校长办公室",
+    "Tel.": "18916999181",
+    "uid": 16121674,
+    "ustate": "正常"
+  }
+]

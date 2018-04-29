@@ -16,9 +16,11 @@
     }
     .card-body {
       display: flex;
-      .avatar {
+      > * {
         margin-top: auto;
         margin-bottom: auto;
+      }
+      .avatar {
         max-height: 128px;
         max-width: 88px;
       }
