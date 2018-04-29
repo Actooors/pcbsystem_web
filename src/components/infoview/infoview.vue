@@ -35,6 +35,17 @@
       <div class="empty-box-card"></div><!--最大列数为n, 填充n-2个高度为0的块使最后一排左对齐-->
       <div class="empty-box-card"></div>
     </div>
+    <div class="block" style="margin: 50px auto">
+      <el-pagination
+        @size-change="handleSizeChange"
+        @current-change="handleCurrentChange"
+        :current-page.sync="currentPage"
+        layout="prev, pager, next"
+        :page-size="pageSize"
+        :current-page="pageNo"
+        :total="parseInt(totalcars)">
+      </el-pagination>
+    </div>
   </div>
 </template>
 
@@ -77,12 +88,24 @@
     },
     data() {
       return {
+        totalcars: 3,
+        pageNo: 1,
+        pageSize: 10,
         itemsRender: this.items,
         inputTimer: undefined,
         searchInput: ''
       }
     },
     methods: {
+      handleCurrentChange(val) {
+        this.pageNo = val;
+      },
+      handleSizeChange(val) {
+        this.totalcars = val;
+      },
+      currentPage(val) {
+        this.pageNo = val;
+      },
       resultFilter(val) {
         if (val !== '') {
           let result = Object.assign([], this.items.filter((obj) => {

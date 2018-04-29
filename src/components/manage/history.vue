@@ -9,14 +9,15 @@
     <div class="block" style="margin: 50px auto">
       <el-pagination
         @size-change="handleSizeChange"
-        @current-change="handleCurrentChange1"
-        :current-page.sync="currentPage3"
+        @current-change="handleCurrentChange"
+        :current-page.sync="currentPage"
         layout="prev, pager, next"
         :page-size="pageSize"
         :current-page="pageNo"
         :total="parseInt(totalcars)">
       </el-pagination>
     </div>
+
   </div>
 </template>
 
@@ -80,13 +81,13 @@
       }
     },
     methods: {
-      handleCurrentChange1(val) {
+      handleCurrentChange(val) {
         this.pageNo = val;
       },
       handleSizeChange(val) {
         this.totalcars = val;
       },
-      currentPage3(val) {
+      currentPage(val) {
         this.pageNo = val;
       },
     }

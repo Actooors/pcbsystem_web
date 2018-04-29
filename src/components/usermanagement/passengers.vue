@@ -6,24 +6,36 @@
       <tab-item @on-item-click="onItemClick">预约历史</tab-item>
     </tab>
     <div class="tab-swiper vux-center" v-if="tabIndex===0">
-      <form-preview header-label="预约状态" v-for="(item,index) in items1" :header-value="item.state"
+      <form-preview header-label="预约状态" v-for="(item,index) in itemsProgress" :header-value="item.state"
                     :body-items="item.list"
                     :class="item.state==='正在进行'?'progressing-form-yellow':null"
                     :key="item.value"></form-preview>
     </div>
 
     <div class="tab-swiper vux-center" v-else-if="tabIndex===1">
-      <form-preview header-label="预约状态" v-for="(item,index) in items2" :header-value="item.state"
+      <form-preview header-label="预约状态" v-for="(item,index) in itemsApply" :header-value="item.state"
                     :body-items="item.list"
                     :class="item.state==='正在申请'?'applying-form-green':null"
                     :key="item.value"></form-preview>
     </div>
 
     <div class="tab-swiper vux-center" v-else-if="tabIndex===2">
-      <form-preview header-label="预约状态" v-for="(item,index) in items3" :header-value="item.state"
+      <form-preview header-label="预约状态" v-for="(item,index) in itemsHistory" :header-value="item.state"
                     :body-items="item.list"
                     :class="item.state==='失败'?'history-form-red':'history-form-green'"
                     :key="item.value"></form-preview>
+    </div>
+
+    <div class="block" style="margin: 50px auto">
+      <el-pagination
+        @size-change="handleSizeChange"
+        @current-change="handleCurrentChange"
+        :current-page.sync="currentPage"
+        layout="prev, pager, next"
+        :page-size="pageSize"
+        :current-page="pageNo"
+        :total="parseInt(totalcars)">
+      </el-pagination>
     </div>
 
   </div>
@@ -43,7 +55,7 @@
     data() {
       return {
         tabIndex: 0,
-        items1: [
+        itemsProgress: [
           {
             state: "正在进行",
             list: [
@@ -87,7 +99,7 @@
             ]
           }
         ],
-        items2: [
+        itemsApply: [
           {
             state: "正在申请",
             list: [
@@ -131,7 +143,7 @@
             ],
           }
         ],
-        items3: [
+        itemsHistory: [
           {
             state: "成功",
             list: [
