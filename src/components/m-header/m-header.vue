@@ -25,21 +25,41 @@
     display: flex;
     background: #255085;
     position: relative;
-    height: 80px;
     .text {
       position: relative;
       line-height: 44px;
-      font-size: 25px;
       margin: auto auto;
       color: #fff;
     }
-    .logo{
+    .logo {
       position: absolute;
       right: 100px;
       height: 70px;
-      top:5px;
+      top: 5px;
     }
   }
 
+  @media screen and (max-width: 1023px) {
+    .MHeader {
+      height:44px;
+      .logo {
+        display: none;
+      }
+      .text {
+        font-size: 20px;
+      }
+    }
+
+  }
+
+  @media screen and (min-width: 1024px) {
+    .MHeader {
+      height: 80px;
+      .text {
+        font-size: 25px;
+      }
+    }
+
+  }
 </style>
 

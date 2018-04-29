@@ -1,7 +1,7 @@
 <template>
   <div>
     <m-header title="公车预约系统司机端">
-      <span @click="showSideBar" class="btn-sidebar"><i class="icon iconfont icon-category"></i></span>
+      <i @click="showSideBar" class="el-icon-caret-right sidebarIcon">Menu</i>
     </m-header>
     <sidebar
       v-model="ifShowSideBar"
@@ -55,13 +55,20 @@
   }
 </script>
 
-<style scoped>
-  .btn-sidebar {
-    position: relative;
-    float: left;
-    margin-left: 10px;
-    top: 50%;
-    transform: translateY(-50%);
-    padding: 10px 10px 10px 10px;
+<style>
+  .sidebarIcon {
+    cursor: pointer;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    display: table;
+    margin: auto 2px;
+    color: white;
+    font-size: 1em;
+  }
+  @media screen and (min-width: 1024px) {
+    .sidebarIcon {
+      left:2%
+    }
   }
 </style>

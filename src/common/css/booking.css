@@ -1,7 +1,5 @@
 .booking {
   position: fixed;
-  top: 44px;
-  width: 100%;
   bottom: 0;
 }
 
@@ -56,7 +54,7 @@
 }
 
 .btn-close {
-  height:10px;
+  height: 10px;
 }
 
 .result-dialog-title {
@@ -124,15 +122,18 @@
 
   /*background: #F2F6FC;*/
 }
-.img-box{
+
+.img-box {
   overflow-x: hidden !important;
 }
-.confirm-info{
+
+.confirm-info {
   max-width: 80%;
   text-align: left;
   margin: 0 auto;
   line-height: 1.7em;
 }
+
 @media screen and (min-width: 1025px) {
   /*电脑端响应式布局*/
   .slider-wrapper {
@@ -177,5 +178,20 @@
     width: 90%;
   }
 
+}
 
+@media screen and (min-width: 1024px) {
+  .booking {
+    left: 20%;
+    width: 80%;
+    top: 80px;
+  }
+}
+
+@media screen and (max-width: 1023px) {
+  .booking {
+    left: 0;
+    width: 100%;
+    top: 44px;
+  }
 }

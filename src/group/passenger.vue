@@ -1,18 +1,17 @@
 <template>
   <div>
-    <m-header>
-      <span @click="showSideBar" class="btn-sidebar"><i class="icon iconfont icon-category"></i></span>
+    <m-header title="公车预约系统">
+      <i @click="showSideBar" class="el-icon-caret-right sidebarIcon">Menu</i>
     </m-header>
-    <sidebar
-      v-model="ifShowSideBar"
-      :items="sidebarItems"></sidebar>
+    <side-bar :value=true :items="sidebarItems" :overlay=false id="sidebarDesk"></side-bar>
+    <side-bar v-model="ifShowSideBar" :items="sidebarItems" id="sidebarMobile"></side-bar>
     <router-view></router-view>
   </div>
 </template>
 
 <script>
   import MHeader from "components/m-header/m-header"
-  import Sidebar from "base/sidebar/sidebar"
+  import SideBar from "base/sidebar/sidebar"
   import PassengerInfo from "components/personalinfo/personalinfo"
   import Manage from "components/manage/manage"
   import History from "components/manage/history"
@@ -23,7 +22,7 @@
   export default {
     name: "passenger",
     components: {
-      Sidebar,
+      SideBar,
       MHeader,
       PassengerInfo,
       Manage,
@@ -62,13 +61,27 @@
   }
 </script>
 
-<style>
-  .btn-sidebar {
-    position: relative;
-    float: left;
-    margin-left: 10px;
-    top: 50%;
-    transform: translateY(-50%);
-    padding: 10px 10px 10px 10px;
+<style lang="scss">
+  .sidebarIcon {
+    cursor: pointer;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    display: table;
+    margin: auto 2px;
+    color: white;
+    font-size: 1em;
+  }
+
+  @media screen and (min-width: 1024px) {
+    .sidebarIcon, #sidebarMobile {
+      display: none;
+    }
+  }
+
+  @media screen and (max-width: 1023px) {
+    #sidebarDesk {
+      display: none;
+    }
   }
 </style>
