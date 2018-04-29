@@ -101,7 +101,6 @@
   .history-form-red {
     width: 100%;
     margin: 20px auto;
-
   }
 
   .history-form-red:hover {

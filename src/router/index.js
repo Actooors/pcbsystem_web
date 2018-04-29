@@ -15,6 +15,9 @@ import Repair from 'components/repair/repair'
 import Admin from 'group/admin'
 import UserManagement from 'components/usermanagement/usermanagement'
 import MessageCenter from 'components/messagecenter/messagecenter'
+import Begin from 'components/requests/begin'
+import Progress from 'components/requests/progress'
+import End from 'components/requests/end'
 import 'element-ui/lib/theme-chalk/index.css'
 
 
@@ -76,8 +79,24 @@ export default new Router({
       },
         {
           path: 'requests',
-          name: 'requests',
-          component: Requests
+          // name: 'requests',
+          component: Requests,
+          children: [{
+            path: '',
+            redirect: {name:'begin'}
+          },{
+            path: 'begin',
+            name: 'begin',
+            component: Begin
+          },{
+            path: 'progress',
+            name: 'progress',
+            component: Progress
+          },{
+            path: 'end',
+            name: 'end',
+            component: End
+          }]
         },
         {
           path: 'repair',
