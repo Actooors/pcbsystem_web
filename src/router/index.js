@@ -162,7 +162,10 @@ const router = new Router({
     {
       path: '/login',
       name: 'login',
-      component: Login
+      component: Login,
+      meta:{
+        title:'登录 - 上海大学公车预约系统'
+      }
     }
   ]
 })

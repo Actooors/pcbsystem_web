@@ -1,8 +1,10 @@
 <template>
-  <div class="m-header">
-    <!--<button class="icon iconfont icon-category" @click="showSideBar"></button>-->
-    <slot></slot>
-    <div class="text" v-text="title"></div>
+  <div>
+    <div class="MHeader">
+      <slot></slot>
+      <div class="text" v-text="title"></div>
+      <img src="../../common/image/logo2.png" class="logo">
+    </div>
   </div>
 </template>
 
@@ -18,29 +20,26 @@
   }
 </script>
 
-<style scoped>
-  .m-header {
+<style lang="scss" scoped>
+  .MHeader {
+    display: flex;
+    background: #255085;
     position: relative;
-    height: 44px;
-    width: 100%;
-    border-bottom: 1px solid #DCDFE6;
-    color: #fff;
-    font-size: 0;
-    background-color: #409EFF;
+    height: 80px;
+    .text {
+      position: relative;
+      line-height: 44px;
+      font-size: 25px;
+      margin: auto auto;
+      color: #fff;
+    }
+    .logo{
+      position: absolute;
+      right: 100px;
+      height: 70px;
+      top:5px;
+    }
   }
 
-  .text {
-    position: relative;
-    display: inline-flex;
-    vertical-align: top;
-    line-height: 44px;
-    font-size: 20px;
-    left: -15px;
-  }
-
-  .logout {
-    position: relative;
-
-  }
 </style>
 
