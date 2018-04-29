@@ -81,7 +81,7 @@ const router = new Router({
       },
         {
           path: 'requests',
-          // name: 'requests',
+          name: 'requests',
           component: Requests,
           children: [{
             path: '',
@@ -149,6 +149,7 @@ const router = new Router({
 })
 
 router.beforeEach((to, from, next) => {
+  console.log(to)
   let len = to.matched.length
   if (to.meta.title) {
     document.title = to.meta.title
