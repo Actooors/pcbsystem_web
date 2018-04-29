@@ -18,6 +18,7 @@ import MessageCenter from 'components/messagecenter/messagecenter'
 import Begin from 'components/requests/begin'
 import Progress from 'components/requests/progress'
 import End from 'components/requests/end'
+import Login from 'components/login/login'
 import 'element-ui/lib/theme-chalk/index.css'
 
 
@@ -128,15 +129,19 @@ export default new Router({
         path: '',
         redirect: {name: 'messagecenter'}
       }, {
-        path:'message',
-        name:'messagecenter',
+        path: 'message',
+        name: 'messagecenter',
         component: MessageCenter
-      },{
+      }, {
         path: 'usermanagement',
         name: 'usermanagement',
         component: UserManagement
       }]
+    },
+    {
+      path: '/login',
+      name: 'login',
+      component: Login
     }
-
   ]
 })

@@ -1,0 +1,88 @@
+.page-wrapper {
+  position: relative;
+  margin: auto;
+  top: 80px;
+  height: 600px;
+  width: 985px;
+  > .logo {
+    text-align: left;
+  }
+  > .loginbox {
+    display: flex;
+    margin-top: 2.5px;
+    > .userlogin-wrapper {
+      border: solid 1px #d3dbdf;
+      background: #f9fcfd;
+      width: 305px;
+      margin-left: 15px;
+      > .userlogin {
+        width: 250px;
+        margin: {
+          left: auto;
+          right: auto;
+        }
+        > .login-title {
+          color: #0080B0;
+          text-align: left;
+          margin: 2em .3em;
+          font-size: 1.1em;
+
+        }
+        > form {
+          > .login-row {
+            color: #686C70;
+            margin: 1.5em 0;
+            font-size: 14px;
+            > .login-row-input {
+              margin-left: 1em;
+              height: 2.5em;
+              width: 179px;
+            }
+          }
+          > .login-submit {
+            width: 100px;
+            height: 30px;
+            color: #fff;
+            background: #0080B0;
+            border: none;
+            border-radius: 10px;
+          }
+        }
+        .horizon {
+          margin-top: 1em;
+          margin-bottom: .5em;
+          border-bottom: 1px solid #71a8ca;
+          width: 100%;
+        }
+        > .forgetPassword {
+          display: table;
+          text-decoration: none;
+          position: relative;
+          color: #71a8ca;
+          font-size: 12px;
+        }
+      }
+    }
+  }
+  .bottom {
+    margin-top: 1.9em;
+    margin-bottom: .5em;
+    padding-top: .95em;
+    border-top: 1px solid #CECECE;
+    width: 100%;
+    font-size: 12px;
+    line-height: 2.5em;
+    color: #6a6a6b;
+    p{
+      font-family: "microsoft yahei";
+    }
+    .address {
+      float: left;
+      text-align: left;
+    }
+    .copyright {
+      float: right;
+      text-align: right;
+    }
+  }
+}
