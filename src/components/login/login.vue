@@ -4,7 +4,7 @@
       <img src="../../common/image/logo.png">
     </div>
     <div class="loginbox">
-      <img src="../../common/image/jiaoxyybgimg.png">
+      <img src="../../common/image/jiaoxyybgimg.png" class="bgimg">
       <div class="userlogin-wrapper">
         <div class="userlogin">
           <div class="login-title">用户登录</div>
@@ -26,8 +26,8 @@
     </div>
     <div class="bottom">
       <div class="address">
-        <p>信息服务电话：66133370</p>
         <p>地址：上海市宝山区上大路99号 邮编：200444</p>
+        <p>信息服务电话：66133370</p>
       </div>
       <div class="copyright">
         <p>技术支持 上海大学信息化工作办公室</p>
@@ -41,7 +41,13 @@
 
 <script>
   export default {
-    name: "login"
+    name: "login",
+    data() {
+      return {
+        ran: [...Array(37).keys()],
+        reflect: []
+      }
+    }
   }
 </script>
 
