@@ -53,7 +53,6 @@ const router = new Router({
         },
         {
           path: 'manage',
-          // name: 'manage',
           component: Manage,
           children: [{
             path: '',
@@ -170,26 +169,40 @@ const router = new Router({
       meta: {
         title: '登录 - 上海大学公车预约系统'
       }
+    },
+    {
+      path: '/logintest',
+      name: 'logintest',
+      component: Admin,
+      meta: {
+        requiresAuth: true
+      }
     }
   ]
 })
 
 router.beforeEach((to, from, next) => {
   console.log(to)
+  //验证是否需要登录
   let token = window.localStorage.getItem('token')
+  if (!token && to.matched.some(record => record.meta.requiresAuth)) {
+    //token不存在且页面需要验证
+    next({
+      path: '/login',
+      query: {redirect: to.fullPath}
+    })
+    //next后函数不会返回，故手动加return
+    return
+  }
 
   //匹配并修改单个页面标题，若没有设置页面标题则设为父组件标题，若标题树为空，则置为defaultTitle
   const defaultTitle = "上海大学公车预约系统"
   let len = to.matched.length
-  if (to.meta.title) {
-    document.title = to.meta.title
+  for (var i = len - 1; i >= 0 && !to.matched[i].meta.title; i--) ;
+  if (i >= 0) {
+    document.title = to.matched[i].meta.title
   } else {
-    for (var i = len - 1; i >= 0 && !to.matched[i].meta.title; i--) ;
-    if (i >= 0) {
-      document.title = to.matched[i].meta.title
-    } else {
-      document.title = defaultTitle
-    }
+    document.title = defaultTitle
   }
   next()
 })

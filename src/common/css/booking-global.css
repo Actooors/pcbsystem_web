@@ -12,13 +12,13 @@
 .confirm-dialog .weui-mask{
   z-index: 5000;
 }
-@media screen and (max-width: 1024px) {
+@media screen and (max-width: 1023px) {
   .result-dialog .weui-dialog {
     max-width: none !important;
   }
 }
 
-@media screen and (min-width: 1025px) {
+@media screen and (min-width: 1024px) {
   .result-dialog .weui-dialog {
     max-width: 500px !important;
   }

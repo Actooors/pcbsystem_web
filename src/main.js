@@ -8,7 +8,7 @@ import LazyLoad from 'vue-lazyload'
 import 'element-ui/lib/theme-chalk/index.css'
 import 'common/css/base.css'
 import Fastclick from 'fastclick'
-
+import 'axios-http/interceptors'
 
 Vue.config.productionTip = false
 Vue.use(Element)

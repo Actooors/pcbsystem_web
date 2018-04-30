@@ -98,9 +98,9 @@ img{
 }
 
 
-@media screen and (max-width: 1024px){ /*手机端响应式布局*/
+@media screen and (max-width: 1023px){ /*手机端响应式布局*/
 
 }
-@media screen and (min-width: 1025px){ /*电脑端相应式布局*/
+@media screen and (min-width: 1024px){ /*电脑端相应式布局*/
 
 }

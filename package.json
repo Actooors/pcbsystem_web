@@ -10,6 +10,7 @@
     "build": "node build/build.js"
   },
   "dependencies": {
+    "axios": "^0.18.0",
     "better-scroll": "^1.9.1",
     "element-ui": "^2.3.3",
     "fastclick": "^1.0.6",

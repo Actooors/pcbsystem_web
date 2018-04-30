@@ -82,7 +82,7 @@
 </style>
 
 <style scoped>
-  @media screen and (min-width: 1025px) {
+  @media screen and (min-width: 1024px) {
     .applying-form-red {
       width: 40%;
     }

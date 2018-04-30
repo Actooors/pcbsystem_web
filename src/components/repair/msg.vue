@@ -96,7 +96,7 @@
 </script>
 
 <style scoped>
-  @media screen and (min-width: 1025px) {
+  @media screen and (min-width: 1024px) {
     .history-form-red {
       width: 40%;
     }
