@@ -100,7 +100,6 @@
 
 <style>
   .history-form-red {
-    width: 100%;
     margin: 20px auto;
   }
 
@@ -109,7 +108,6 @@
   }
 
   .history-form-green {
-    width: 100%;
     margin: 20px auto;
   }
 

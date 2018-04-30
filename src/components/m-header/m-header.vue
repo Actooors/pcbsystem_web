@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="MHeader-wrapper">
     <div class="MHeader">
       <slot></slot>
       <div class="text" v-text="title"></div>
@@ -24,7 +24,10 @@
   .MHeader {
     display: flex;
     background: #255085;
-    position: relative;
+    position: fixed;
+    width: 100%;
+    z-index: 10000;
+    top: 0;
     .text {
       position: relative;
       line-height: 44px;
@@ -40,23 +43,32 @@
   }
 
   @media screen and (max-width: 1023px) {
-    .MHeader {
-      height:44px;
-      .logo {
-        display: none;
-      }
-      .text {
-        font-size: 20px;
+    .MHeader-wrapper {
+      position: relative;
+      height: 44px;
+      width: 100%;
+      .MHeader {
+        height: 44px;
+        .logo {
+          display: none;
+        }
+        .text {
+          font-size: 20px;
+        }
       }
     }
-
   }
 
   @media screen and (min-width: 1024px) {
-    .MHeader {
+    .MHeader-wrapper {
+      position: relative;
       height: 80px;
-      .text {
-        font-size: 25px;
+      width: 100%;
+      .MHeader {
+        height: 80px;
+        .text {
+          font-size: 25px;
+        }
       }
     }
 

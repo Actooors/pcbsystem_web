@@ -9,6 +9,7 @@ import Driver from 'group/driver'
 import Requests from 'components/requests/requests'
 import Progressing from 'components/manage/progressing'
 import Applying from 'components/manage/applying'
+import AllInfo from 'components/manage/allinfo'
 import Form from 'components/repair/form'
 import Msg from 'components/repair/msg'
 import Repair from 'components/repair/repair'
@@ -70,6 +71,10 @@ const router = new Router({
             path: 'history',
             name: 'history',
             component: History
+          },{
+            path: 'allinfo',
+            name: 'allinfo',
+            component: AllInfo
           }]
         }
       ]

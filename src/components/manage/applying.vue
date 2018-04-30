@@ -69,7 +69,6 @@
 
 <style>
   .applying-form-green {
-    width: 100%;
     margin: 20px auto;
   }
 
