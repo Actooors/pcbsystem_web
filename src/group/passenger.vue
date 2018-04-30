@@ -16,7 +16,6 @@
   import Manage from "components/manage/manage"
   import History from "components/manage/history"
   import Applying from "components/manage/applying"
-  import Progressing from "components/manage/progressing"
   import {Tabbar, TabbarItem} from 'vux'
 
   export default {
@@ -28,7 +27,6 @@
       Manage,
       History,
       Applying,
-      Progressing,
       Tabbar,
       TabbarItem
     },

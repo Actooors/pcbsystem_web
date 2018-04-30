@@ -3,8 +3,8 @@
     <div>
       <form-preview header-label="预约状态" v-for="(item,index) of items" :header-value="item.state"
                     :body-items="item.list"
-                    :class="{'history-form-red':item.state==='失败',
-                  'history-form-green':item.state==='成功',
+                    :class="{'history-form-red':item.state==='申请失败',
+                  'history-form-green':item.state==='已经结束',
                   'progressing-form-yellow':item.state==='正在进行',
                   'applying-form-green':item.state==='正在申请',
                   }"
@@ -72,7 +72,7 @@
             ],
           },
           {
-            state: "成功",
+            state: "已经结束",
             list: [
               {
                 label: '申请人',
@@ -93,7 +93,7 @@
             ],
           },
           {
-            state: "失败",
+            state: "申请失败",
             list: [
               {
                 label: '申请人',

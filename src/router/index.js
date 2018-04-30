@@ -7,7 +7,6 @@ import Manage from 'components/manage/manage'
 import Passenger from 'group/passenger'
 import Driver from 'group/driver'
 import Requests from 'components/requests/requests'
-import Progressing from 'components/manage/progressing'
 import Applying from 'components/manage/applying'
 import AllInfo from 'components/manage/allinfo'
 import Form from 'components/repair/form'
@@ -57,11 +56,7 @@ const router = new Router({
           component: Manage,
           children: [{
             path: '',
-            redirect: {name: 'progressing'},
-          }, {
-            path: 'progressing',
-            name: 'progressing',
-            component: Progressing,
+            redirect: {name: 'allinfo'},
           }, {
             path: 'applying',
             name: 'applying',

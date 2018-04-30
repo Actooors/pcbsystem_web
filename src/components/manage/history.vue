@@ -2,7 +2,7 @@
   <div class="root">
     <div>
       <form-preview header-label="预约状态" v-for="(item,index) of items" :header-value="item.state" :body-items="item.list"
-                    :class="item.state==='失败'?'history-form-red':'history-form-green'"
+                    :class="item.state==='申请失败'?'history-form-red':'history-form-green'"
                     :key="item.value"></form-preview>
     </div>
 
@@ -36,7 +36,7 @@
         pageSize: 10,
         items: [
           {
-            state: "成功",
+            state: "已经结束",
             list: [
               {
                 label: '申请人',
@@ -57,7 +57,7 @@
             ]
           },
           {
-            state: "失败",
+            state: "申请失败",
             list: [
               {
                 label: '申请人',

@@ -3,9 +3,9 @@
     <router-view></router-view>
     <div class="tabbar">
       <tabbar>
-        <tabbar-item show-dot link="progressing">
-          <img slot="icon" src="../../common/image/icon_nav_msg.png">
-          <span slot="label">正在进行</span>
+        <tabbar-item show-dot link="allinfo">
+          <img slot="icon" src="../../common/image/allinfo.png">
+          <span slot="label">全部信息</span>
         </tabbar-item>
         <tabbar-item badge="2" link="applying">
           <img slot="icon" src="../../common/image/icon_nav_article.png">
@@ -14,10 +14,6 @@
         <tabbar-item badge="99+" link="history">
           <img slot="icon" src="../../common/image/icon_nav_cell.png">
           <span slot="label">预约历史</span>
-        </tabbar-item>
-        <tabbar-item show-dot link="allinfo">
-          <img slot="icon" src="../../common/image/allinfo.png">
-          <span slot="label">全部信息</span>
         </tabbar-item>
       </tabbar>
     </div>

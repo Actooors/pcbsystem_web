@@ -3,15 +3,15 @@
     <router-view></router-view>
     <div class="tabbar">
       <tabbar>
-        <tabbar-item show-dot link="begin">
+        <tabbar-item show-dot link="/driver/requests/begin">
           <img slot="icon" src="../../common/image/icon_nav_msg.png">
           <span slot="label">即将开始</span>
         </tabbar-item>
-        <tabbar-item badge="2" link="progress">
+        <tabbar-item badge="2" link="/driver/requests/progress">
           <img slot="icon" src="../../common/image/icon_nav_article.png">
           <span slot="label">正在进行</span>
         </tabbar-item>
-        <tabbar-item badge="99+" link="end">
+        <tabbar-item badge="99+" link="/driver/requests/end">
           <img slot="icon" src="../../common/image/icon_nav_cell.png">
           <span slot="label">已经结束</span>
         </tabbar-item>
