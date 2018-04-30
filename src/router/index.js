@@ -27,7 +27,6 @@ import 'element-ui/lib/theme-chalk/index.css'
 
 
 Vue.use(Router)
-const defaultTitle = "上海大学公车预约系统"
 const router = new Router({
   mode: 'history',
   routes: [
@@ -149,15 +148,15 @@ const router = new Router({
         children: [{
           path: '',
           redirect: {name: 'passenagers'}
-        },{
+        }, {
           path: 'passenagers',
           name: 'passenagers',
           component: Passengers
-        },{
+        }, {
           path: 'drivers',
           name: 'drivers',
           component: Drivers
-        },{
+        }, {
           path: 'cars',
           name: 'cars',
           component: Cars
@@ -168,15 +167,19 @@ const router = new Router({
       path: '/login',
       name: 'login',
       component: Login,
-      meta:{
-        title:'登录 - 上海大学公车预约系统'
+      meta: {
+        title: '登录 - 上海大学公车预约系统'
       }
     }
   ]
 })
 
 router.beforeEach((to, from, next) => {
-  // console.log(to)
+  console.log(to)
+  let token = window.localStorage.getItem('token')
+
+  //匹配并修改单个页面标题，若没有设置页面标题则设为父组件标题，若标题树为空，则置为defaultTitle
+  const defaultTitle = "上海大学公车预约系统"
   let len = to.matched.length
   if (to.meta.title) {
     document.title = to.meta.title
