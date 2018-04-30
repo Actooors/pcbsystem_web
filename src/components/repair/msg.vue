@@ -2,7 +2,7 @@
   <div>
     <form-preview header-label="审核结果" v-for="(item,index) of items" :header-value="item.state" :body-items="item.list"
                   :class="item.state==='失败'?'history-form-red':'history-form-green'"
-                  :footer-buttons="item.state==='失败'?buttons:null"
+                  :footer-buttons="item.state==='失败'?FailButtons:SuccessButtons"
                   :key="item.value"></form-preview>
   </div>
 </template>
@@ -65,10 +65,15 @@
             ]
           }
         ],
-        buttons: [{
+        FailButtons: [{
           style: 'default',
           text: '查看失败原因',
           onButtonClick: this.SeeReason
+        }],
+        SuccessButtons: [{
+          style: 'primary',
+          text: '点击恢复用车',
+          onButtonClick: this.RecoveryCar
         }]
       }
     },
@@ -78,6 +83,13 @@
           title: '失败原因',
           content: '李瑞轩太帅了！！'
         })
+      },
+      RecoveryCar() {
+        this.$vux.alert.show({
+          title: '恭喜！',
+          content: '现在开始可以继续用车了！'
+        })
+        this.SuccessButtons = null
       }
     }
   }

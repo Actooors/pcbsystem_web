@@ -25,19 +25,6 @@
                     :class="item.state==='失败'?'history-form-red':'history-form-green'"
                     :key="item.value"></form-preview>
     </div>
-
-    <div class="block" style="margin: 50px auto">
-      <el-pagination
-        @size-change="handleSizeChange"
-        @current-change="handleCurrentChange"
-        :current-page.sync="currentPage"
-        layout="prev, pager, next"
-        :page-size="pageSize"
-        :current-page="pageNo"
-        :total="parseInt(totalcars)">
-      </el-pagination>
-    </div>
-
   </div>
 </template>
 
