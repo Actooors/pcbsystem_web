@@ -26,7 +26,7 @@
     background: #255085;
     position: fixed;
     width: 100%;
-    z-index: 2000;
+    z-index: 1;
     top: 0;
     .text {
       position: relative;

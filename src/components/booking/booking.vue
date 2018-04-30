@@ -1,14 +1,7 @@
 <template>
   <div class="booking">
-    <div class="slider-wrapper" v-if="recommends.length">
-      <slider>
-        <div v-for="item in recommends">
-          <a :href="item.linkUrl">
-            <img class="needsclick" :src="item.picUrl">
-          </a>
-        </div>
-      </slider>
-    </div>
+    <swiper loop auto :aspect-ratio=.4 :show-desc-mask=false
+            :list="recommends" :index="swiperIndex" class="slider-wrapper needsclick" :interval=5000></swiper>
     <div class="information-wrapper">
       <div class="cells">
         <cell
@@ -107,30 +100,30 @@
   import store from 'store/store'
   import {mapState, mapMutations} from 'vuex'
   import Calendartime from 'components/calendar/calendartime'
-  import {Cell, PopupRadio, Popup, XDialog, XButton, Confirm} from 'vux'
+  import {Cell, PopupRadio, Popup, XDialog, XButton, Confirm,Swiper} from 'vux'
   import {parseDate, dateFormat} from "../../common/js/dateformat"
   import axios from 'axios'
 
   var recommends = [
     {
-      "linkUrl": "https://y.qq.com/m/act/classic/index.html?ADTAG=jiaodiantu",
-      "picUrl": "http://y.gtimg.cn/music/photo_new/T003R720x288M000003gXZ394C6bbc.jpg",
+      "url": "https://y.qq.com/m/act/classic/index.html?ADTAG=jiaodiantu",
+      "img": "http://y.gtimg.cn/music/photo_new/T003R720x288M000003gXZ394C6bbc.jpg",
       "id": 15017
     }, {
-      "linkUrl": "https://y.qq.com/m/act/trumpcard3/index.html?ADTAG=jiaodiantu",
-      "picUrl": "http://y.gtimg.cn/music/photo_new/T003R720x288M000002S3pTc18lhON.jpg",
+      "url": "https://y.qq.com/m/act/trumpcard3/index.html?ADTAG=jiaodiantu",
+      "img": "http://y.gtimg.cn/music/photo_new/T003R720x288M000002S3pTc18lhON.jpg",
       "id": 15039
     }, {
-      "linkUrl": "https://y.qq.com/m/act/sfhd/127.html?ADTAG=jdt",
-      "picUrl": "http://y.gtimg.cn/music/photo_new/T003R720x288M000003KDGoY4ZLWXR.jpg",
+      "url": "https://y.qq.com/m/act/sfhd/127.html?ADTAG=jdt",
+      "img": "http://y.gtimg.cn/music/photo_new/T003R720x288M000003KDGoY4ZLWXR.jpg",
       "id": 15014
     }, {
-      "linkUrl": "http://y.qq.com/w/album.html?albummid=0012os0a3bZBGC",
-      "picUrl": "http://y.gtimg.cn/music/photo_new/T003R720x288M000002htFUh4X3Vbb.jpg",
+      "url": "http://y.qq.com/w/album.html?albummid=0012os0a3bZBGC",
+      "img": "http://y.gtimg.cn/music/photo_new/T003R720x288M000002htFUh4X3Vbb.jpg",
       "id": 15044
     }, {
-      "linkUrl": "http://y.qq.com/w/album.html?albummid=000WkLHX0mikpL",
-      "picUrl": "http://y.gtimg.cn/music/photo_new/T003R720x288M000000ZPAFz0OtHMY.jpg",
+      "url": "http://y.qq.com/w/album.html?albummid=000WkLHX0mikpL",
+      "img": "http://y.gtimg.cn/music/photo_new/T003R720x288M000000ZPAFz0OtHMY.jpg",
       "id": 15046
     }
   ]
@@ -146,7 +139,8 @@
       PopupRadio,
       XDialog,
       XButton,
-      Confirm
+      Confirm,
+      Swiper
     },
     data() {
       return {
@@ -162,7 +156,8 @@
         showResults: false,
         resultItems: [],
         showConfirm: false,
-        thisItem: {}
+        thisItem: {},
+        swiperIndex: 0
       }
     },
     computed: {
