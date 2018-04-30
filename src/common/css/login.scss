@@ -10,7 +10,7 @@
     .userlogin-wrapper {
       border: solid 1px #d3dbdf;
       background: #f9fcfd;
-      .userlogin{
+      .userlogin {
         margin: {
           left: auto;
           right: auto;
@@ -22,39 +22,37 @@
           margin: 2em .3em;
           font-size: 1.1em;
         }
-        form {
-          .login-row {
-            color: #686C70;
-            margin: 1.5em 0;
-            font-size: 14px;
-            .login-row-input {
-              margin-left: 1em;
-              height: 2.5em;
-              width: 179px;
-            }
-          }
-          .login-submit {
-            width: 100px;
-            height: 30px;
-            color: #fff;
-            background: #0080B0;
-            border: none;
-            border-radius: 10px;
+        .login-row {
+          color: #686C70;
+          margin: 1.5em 0;
+          font-size: 14px;
+          .login-row-input {
+            margin-left: 1em;
+            height: 2.5em;
+            width: 179px;
           }
         }
-        .horizon {
-          margin-top: 1em;
-          margin-bottom: .5em;
-          border-bottom: 1px solid #71a8ca;
-          width: 100%;
+        .login-submit {
+          width: 100px;
+          height: 30px;
+          color: #fff;
+          background: #0080B0;
+          border: none;
+          border-radius: 10px;
         }
-        .forgetPassword {
-          display: table;
-          text-decoration: none;
-          position: relative;
-          color: #71a8ca;
-          font-size: 12px;
-        }
+      }
+      .horizon {
+        margin-top: 1em;
+        margin-bottom: .5em;
+        border-bottom: 1px solid #71a8ca;
+        width: 100%;
+      }
+      .forgetPassword {
+        display: table;
+        text-decoration: none;
+        position: relative;
+        color: #71a8ca;
+        font-size: 12px;
       }
     }
   }
@@ -92,7 +90,7 @@
 
       }
     }
-    .bottom{
+    .bottom {
       margin-top: 4.2em;
       padding-top: 2em;
     }
@@ -112,7 +110,7 @@
       }
     }
   }
-  .bottom{
+  .bottom {
     margin-top: 1.95em;
     padding-top: 1em;
     .address {

@@ -10,6 +10,8 @@ import 'common/css/base.css'
 import Fastclick from 'fastclick'
 import 'axios-http/interceptors'
 
+if (process.env.NODE_ENV === 'development')
+  console.log("当前环境为:", process.env.NODE_ENV)
 Vue.config.productionTip = false
 Vue.use(Element)
 Vue.use(LazyLoad, {

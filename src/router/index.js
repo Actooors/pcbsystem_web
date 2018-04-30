@@ -24,7 +24,7 @@ import Passengers from 'components/usermanagement/passengers'
 import Drivers from 'components/usermanagement/drivers'
 import Cars from 'components/usermanagement/cars'
 import 'element-ui/lib/theme-chalk/index.css'
-
+import ErrorPage404 from 'components/errorpage/errorpage404'
 
 Vue.use(Router)
 const router = new Router({
@@ -37,6 +37,7 @@ const router = new Router({
     }, {
       path: '/passenger',
       component: Passenger,
+      meta: {requiresAuth: ['passenger']},
       children: [{
         path: '',
         redirect: {name: 'booking'}
@@ -80,7 +81,7 @@ const router = new Router({
     {
       path: '/driver',
       component: Driver,
-      meta: {title: '公车预约系统司机端'},
+      meta: {title: '公车预约系统司机端', requiresAuth: ['driver']},
       children: [{
         path: '',
         redirect: {name: 'requests'}
@@ -132,7 +133,10 @@ const router = new Router({
     {
       path: '/admin',
       component: Admin,
-      meta: {title: '公车预约系统管理端'},
+      meta: {
+        title: '公车预约系统管理端',
+        requiresAuth: ['admin']
+      },
       children: [{
         path: '',
         redirect: {name: 'messagecenter'}
@@ -174,25 +178,47 @@ const router = new Router({
       path: '/logintest',
       name: 'logintest',
       component: Admin,
-      meta: {
-        requiresAuth: true
-      }
+      meta: {}
+    },
+    {
+      path: '*',
+      component: ErrorPage404,
+      meta: {title: '404 not found'}
     }
   ]
 })
 
 router.beforeEach((to, from, next) => {
-  console.log(to)
-  //验证是否需要登录
-  let token = window.localStorage.getItem('token')
-  if (!token && to.matched.some(record => record.meta.requiresAuth)) {
-    //token不存在且页面需要验证
-    next({
-      path: '/login',
-      query: {redirect: to.fullPath}
-    })
-    //next后函数不会返回，故手动加return
-    return
+  // console.log(to)
+  let bypassAuthWhileDev = true
+  if (bypassAuthWhileDev && process.env.NODE_ENV !== 'development') {
+    //验证是否需要登录
+    let token = window.localStorage.getItem('token')
+    let userIdentity = localStorage.getItem('userIdentity')
+    let needAuth = to.matched.some(record => record.meta.hasOwnProperty('requiresAuth') && record.meta.requiresAuth)
+    console.log(token, userIdentity, needAuth)
+    //如果token不存在、页面需要验证
+    if (!token && needAuth) {
+      next({
+        path: '/login',
+        query: {redirect: to.fullPath}
+      })
+      //next后函数不会返回，故手动加return
+      return
+    } else if (token && needAuth) {
+      //有token，页面需要验证
+      let authSuccess = to.matched.some(record => {
+        if (record.meta.requiresAuth != null) {
+          return record.meta.requiresAuth.some(record => record === userIdentity)
+        }
+        return false
+      })
+      if (!authSuccess) {
+        //当前身份无权访问该页面
+        next(false)
+        return
+      }
+    }
   }
 
   //匹配并修改单个页面标题，若没有设置页面标题则设为父组件标题，若标题树为空，则置为defaultTitle
