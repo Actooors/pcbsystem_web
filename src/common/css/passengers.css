@@ -1,0 +1,40 @@
+
+.applying-form-green {
+  width: 100%;
+  margin: 20px auto;
+  box-shadow: 1px 0px 1px #484848;
+}
+
+.progressing-form-yellow {
+  width: 100%;
+  margin: 20px auto;
+  box-shadow: 1px 0px 1px #484848;
+}
+
+.history-form-red {
+  width: 100%;
+  margin: 20px auto;
+  box-shadow: 1px 0px 1px #484848;
+}
+
+.history-form-green {
+  width: 100%;
+  margin: 20px auto;
+  box-shadow: 1px 0px 1px #484848;
+}
+
+.applying-form-green .weui-form-preview__hd .weui-form-preview__value {
+  color: green;
+}
+
+.progressing-form-yellow .weui-form-preview__hd .weui-form-preview__value {
+  color: #d4bb00;
+}
+
+.history-form-red .weui-form-preview__hd .weui-form-preview__value {
+  color: red;
+}
+
+.history-form-green .weui-form-preview__hd .weui-form-preview__value {
+  color: green;
+}

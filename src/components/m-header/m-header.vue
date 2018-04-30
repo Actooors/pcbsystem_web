@@ -1,8 +1,10 @@
 <template>
-  <div class="m-header">
-    <!--<button class="icon iconfont icon-category" @click="showSideBar"></button>-->
-    <slot></slot>
-    <div class="text" v-text="title"></div>
+  <div class="MHeader-wrapper">
+    <div class="MHeader">
+      <slot></slot>
+      <div class="text" v-text="title"></div>
+      <img src="../../common/image/logo2.png" class="logo">
+    </div>
   </div>
 </template>
 
@@ -12,34 +14,63 @@
     props: {
       title: {
         type: String,
-        default: '公车预约系统'
+        default: '上海大学公车预约系统'
       }
     }
   }
 </script>
 
-<style scoped>
-  .m-header {
-    position: relative;
-    height: 44px;
+<style lang="scss" scoped>
+  .MHeader {
+    display: flex;
+    background: #255085;
+    position: fixed;
     width: 100%;
-    border-bottom: 1px solid #DCDFE6;
-    color: #fff;
-    font-size: 0;
-    background-color: #409EFF;
+    z-index: 1;
+    top: 0;
+    .text {
+      position: relative;
+      line-height: 44px;
+      margin: auto auto;
+      color: #fff;
+    }
+    .logo {
+      position: absolute;
+      right: 100px;
+      height: 70px;
+      top: 5px;
+    }
   }
 
-  .text {
-    position: relative;
-    display: inline-flex;
-    vertical-align: top;
-    line-height: 44px;
-    font-size: 20px;
-    left: -15px;
+  @media screen and (max-width: 1023px) {
+    .MHeader-wrapper {
+      position: relative;
+      height: 44px;
+      width: 100%;
+      .MHeader {
+        height: 44px;
+        .logo {
+          display: none;
+        }
+        .text {
+          font-size: 20px;
+        }
+      }
+    }
   }
 
-  .logout {
-    position: relative;
+  @media screen and (min-width: 1024px) {
+    .MHeader-wrapper {
+      position: relative;
+      height: 80px;
+      width: 100%;
+      .MHeader {
+        height: 80px;
+        .text {
+          font-size: 25px;
+        }
+      }
+    }
 
   }
 </style>

@@ -33,7 +33,8 @@ const webpackConfig = {
       'components': resolve('src/components'),
       'router': resolve('src/router'),
       'store': resolve('src/store'),
-      'group': resolve('src/group')
+      'group': resolve('src/group'),
+      'axios-http': resolve('src/axios-http')
     }
   },
   module: {

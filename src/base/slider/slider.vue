@@ -71,7 +71,7 @@
         let nowClass = dom.getAttribute('class')
         if (nowClass === null)
           dom.setAttribute('class', classValue)
-        else if (nowClass.indexOf(classValue) == -1)
+        else if (nowClass.indexOf(classValue) === -1)
           dom.setAttribute('class', nowClass + ' ' + classValue)
       },
       _setSliderWidth(isResize) {

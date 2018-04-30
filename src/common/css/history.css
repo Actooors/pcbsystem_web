@@ -25,11 +25,11 @@
   margin-top: 30px;
   width: 300px;
 }
-@media screen and (min-width: 1025px) {
-  .requests-form-red{
+@media screen and (min-width: 1024px) {
+  .history-form-red{
     width:40%;
   }
-  .requests-form-green{
+  .history-form-green{
     width:40%;
   }
 }

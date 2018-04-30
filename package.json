@@ -10,13 +10,14 @@
     "build": "node build/build.js"
   },
   "dependencies": {
+    "axios": "^0.18.0",
     "better-scroll": "^1.9.1",
     "element-ui": "^2.3.3",
     "fastclick": "^1.0.6",
     "vue": "^2.5.2",
     "vue-router": "^3.0.1",
     "vuex": "^3.0.1",
-    "vux": "^2.8.1"
+    "vux": "^2.9.0"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.2",

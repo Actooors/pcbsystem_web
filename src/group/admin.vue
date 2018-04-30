@@ -1,10 +1,10 @@
 <template>
   <div class="root-wrapper">
     <m-header title="公车预约系统管理端">
-      <span @click="showSideBar" class="btn-sidebar"><i class="icon iconfont icon-category" v-if="media===0"></i></span>
+      <i @click="showSideBar" class="el-icon-caret-right sidebarIcon">Menu</i>
     </m-header>
-    <side-bar :value=true :items="sidebarItems" :overlay=false v-if="media===1"></side-bar>
-    <side-bar v-model="ifShowSideBar" :items="sidebarItems" v-else></side-bar>
+    <side-bar :value=true :items="sidebarItems" :overlay=false id="sidebarDesk"></side-bar>
+    <side-bar v-model="ifShowSideBar" :items="sidebarItems" id="sidebarMobile"></side-bar>
     <router-view></router-view>
   </div>
 </template>
@@ -21,7 +21,6 @@
     },
     data() {
       return {
-        media: 0,
         ifShowSideBar: false,
         sidebarItems: [{
           index: '/admin/message',
@@ -40,30 +39,31 @@
       showSideBar() {
         this.ifShowSideBar = !this.ifShowSideBar
       }
-    },
-    created(){
-      this.media = document.body.clientWidth >= 1024 ? 1 : 0
-    },
-    mounted() {
-      var timer = null
-      window.onresize = () => {
-        clearTimeout(timer)
-        timer = setTimeout(() => {
-          this.media = document.body.clientWidth >= 1024 ? 1 : 0
-          // console.log(this.media)
-        }, 200)
-      }
     }
   }
 </script>
 
-<style lang="scss" scoped>
-  .btn-sidebar {
-    position: relative;
-    float: left;
-    margin-left: 10px;
-    top: 50%;
-    transform: translateY(-50%);
-    padding: 10px 10px 10px 10px;
+<style lang="scss">
+  .sidebarIcon {
+    cursor: pointer;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    display: table;
+    margin: auto 2px;
+    color: white;
+    font-size: 1em;
+  }
+
+  @media screen and (min-width: 1024px) {
+    .sidebarIcon, #sidebarMobile {
+      display: none;
+    }
+  }
+
+  @media screen and (max-width: 1023px) {
+    #sidebarDesk {
+      display: none;
+    }
   }
 </style>
