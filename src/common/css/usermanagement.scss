@@ -27,33 +27,6 @@
       overflow: hidden;
     }
   }
-  .floatButton {
-    position: fixed;
-    right: 5em;
-    bottom: 3em;
-    border: 1px solid $--color-primary;
-    border-radius: 50%;
-    background: $--color-primary;
-    height: 3em;
-    width: 3em;
-    overflow: hidden;
-    display: table;
-    > button {
-      height: 100%;
-      width: 100%;
-      border: none;
-      background: $--color-primary;
-      color: #fff;
-      font-size: 1.8em;
-      &:focus {
-        outline: none;
-      }
-      &:hover{
-        background: $--color-primary-light-1;
-        cursor: copy;
-      }
-    }
-  }
 }
 
 @media screen and (min-width: 1024px) {

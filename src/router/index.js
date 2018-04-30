@@ -84,7 +84,7 @@ const router = new Router({
       },
         {
           path: 'requests',
-          // name: 'requests',
+          name: 'requests',
           component: Requests,
           children: [{
             path: '',

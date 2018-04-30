@@ -14,7 +14,7 @@
     props: {
       title: {
         type: String,
-        default: '公车预约系统'
+        default: '上海大学公车预约系统'
       }
     }
   }

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <m-header title="公车预约系统">
+    <m-header title="上海大学公车预约系统">
       <i @click="showSideBar" class="el-icon-caret-right sidebarIcon">Menu</i>
     </m-header>
     <side-bar :value=true :items="sidebarItems" :overlay=false id="sidebarDesk"></side-bar>

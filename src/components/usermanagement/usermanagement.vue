@@ -6,7 +6,8 @@
                    :item-map="itemMap['passenger']"
                    :color-map="colorMap"
                    button-title="记录查询" @on-button-click="handleOnLogButtonClick"
-                   button-title2="操作" @on-button-click2="handleOnOperationButtonClickPassenger">>
+                   button-title2="操作" @on-button-click2="handleOnOperationButtonClickPassenger"
+                   :plusButton=true @on-plus-button-click="handleOnPlusButtonClick(0)">
         </info-view>
       </el-tab-pane>
       <el-tab-pane label="司机用户">
@@ -14,14 +15,16 @@
                    :item-map="itemMap['driver']"
                    :color-map="colorMap"
                    button-title="记录查询" @on-button-click="handleOnLogButtonClick"
-                   button-title2="操作" @on-button-click2="handleOnOperationButtonClickDriver"></info-view>
+                   button-title2="操作" @on-button-click2="handleOnOperationButtonClickDriver"
+                   :plusButton=true @on-plus-button-click="handleOnPlusButtonClick(1)"></info-view>
       </el-tab-pane>
       <el-tab-pane label="公车">
         <info-view :items="items['car']"
                    :item-map="itemMap['car']"
                    :color-map="colorMap"
                    button-title="记录查询" @on-button-click="handleOnLogButtonClick"
-                   button-title2="操作" @on-button-click2="handleOnOperationButtonClickCar"></info-view>
+                   button-title2="操作" @on-button-click2="handleOnOperationButtonClickCar"
+                   :plusButton=true @on-plus-button-click="handleOnPlusButtonClick(2)"></info-view>
       </el-tab-pane>
     </el-tabs>
     <div class="logs-dialog-wrapper" v-if="showLogs">
@@ -38,28 +41,18 @@
       <actionsheet
         v-model="showOperationMenu['passenger']"
         :menus="operationMenu['passenger']"
-        theme="android">      <!--@on-click-menu="click"-->
-        <!--@on-after-hide="log('after hide')"-->
-        <!--@on-after-show="log('after show')"-->
+        theme="android">
       </actionsheet>
       <actionsheet
         v-model="showOperationMenu['driver']"
         :menus="operationMenu['driver']"
-        theme="android">      <!--@on-click-menu="click"-->
-        <!--@on-after-hide="log('after hide')"-->
-        <!--@on-after-show="log('after show')"-->
+        theme="android">
       </actionsheet>
       <actionsheet
         v-model="showOperationMenu['car']"
         :menus="operationMenu['car']"
-        theme="android">      <!--@on-click-menu="click"-->
-        <!--@on-after-hide="log('after hide')"-->
-        <!--@on-after-show="log('after show')"-->
+        theme="android">
       </actionsheet>
-
-    </div>
-    <div class="floatButton">
-      <button @click="handleOnPlusButtonClick" class="el-icon-plus"></button>
     </div>
 
   </div>
@@ -215,15 +208,13 @@
       handleOnOperationButtonClickCar(index) {
         this.handleOnOperationButtonClickDriver(index, 'car')
       },
-      handleOnPlusButtonClick() {
-
-      },
       handleOnTabClick(now) {
         console.log(now)
         var map = ['passenagers', 'drivers', 'cars']
-
         this.$router.push({name: map[now.index]})
-
+      },
+      handleOnPlusButtonClick(index) {
+        console.log('aa' + index)
       }
     }
   }

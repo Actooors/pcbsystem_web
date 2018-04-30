@@ -46,6 +46,11 @@
         :total="parseInt(totalcars)">
       </el-pagination>
     </div>
+
+    <div class="floatButton" v-if="plusButton">
+      <button @click="$emit('on-plus-button-click')" class="el-icon-plus"></button>
+    </div>
+
   </div>
 </template>
 
@@ -85,6 +90,12 @@
       onButtonClick2: {
         type: Function
       },
+      plusButton: {
+        type: Boolean
+      },
+      onPlusButtonClick: {
+        type: Function
+      }
     },
     data() {
       return {
