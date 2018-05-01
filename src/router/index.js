@@ -39,6 +39,7 @@ const router = new Router({
       meta: {requiresAuth: ['passenger']},
       children: [{
         path: '',
+        name: 'passenger',//passenger首页
         redirect: {name: 'booking'}
       },
         {
@@ -65,7 +66,7 @@ const router = new Router({
             path: 'history',
             name: 'history',
             component: History
-          },{
+          }, {
             path: 'allinfo',
             name: 'allinfo',
             component: AllInfo
@@ -79,6 +80,7 @@ const router = new Router({
       meta: {title: '公车预约系统司机端', requiresAuth: ['driver']},
       children: [{
         path: '',
+        name: 'driver',//driver首页
         redirect: {name: 'requests'}
       },
         {
@@ -134,6 +136,7 @@ const router = new Router({
       },
       children: [{
         path: '',
+        name: 'admin',//admin首页
         redirect: {name: 'messagecenter'}
       }, {
         path: 'message',
@@ -185,32 +188,36 @@ const router = new Router({
 
 router.beforeEach((to, from, next) => {
   // console.log(to)
-  let bypassAuthWhileDev = true
-  if (bypassAuthWhileDev && process.env.NODE_ENV !== 'development') {
+  let bypassAuthWhileDev = false
+  if (!(bypassAuthWhileDev && process.env.NODE_ENV === 'development')) {
     //验证是否需要登录
     let token = window.localStorage.getItem('token')
     let userIdentity = localStorage.getItem('userIdentity')
-    let needAuth = to.matched.some(record => record.meta.hasOwnProperty('requiresAuth') && record.meta.requiresAuth)
-    console.log(token, userIdentity, needAuth)
+    var requiresAuth = undefined
+    let needAuth = to.matched.some(record => {
+      if (record.meta.hasOwnProperty('requiresAuth') && record.meta.requiresAuth) {
+        requiresAuth = record.meta.requiresAuth
+        return true
+      }
+    })
+
+    if (process.env.NODE_ENV === 'development') {
+      console.log('token:' , token, '\n', '\n',
+        'userIdentity:' , userIdentity, '\n', '\n',
+        'requiresAuth:' , requiresAuth)
+    }
     //如果token不存在、页面需要验证
     if (!token && needAuth) {
       next({
         path: '/login',
         query: {redirect: to.fullPath}
       })
-      //next后函数不会返回，故手动加return
       return
     } else if (token && needAuth) {
-      //有token，页面需要验证
-      let authSuccess = to.matched.some(record => {
-        if (record.meta.requiresAuth != null) {
-          return record.meta.requiresAuth.some(record => record === userIdentity)
-        }
-        return false
-      })
-      if (!authSuccess) {
-        //当前身份无权访问该页面
-        next(false)
+      //有token，需要验证
+      if (!requiresAuth.some(records => userIdentity === records)) {
+        //当前身份无权访问该页面，回到该身份该去的地方
+        next({name: userIdentity})
         return
       }
     }

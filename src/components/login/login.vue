@@ -70,12 +70,15 @@
                 this.loginfault = true
               else {
                 //登录成功，将token添加到localStorage
-                let userIdentity = enumMap[res.data.userIdentity]
+                let userIdentity = enumMap[res.data.data.userIdentity]
+                console.log(userIdentity)
                 localStorage.setItem('userIdentity', userIdentity)
-                let redirect = location.params.redirect
+                localStorage.setItem('token', res.data.data.token)
+                let redirect = this.$route.query.redirect
+                console.log(redirect)
                 //是否有重定向参数
-                if (redirect)
-                  this.$router.push(redirect)
+                if (redirect != null)
+                  this.$router.push({path: redirect})
                 else
                   this.$router.push({name: userIdentity})
               }
