@@ -74,11 +74,9 @@
                 console.log(userIdentity)
                 localStorage.setItem('userIdentity', userIdentity)
                 localStorage.setItem('token', res.data.data.token)
-                let redirect = this.$route.query.redirect
-                console.log(redirect)
                 //是否有重定向参数
-                if (redirect != null)
-                  this.$router.push({path: redirect})
+                if (this.$route.query.hasOwnProperty('redirect'))
+                  this.$router.push({path: this.$route.query.redirect})
                 else
                   this.$router.push({name: userIdentity})
               }

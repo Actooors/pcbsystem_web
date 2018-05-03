@@ -18,8 +18,9 @@
         if (token) {
           let userIdentity = localStorage.getItem('userIdentity')
           this.$router.push({name: userIdentity})
+        }else{
+          this.$router.push({name: 'login'})
         }
-        this.$router.push({name: 'login'})
       }
     }
   }

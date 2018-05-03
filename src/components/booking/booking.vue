@@ -26,7 +26,7 @@
         <!--:postpone=5></calendartime>-->
 
       </div>
-      <el-button type="warning" class="btn-search" @click="search">搜索</el-button>
+      <el-button type="warning" class="btn-search" @click="handleOnClickSearch">搜索</el-button>
     </div>
 
     <div class="result-dialog-wrapper" v-if="showResults">
@@ -179,7 +179,7 @@
     },
     methods: {
       ...mapMutations(['InitDate']),
-      search() {
+      handleOnClickSearch() {
         if (!this.calendarValueStart || !this.calendarValueEnd) {
           this.$notify.info({title: '请先选择预约起止时间！'})
           return

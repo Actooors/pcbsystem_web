@@ -13,7 +13,7 @@
             <div class="userid" v-text="uId"></div>
           </div>
           <div class="logout">
-            <el-button size="mini" type="primary" plain>注销</el-button>
+            <el-button size="mini" type="primary" plain @click.native="handleOnClickLogout">注销</el-button>
           </div>
         </div>
         <div class="menu">
@@ -66,6 +66,11 @@
       showSideBar() {
         this.$emit('input', !this.value)
       },
+      handleOnClickLogout() {
+        localStorage.removeItem('token')
+        localStorage.removeItem('userIdentity')
+        this.$router.push({name: 'login'})
+      }
     },
     mounted() {
       //index为前2级
