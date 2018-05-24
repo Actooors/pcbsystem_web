@@ -22,6 +22,8 @@ import Login from 'components/login/login'
 import Passengers from 'components/usermanagement/passengers'
 import Drivers from 'components/usermanagement/drivers'
 import Cars from 'components/usermanagement/cars'
+import ReservationRequest from 'components/messagecenter/ReservationRequest'
+import RepairRequest from 'components/messagecenter/RepairRequest'
 import 'element-ui/lib/theme-chalk/index.css'
 import ErrorPage404 from 'components/errorpage/errorpage404'
 
@@ -137,11 +139,23 @@ const router = new Router({
       children: [{
         path: '',
         name: 'admin',//admin首页
-        redirect: {name: 'messagecenter'}
+        redirect: {name: 'ReservationRequest'}
       }, {
         path: 'message',
         name: 'messagecenter',
-        component: MessageCenter
+        component: MessageCenter,
+        children: [{
+          path: '',
+          redirect: {name: "ReservationRequest"}
+        },{
+          path: 'ReservationRequest',
+          name: 'ReservationRequest',
+          component: ReservationRequest
+        },{
+          path: 'RepairRequest',
+          name: 'RepairRequest',
+          component: RepairRequest
+        }]
       }, {
         path: 'usermanagement',
         name: 'usermanagement',

@@ -179,6 +179,6 @@
   }
 </script>
 
-<style>
-  @import url('../../common/css/passengers.css');
+<style scope>
+  @import url('../../common/css/UserManagement.css');
 </style>

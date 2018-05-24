@@ -184,5 +184,5 @@
 </script>
 
 <style scope>
-
+  @import url('../../common/css/UserManagement.css');
 </style>
