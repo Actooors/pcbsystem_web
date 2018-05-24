@@ -1,10 +1,14 @@
 <template>
-  <div></div>
+  <div>
+
+  </div>
 </template>
 
 <script>
+  import {Tab, TabItem, FormPreview} from 'vux'
   export default {
-    name: "messagecenter"
+    name: "messagecenter",
+
   }
 </script>
 

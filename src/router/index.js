@@ -81,7 +81,7 @@ const router = new Router({
       children: [{
         path: '',
         name: 'driver',//driver首页
-        redirect: {name: 'requests'}
+        redirect: {name: 'begin'}
       },
         {
           path: 'requests',
@@ -188,7 +188,7 @@ const router = new Router({
 
 router.beforeEach((to, from, next) => {
   // console.log(to)
-  let bypassAuthWhileDev = false
+  let bypassAuthWhileDev = true
   if (!(bypassAuthWhileDev && process.env.NODE_ENV === 'development')) {
     //验证是否需要登录
     let token = window.localStorage.getItem('token')
