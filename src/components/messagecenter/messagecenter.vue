@@ -5,8 +5,7 @@
         <info-view :items="items['car']"
                    :item-map="itemMap['car']"
                    :color-map="colorMap"
-                   button-title="记录查询" @on-button-click="handleOnLogButtonClick"
-                   button-title2="操作" @on-button-click2="handleOnOperationButtonClickPassenger"
+                   button-title="查看详细信息" @on-button-click="handleOnLogButtonClick"
                    :plusButton=true @on-plus-button-click="handleOnPlusButtonClick(0)">
         </info-view>
       </el-tab-pane>
@@ -14,8 +13,7 @@
         <info-view :items="items['car']"
                    :item-map="itemMap['car']"
                    :color-map="colorMap"
-                   button-title="记录查询" @on-button-click="handleOnLogButtonClick"
-                   button-title2="操作" @on-button-click2="handleOnOperationButtonClickDriver"
+                   button-title="查看详细信息" @on-button-click="handleOnLogButtonClick"
                    :plusButton=true @on-plus-button-click="handleOnPlusButtonClick(1)"></info-view>
       </el-tab-pane>
     </el-tabs>
@@ -202,7 +200,7 @@
       },
       handleOnTabClick(now) {
         console.log(now)
-        var map = ['RepairRequest','ReservationRequest']
+        var map = ['ReservationRequest','RepairRequest']
         this.$router.push({name: map[now.index]})
       },
       handleOnPlusButtonClick(index) {
@@ -233,5 +231,4 @@
       max-width: none;
     }
   }
-
 </style>

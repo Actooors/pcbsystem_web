@@ -75,7 +75,7 @@
   }
 </script>
 
-<style scope>
+<style scoped>
   .requests-form-red {
     width: 100%;
     margin: 20px auto;

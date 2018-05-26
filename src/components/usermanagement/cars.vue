@@ -225,6 +225,6 @@
   }
 </script>
 
-<style scope>
+<style scoped>
   @import url('../../common/css/UserManagement.css');
 </style>

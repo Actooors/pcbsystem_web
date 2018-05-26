@@ -215,7 +215,7 @@
   }
 </style>
 
-<style scope>
+<style scoped>
   @media screen and (min-width: 1025px) {
     .progressing-form-yellow {
       width: 40%;
