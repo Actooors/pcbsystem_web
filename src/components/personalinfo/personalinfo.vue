@@ -5,81 +5,91 @@
     <div id="userImg">
       <div class="UserImg info-flex">
         <div class="userimg">头 像：</div>
-          <div class="avatar">
-            <div class="img">
-              <img v-lazy="photoURL">
-            </div>
+        <div class="avatar">
+          <div class="img">
+            <img v-lazy="photoURL">
           </div>
+        </div>
       </div>
     </div>
     <br>
     <div id="userId">
       <div class="UserId info-flex">
         <div class="userid">用户 ID：</div>
-          <div class="id">{{id}}</div>
+        <div class="id">{{id}}</div>
       </div>
     </div>
     <br>
     <div id="userName">
       <div class="UserName info-flex">
         <div class="username">姓 名：</div>
-          <div class="name">{{name}}</div>
+        <div class="name">{{name}}</div>
       </div>
     </div>
     <br>
     <div id="userPhone">
       <div class="UserPhone info-flex">
         <div class="userphone">联系方式：</div>
-          <div class="phone">
-            <el-input
-              type="text"
-              name="text1"
-              placeholder="请输入联系电话"
-              v-model="phoneNum"
-              clearable
-              maxlength="11"
-            >
-            </el-input>
-          </div>
+        <div class="phone">
+          <group>
+            <x-input name="mobile" placeholder="请输入手机号码" keyboard="number" is-type="china-mobile"></x-input>
+          </group>
+          <br></br>
+          <group style="width: 120px">
+            <x-button mini type="primary" @click.native="VerifyCellPhoneNumber()">验证手机号码</x-button>
+          </group>
+          <confirm v-model="show"
+            show-input
+            ref="confirm5"
+            title='我们给您的手机发送了一条验证码，请在下框内输入验证码'
+            @on-confirm="onConfirm5"
+            @on-show="onShow5">
+          </confirm>
+        </div>
       </div>
-    </div>
-    <br>
-    <br>
-    <div class="submit">
-      <el-button type="success" @click="open">保存</el-button>
     </div>
   </div>
 </template>
 
 <script>
   import axios from 'axios'
+  import {XInput, Group, XButton, Confirm} from 'vux'
 
   export default {
     name: "passengerinfo",
+    components: {
+      XInput,
+      Group,
+      XButton,
+      Confirm
+    },
     data() {
-      return{
-          id: localStorage.getItem('userId'),
-          name: localStorage.getItem('userName'),
-          phoneNum:''
+      return {
+        show: false,
+        id: localStorage.getItem('userId'),
+        name: localStorage.getItem('userName'),
+        phoneNum: ''
       }
     },
     computed: {
-      photoURL(){
-        if (localStorage.getItem('userImg') === null){
+      photoURL() {
+        if (localStorage.getItem('userImg') === null) {
           return 'http://services.shu.edu.cn/User/showPhoto.aspx'
-        }else{
+        } else {
           return localStorage.getItem('userImg')
         }
       }
     },
     methods: {
-      open() {
-        this.$notify({
-          title: '保存成功',
-          message: '',
-          type: 'success',
-        });
-
+      VerifyCellPhoneNumber() {
+        console.log("验证手机号");
+        this.show = true;
+      },
+      onShow5() {
+        this.$refs.confirm5.setInputValue('')
+      },
+      onConfirm5(value) {
+        console.log("点击确定")
       },
       handleClick(tab, event) {
         // console.log(tab, event);
@@ -91,64 +101,51 @@
         this.dialogImageUrl = file.url;
         this.dialogVisible = true;
       },
-      initPersonalInfo(){
+      initPersonalInfo() {
         axios({
-          url:'http://localhost:8081/api/user/phoneNum',
-          method:'get'
-          }).then((res) => {
-        if (res.data.code === 'FAILED'){
-          this.$notify.error({
-          message: res.data.message
-          });
-        }
-        else {
-          this.phoneNum=res.data.data
-          };
-      })
-      .catch((error) => {
-        this.$notify.error({
-        message: error
-        });
-      })
+          url: 'http://localhost:8081/api/user/phoneNum',
+          method: 'get'
+        }).then((res) => {
+          if (res.data.code === 'FAILED') {
+            this.$notify.error({
+              message: res.data.message
+            });
+          }
+          else {
+            this.phoneNum = res.data.data
+          }
+          ;
+        })
+          .catch((error) => {
+            this.$notify.error({
+              message: error
+            });
+          })
       }
     },
-    created(){
+    created() {
       this.initPersonalInfo()
     },
     watch: {
-      input10(newVal) {
+      phoneNum(newVal) {
         this.$nextTick(() => {
-          this.input10 = newVal.split('').filter((x) => {
-            return parseInt(x)===0 || parseInt(x)
+          this.phoneNum = newVal.split('').filter((x) => {
+            return parseInt(x) === 0 || parseInt(x)
           }).join('')
         })
-        // console.log(this.input10)
       }
     }
   }
 </script>
 
-<!--<script type="text/javascript">-->
-<!--function prevent(e) {-->
-<!--e.preventDefault ? e.preventDefault() : e.returnValue = false;-->
-<!--}-->
-<!--function digitInput(e) {-->
-<!--var c = e.charCode || e.keyCode; //FF、Chrome IE下获取键盘码-->
-<!--if ((c != 8 && c != 46 && // 8 - Backspace, 46 - Delete-->
-<!--(c < 37 || c > 40) && // 37 (38) (39) (40) - Left (Up) (Right) (Down) Arrow-->
-<!--(c < 48 || c > 57) && // 48~57 - 主键盘上的0~9-->
-<!--(c < 96 || c > 105)) // 96~105 - 小键盘的0~9-->
-<!--|| e.shiftKey) { // Shift键，对应的code为16-->
-<!--prevent(e); // 阻止事件传播到keypress-->
-<!--}-->
-<!--}-->
-<!--$(function(){-->
-<!--$("el-input[name='text1']").keydown(function(e) {-->
-<!--digitInput(e);-->
-<!--});-->
-<!--});-->
-<!--</script>-->
+<style>
+  .weui-cells {
+    margin-top: 0 !important;
+  }
+</style>
 
 <style scoped>
   @import url('../../common/css/passengerinfo.css');
 </style>
+
+
