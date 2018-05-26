@@ -35,7 +35,7 @@
               type="text"
               name="text1"
               placeholder="请输入联系电话"
-              v-model="input10"
+              v-model="phoneNum"
               clearable
               maxlength="11"
             >
@@ -52,22 +52,25 @@
 </template>
 
 <script>
-  import store from 'store/store'
-  import {mapState} from 'vuex'
+  import axios from 'axios'
 
   export default {
     name: "passengerinfo",
-    store,
     data() {
-      return {
-        id: '16121670',
-        name: '李瑞轩',
-        activeName2: 'first',
-        input1: '',
-        input10: '18101971575',
-        dialogImageUrl: '',
-        dialogVisible: false
-      };
+      return{
+          id: localStorage.getItem('userId'),
+          name: localStorage.getItem('userName'),
+          phoneNum:''
+      }
+    },
+    computed: {
+      photoURL(){
+        if (localStorage.getItem('userImg') === null){
+          return 'http://services.shu.edu.cn/User/showPhoto.aspx'
+        }else{
+          return localStorage.getItem('userImg')
+        }
+      }
     },
     methods: {
       open() {
@@ -87,9 +90,31 @@
       handlePictureCardPreview(file) {
         this.dialogImageUrl = file.url;
         this.dialogVisible = true;
+      },
+      initPersonalInfo(){
+        axios({
+          url:'http://localhost:8081/api/user/phoneNum',
+          method:'get'
+          }).then((res) => {
+        if (res.data.code === 'FAILED'){
+          this.$notify.error({
+          message: res.data.message
+          });
+        }
+        else {
+          this.phoneNum=res.data.data
+          };
+      })
+      .catch((error) => {
+        this.$notify.error({
+        message: error
+        });
+      })
       }
     },
-    computed: mapState(['uName', 'uId', 'photoURL']),
+    created(){
+      this.initPersonalInfo()
+    },
     watch: {
       input10(newVal) {
         this.$nextTick(() => {

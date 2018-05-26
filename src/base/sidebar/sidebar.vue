@@ -31,12 +31,9 @@
 </template>
 
 <script>
-  import store from 'store/store'
-  import {mapMutations, mapState} from 'vuex'
 
   export default {
     name: "sidebar",
-    store,
     props: {
       value: {
         type: Boolean,
@@ -59,16 +56,31 @@
       }
     },
     computed: {
-      ...mapState(['uName', 'uId', 'photoURL']),
+      uName(){
+        return localStorage.getItem('userName')
+      },
+      uId(){
+        return localStorage.getItem('userId')
+      },
+      photoURL(){
+        if (localStorage.getItem('userImg') === null){
+          return 'http://services.shu.edu.cn/User/showPhoto.aspx'
+        }else{
+          return localStorage.getItem('userImg')
+        }
+      }
+
     },
     methods: {
-      ...mapMutations,
       showSideBar() {
         this.$emit('input', !this.value)
       },
       handleOnClickLogout() {
         localStorage.removeItem('token')
         localStorage.removeItem('userIdentity')
+        localStorage.removeItem('userId')
+        localStorage.removeItem('userName')
+        localStorage.removeItem('userImg')
         this.$router.push({name: 'login'})
       }
     },

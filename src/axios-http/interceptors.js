@@ -4,7 +4,7 @@ axios.interceptors.request.use((config) => {
   // console.log("config", config)
   let token = localStorage.getItem('token')
   if (token)
-    config.headers.Authorization = 'bearer ' + token
+    config.headers.Authorization = token
   return config
 }, (error) => {
   console.log("error", error)

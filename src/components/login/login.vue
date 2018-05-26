@@ -32,7 +32,7 @@
       </div>
       <div class="copyright">
         <p>技术支持 上海大学信息化工作办公室</p>
-        <p>Copyright © 2012-2017 Shanghai University, All Rights
+        <p>Copyright © 2012-2018 Shanghai University, All Rights
           Reserved</p>
       </div>
     </div>
@@ -59,20 +59,24 @@
         let lenUsername = this.username.split().filter((x) => {
           return !isNaN(x)
         }).join('').length
-        if (lenUsername === 8 && this.password.length >= 6) {
+        if (this.password.length >= 6) {
           axios.post('http://localhost:8081/login', {
             userId: this.username,
             password: this.password
           })
             .then((res) => {
-              console.log(res)
               if (res.data.code === 'FAILED')
-                this.loginfault = true
+                this.$notify.error({
+                message: res.data.message
+                });
               else {
-                //登录成功，将token添加到localStorage
+                //登录成功，将token等信息添加到localStorage
                 let userIdentity = enumMap[res.data.data.userIdentity]
                 console.log(userIdentity)
                 localStorage.setItem('userIdentity', userIdentity)
+                localStorage.setItem('userId', res.data.data.userId)
+                localStorage.setItem('userName', res.data.data.userName)
+                localStorage.setItem('userImg', res.data.data.userImg)
                 localStorage.setItem('token', res.data.data.token)
                 //是否有重定向参数
                 if (this.$route.query.hasOwnProperty('redirect'))
@@ -82,7 +86,9 @@
               }
             })
             .catch((error) => {
-              console.log(error)
+              this.$notify.error({
+              message: error
+              });
             })
         }
         else {
