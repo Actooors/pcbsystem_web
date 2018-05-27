@@ -1,19 +1,19 @@
-#userId{
+#userId {
   padding-bottom: 10px;
 }
 
-#userImg{
+#userImg {
   margin-top: 30px;
   margin-bottom: 1px;
 }
 
-.UserImg{
+.UserImg {
   display: flex;
   margin: 0 auto;
   width: 200px;
 }
 
-.userimg{
+.userimg {
   float: left;
   margin: 14px 0 auto;
   flex: 1;
@@ -31,14 +31,14 @@
   width: 48px;
 }
 
-.img{
+.img {
   border-radius: 50%;
   height: 48px;
   width: 48px;
   overflow: hidden;
 }
 
-img{
+img {
   height: 62px;
   width: 48px;
 }
@@ -49,58 +49,63 @@ img{
   width: 48px;
 }
 
-.UserId{
+.UserId {
   margin: 0 auto;
   width: 400px;
   display: flex;
 }
 
-.userid{
+.userid {
   flex: 1;
 }
 
-.id{
+.id {
   flex: 2;
 }
 
-#userName{
+#userName {
   padding-bottom: 10px;
 }
 
-.UserName{
+.UserName {
   margin-left: 65px;
 }
 
-.info-flex{
+.info-flex {
   display: flex;
-  width:300px;
+  width: 300px;
   margin: 0 auto;
   text-align: left;
 }
-.info-flex div:first-child{
+
+.info-flex div:first-child {
   flex: 1;
 }
-.info-flex div:nth-child(2){
+
+.info-flex div:nth-child(2) {
   flex: 2;
 }
 
-.userphone{
+.userphone {
   float: left;
   margin-top: 6px;
 }
 
-.UserPhone{
-}
-
-.phone{
+.phone {
   width: 110px;
-
 }
 
 
-@media screen and (max-width: 1023px){ /*手机端响应式布局*/
-
+@media screen and (max-width: 1023px) {
+  /*手机端响应式布局*/
+  .phone > :first-child{
+    width: 200px;
+  }
 }
-@media screen and (min-width: 1024px){ /*电脑端相应式布局*/
 
+@media screen and (min-width: 1024px) {
+  /*电脑端相应式布局*/
+  .phone > :first-child{
+    width: 200px;
+  }
 }
