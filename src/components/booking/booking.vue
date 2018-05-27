@@ -106,24 +106,20 @@
 
   var recommends = [
     {
-      "url": "https://y.qq.com/m/act/classic/index.html?ADTAG=jiaodiantu",
-      "img": "http://y.gtimg.cn/music/photo_new/T003R720x288M000003gXZ394C6bbc.jpg",
+      "url": "http://www.ddh.shu.edu.cn/",
+      "img": "http://i1.bvimg.com/647246/aa01713361670687.jpg",
       "id": 15017
     }, {
-      "url": "https://y.qq.com/m/act/trumpcard3/index.html?ADTAG=jiaodiantu",
-      "img": "http://y.gtimg.cn/music/photo_new/T003R720x288M000002S3pTc18lhON.jpg",
+      "img": "http://i1.bvimg.com/647246/b8a76d27baf71e33.jpg",
       "id": 15039
     }, {
-      "url": "https://y.qq.com/m/act/sfhd/127.html?ADTAG=jdt",
-      "img": "http://y.gtimg.cn/music/photo_new/T003R720x288M000003KDGoY4ZLWXR.jpg",
+      "img": "http://i1.bvimg.com/647246/5d19f77948621bfe.jpg",
       "id": 15014
     }, {
-      "url": "http://y.qq.com/w/album.html?albummid=0012os0a3bZBGC",
-      "img": "http://y.gtimg.cn/music/photo_new/T003R720x288M000002htFUh4X3Vbb.jpg",
+      "img": "http://i1.bvimg.com/647246/d3a24940b7e030a3.jpg",
       "id": 15044
     }, {
-      "url": "http://y.qq.com/w/album.html?albummid=000WkLHX0mikpL",
-      "img": "http://y.gtimg.cn/music/photo_new/T003R720x288M000000ZPAFz0OtHMY.jpg",
+      "img": "http://i1.bvimg.com/647246/55008296801f4a28.jpg",
       "id": 15046
     }
   ]

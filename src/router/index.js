@@ -202,7 +202,7 @@ const router = new Router({
 
 router.beforeEach((to, from, next) => {
   // console.log(to)
-  let bypassAuthWhileDev = true
+  let bypassAuthWhileDev = false
   if (!(bypassAuthWhileDev && process.env.NODE_ENV === 'development')) {
     //验证是否需要登录
     let token = window.localStorage.getItem('token')
