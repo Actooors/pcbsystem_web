@@ -39,19 +39,19 @@
             <div class="info">
               <p class="info-item">
                 <span class="item-tag">司机</span>
-                <span class="item-value">{{item.owner}}</span>
+                <span class="item-value">{{item.driverName}}</span>
               </p>
               <p class="info-item">
                 <span class="item-tag">车型</span>
-                <span class="item-value">{{item.model}}</span>
+                <span class="item-value">{{item.carModel}}</span>
               </p>
               <p class="info-item">
                 <span class="item-tag">载客</span>
-                <span class="item-value">{{item.capacity}}</span>
+                <span class="item-value">{{item.carSize}}</span>
               </p>
             </div>
             <div class="operation">
-              <x-button :gradients="['#FF5E3A', '#FF9500']" class="btn-book" @click.native="handleBooking(item)" mini>预约
+              <x-button :gradients="['#FF5E3A', '#FF9500']" class="btn-book" @click.native="handleBooking(item)" mini >预约
               </x-button>
             </div>
           </div>
@@ -66,6 +66,7 @@
         v-model="showConfirm"
         :close-on-confirm="false"
         title="确认预约"
+        close-on-confirm
         @on-confirm="handleOnConfirm">
         <div class="confirm-info">
           <p class="info-item">
@@ -78,15 +79,15 @@
           </p>
           <p class="info-item">
             <span class="item-tag">司机</span>
-            <span class="item-value">{{thisItem.owner}}</span>
+            <span class="item-value">{{thisItem.driverName}}</span>
           </p>
           <p class="info-item">
             <span class="item-tag">车型</span>
-            <span class="item-value">{{thisItem.model}}</span>
+            <span class="item-value">{{thisItem.carModel}}</span>
           </p>
           <p class="info-item">
             <span class="item-tag">载客</span>
-            <span class="item-value">{{thisItem.capacity}}</span>
+            <span class="item-value">{{thisItem.carSize}}</span>
           </p>
         </div>
       </confirm>
@@ -100,7 +101,7 @@
   import store from 'store/store'
   import {mapState, mapMutations} from 'vuex'
   import Calendartime from 'components/calendar/calendartime'
-  import {Cell, PopupRadio, Popup, XDialog, XButton, Confirm,Swiper} from 'vux'
+  import {Cell, PopupRadio, Popup, XDialog, XButton, Confirm, Swiper} from 'vux'
   import {parseDate, dateFormat} from "../../common/js/dateformat"
   import axios from 'axios'
 
@@ -140,6 +141,8 @@
     },
     data() {
       return {
+        nocolor: false,
+        disable: false,
         recommends: recommends,
         calendarValueStart: '',
         calendarValueEnd: '',
@@ -176,17 +179,27 @@
     methods: {
       ...mapMutations(['InitDate']),
       handleOnClickSearch() {
+        console.log(this.calendarValueStart)
         if (!this.calendarValueStart || !this.calendarValueEnd) {
           this.$notify.info({title: '请先选择预约起止时间！'})
           return
         }
-        axios.get('/api/retrieval')
+
+        axios({
+          url: '//localhost:8081/api/passenger/availableCar',
+          method: 'get',
+          params: {
+            startTime: dateFormat(parseDate(this.calendarValueStart.replace('　', ' ')), 'YYYYMMDDhhmm'),
+            endTime: dateFormat(parseDate(this.calendarValueEnd.replace('　', ' ')), 'YYYYMMDDhhmm')
+          }
+        })
           .then((res) => {
             if (res.data.code === "SUCCESS" && res.data.data.length) {
               console.log("yes", res.data)
               this.resultItems = res.data
               this.showResults = true
             } else {
+              this.$message.warning(res.data.message)
               console.log(res.data)
             }
           })
@@ -247,7 +260,33 @@
         }
       },
       handleOnConfirm() {
-        console.log('確定預約')
+        axios({
+          url: '//localhost:8081/api/passenger/orderCar',
+          method: 'post',
+          data: {
+            "carId": this.thisItem.carId,
+            "endDate": parseDate(this.calendarValueStart.replace('　', ' ')),
+            "place": this.locationOption,
+            "requestReason": "用车需要",
+            "startDate": new Date().toISOString()
+          }
+        }).then((response) => {
+          console.log(response.data)
+          if (response.data.code === "SUCCESS") {
+            this.$message({
+              type: 'success',
+              message: '请耐心等待管理员审核!',
+            })
+          } else {
+            this.$message({
+              type: 'warning',
+              message: `预约失败!${response.data.message}`
+            })
+          }
+        }).catch((error) => {
+          this.$message.error('预约失败, 请检查网络连接!')
+          console.log(error)
+        })
       }
     },
     created() {

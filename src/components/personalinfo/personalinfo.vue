@@ -32,18 +32,18 @@
         <div class="userphone">联系方式：</div>
         <div class="phone">
           <group>
-            <x-input name="mobile" placeholder="请输入手机号码" keyboard="number" is-type="china-mobile"></x-input>
+            <x-input name="mobile" keyboard="number" v-model="phoneNum" is-type="china-mobile"></x-input>
           </group>
           <br></br>
           <group style="width: 120px">
             <x-button mini type="primary" @click.native="VerifyCellPhoneNumber()">验证手机号码</x-button>
           </group>
           <confirm v-model="show"
-            show-input
-            ref="confirm5"
-            title='我们给您的手机发送了一条验证码，请在下框内输入验证码'
-            @on-confirm="onConfirm5"
-            @on-show="onShow5">
+                   show-input
+                   ref="confirm5"
+                   title='我们给您的手机发送了一条验证码，请在下框内输入验证码'
+                   @on-confirm="onConfirm5"
+                   @on-show="onShow5">
           </confirm>
         </div>
       </div>
@@ -68,7 +68,7 @@
         show: false,
         id: localStorage.getItem('userId'),
         name: localStorage.getItem('userName'),
-        phoneNum: ''
+        phoneNum: '请输入手机号码'
       }
     },
     computed: {
@@ -82,8 +82,28 @@
     },
     methods: {
       VerifyCellPhoneNumber() {
-        console.log("验证手机号");
         this.show = true;
+        axios({
+          url: '//localhost:8081/api/user/validateCode',
+          method: 'post',
+          data: {
+            "phoneNum": this.phoneNum
+          }
+        }).then((res) => {
+          console.log(res);
+          if (res.data.code === 'SUCCESS') {
+            this.$message({
+              type: 'success',
+              message: '短信已发送,请注意查收!'
+            })
+          }
+        }).catch((error) => {
+          console.log(error)
+          this.$notify.error({
+            message: error
+          })
+        });
+        console.log("验证手机号");
       },
       onShow5() {
         this.$refs.confirm5.setInputValue('')
@@ -103,7 +123,7 @@
       },
       initPersonalInfo() {
         axios({
-          url: 'http://localhost:8081/api/user/phoneNum',
+          url: '//localhost:8081/api/user/phoneNum',
           method: 'get'
         }).then((res) => {
           if (res.data.code === 'FAILED') {
