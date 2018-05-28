@@ -6,7 +6,7 @@
                    :item-map="itemMap['car']"
                    :color-map="colorMap"
                    button-title="查看详细信息" @on-button-click="handleOnLogButtonClick"
-                   :plusButton=true @on-plus-button-click="handleOnPlusButtonClick(0)">
+        >
         </info-view>
       </el-tab-pane>
       <el-tab-pane label="报修请求">
@@ -14,7 +14,7 @@
                    :item-map="itemMap['car']"
                    :color-map="colorMap"
                    button-title="查看详细信息" @on-button-click="handleOnLogButtonClick"
-                   :plusButton=true @on-plus-button-click="handleOnPlusButtonClick(1)"></info-view>
+        ></info-view>
       </el-tab-pane>
     </el-tabs>
     <div class="logs-dialog-wrapper" v-if="showLogs">
@@ -28,16 +28,6 @@
       </x-dialog>
     </div>
     <div ref="operationMenus">
-      <!--<actionsheet-->
-        <!--v-model="showOperationMenu['passenger']"-->
-        <!--:menus="operationMenu['passenger']"-->
-        <!--theme="android">-->
-      <!--</actionsheet>-->
-      <!--<actionsheet-->
-        <!--v-model="showOperationMenu['driver']"-->
-        <!--:menus="operationMenu['driver']"-->
-        <!--theme="android">-->
-      <!--</actionsheet>-->
       <actionsheet
         v-model="showOperationMenu['car']"
         :menus="operationMenu['car']"
@@ -132,10 +122,14 @@
           '报修':
             '#A0DB94'
         },
-        nowTab: ''
+        nowTab: '0'
       }
     },
     mounted() {
+      let path = this.$route.path.split('/')
+      let len = path.length
+      let userMap = {'ReservationRequest': '0', 'RepairRequest': '1'}
+      this.nowTab = userMap[path[len - 1]]
       axios.get('/api/driverinfo')
         .then((res) => {
           this.itemsOrigin['driver'] = res.data.data
@@ -200,12 +194,9 @@
       },
       handleOnTabClick(now) {
         console.log(now)
-        var map = ['ReservationRequest','RepairRequest']
+        var map = ['ReservationRequest', 'RepairRequest']
         this.$router.push({name: map[now.index]})
       },
-      handleOnPlusButtonClick(index) {
-        console.log('aa' + index)
-      }
     }
   }
 </script>

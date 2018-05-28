@@ -7,19 +7,60 @@
                   :class="item.state==='正在进行'?'progressing-form-yellow':null"
                   :key="item.value"
                   :footer-buttons="buttons"></form-preview>
+    <confirm v-model="show1"
+             title="通过该申请将会拒绝以下申请，确定吗？"
+             @on-cancel="onCancel"
+             @on-confirm="onConfirm"
+    >
+    </confirm>
+    <confirm v-model="show2"
+             show-input
+             ref="confirm5"
+             title="请在下框内填写拒绝理由"
+             @on-cancel="onCancel1"
+             @on-confirm="onConfirm1"
+             style="height: 500px !important;"
+    >
+    </confirm>
   </div>
 </template>
 
 <script>
-  import {FormPreview} from 'vux'
+  import {FormPreview, Confirm} from 'vux'
 
   export default {
     name: "ReservationRequest",
     components: {
       FormPreview,
+      Confirm
+    },
+    methods: {
+      onConfirm() {
+        this.$message({
+          type: 'success',
+          message: "预约成功！"
+        });
+        console.log("预约成功！");
+        this.show = false;
+      },
+      onCancel() {
+        console.log("取消！");
+      },
+      onCancel1() {
+        console.log("取消！");
+      },
+      onConfirm1() {
+        this.$message({
+          type: 'success',
+          message: "发送成功！"
+        });
+        this.show2 = false;
+      }
     },
     data() {
       return {
+        show1: false,
+        show2: false,
         requestNumber: 5,
         itemsProgress: [
           {
@@ -168,18 +209,20 @@
             ]
           },
         ],
-        buttons:[
+        buttons: [
           {
             style: 'default',
             text: '拒绝申请',
-            onButtonClick:()=>{
+            onButtonClick: () => {
               console.log("拒绝申请");
+              this.show2 = true;
             }
           },
           {
             style: 'primary',
             text: '通过申请',
-            onButtonClick:()=>{
+            onButtonClick: () => {
+              this.show1 = true;
               console.log("通过申请");
             }
           }
@@ -190,10 +233,7 @@
 </script>
 
 <style>
-  .flexbox{
-    width: 80%;
-    margin: 0 auto;
-  }
+
   .progressing-form-yellow {
     width: 100%;
     margin: 20px auto;
@@ -215,25 +255,38 @@
   .weui-form-preview__bd .weui-form-preview__value {
     color: black;
   }
-  .weui-dialog{
+
+  .weui-dialog {
     width: 400px;
   }
-  @media screen and (min-width: 1024px){
-    .weui-dialog{
+
+  @media screen and (min-width: 1024px) {
+    .weui-dialog {
       width: 400px;
     }
-    .weui-dialog > :first-child{
+
+    .weui-dialog > :first-child {
       height: 600px;
       overflow-y: auto;
     }
+
+    .weui-dialog__hd {
+      height: 100px !important;
+    }
   }
-  @media screen and (max-width: 1023px){
-    .weui-dialog{
+
+  @media screen and (max-width: 1023px) {
+    .weui-dialog {
       width: 330px;
     }
-    .weui-dialog > :first-child{
-      height:500px;
+
+    .weui-dialog > :first-child {
+      height: 500px;
       overflow-y: auto;
+    }
+
+    .weui-dialog__hd {
+      height: 90px !important;
     }
   }
 

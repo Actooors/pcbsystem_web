@@ -142,10 +142,32 @@
           '报修':
             '#A0DB94'
         },
-        nowTab: ''
+        nowTab: '0'
       }
     },
     mounted() {
+      let path = this.$route.path.split('/')
+      let len = path.length
+      let userMap = {'passenagers': '0', 'drivers': '1', 'cars': '2'}
+      console.log(path[len-1])
+      this.nowTab = userMap[path[len - 1]]
+//      switch (path[len - 1]) {
+//        case 'passenagers':
+//          this.nowTab = '0'
+//          break
+//        case 'drivers':
+//          this.nowTab = '1'
+//          break
+//        case 'cars':
+//          this.nowTab = '2'
+//          break
+//      }
+//      if (path[len - 1] === 'passenagers')
+//        this.nowTab = '0'
+//      else if (path[len - 1] === 'drivers')
+//        this.nowTab = '1'
+//      else
+//        this.nowTab = '2'
       axios.get('/api/driverinfo')
         .then((res) => {
           this.itemsOrigin['driver'] = res.data.data
