@@ -2,12 +2,12 @@
   <div>
     <div>
       <form-preview header-label="预约状态" v-for="(item,index) of items"
-                    :header-value="stateMap(item.type,item.pass)"
-                    :body-items="item"
-                    :class="{'history-form-red':item.type===4,
-                  'history-form-green':item.type===3&&item.pass===1,
-                  'progressing-form-yellow':item.type===2&&item.pass===1,
-                  'applying-form-green':item.type===1&&item.pass===0,
+                    :header-value="stateMap(item.requestState,item.pass)"
+                    :body-items="lists[index]"
+                    :class="{'history-form-red':item.requestState===4,
+                  'history-form-green':item.requestState===3,
+                  'progressing-form-yellow':item.requestState===2,
+                  'applying-form-green':item.requestState===1,
                   }"
                     :key="item.value"></form-preview>
     </div>
@@ -56,6 +56,28 @@
         }).then((response) => {
           if (response.data.code === 'SUCCESS') {
             this.items = response.data.data
+            for (let i = 0; i < this.items.length; i++) {
+              let list = [
+                {
+                  label: '申请人',
+                  value: localStorage.getItem('userName')
+                },
+                {
+                  label: '起始时间',
+                  value: this.items[i].beginTime
+                },
+                {
+                  label: '结束时间',
+                  value: this.items[i].endTime
+                },
+                {
+                  label: '车辆牌照',
+                  value: this.items[i].carNumber
+                }
+              ]
+              this.lists.push(list)
+            }
+
           } else {
             console.log(response.data.message)
           }
@@ -63,15 +85,27 @@
           console.log(error)
         })
       },
-      stateMap(type, pass) {
-        if (type === 1 && pass === 0) {
+      stateMap(requestState, pass) {
+        // if (requestState === 1 && pass === 0) {
+        //   return '正在申请'
+        // } else if (requestState === 2 && pass === 1) {
+        //   return '正在进行'
+        // }
+        // else if (requestState === 3 && pass === 1) {
+        //   return '已经结束'
+        // } else if (requestState === 4) {
+        //   return '申请失败'
+        // } else {
+        //   return '未知状态'
+        // }
+        if (requestState === 1) {
           return '正在申请'
-        } else if (item.type === 2 && pass === 1) {
+        } else if (requestState === 2) {
           return '正在进行'
         }
-        else if (type === 3 && pass === 1) {
+        else if (requestState === 3) {
           return '已经结束'
-        } else if (item.type === 4) {
+        } else if (requestState === 4) {
           return '申请失败'
         } else {
           return '未知状态'
@@ -102,6 +136,25 @@
             "startDate": 0,
             "userId": "string",
             "userName": "string"
+          }
+        ],
+        lists: [],
+        list: [
+          {
+            label: '申请人',
+            value: '李瑞轩'
+          },
+          {
+            label: '起始时间',
+            value: '2018-04-17　08:00'
+          },
+          {
+            label: '结束时间',
+            value: '2018-04-18　08:00'
+          },
+          {
+            label: '车辆牌照',
+            value: '沪A-11111'
           }
         ]
       }

@@ -18,6 +18,7 @@
     data() {
       return {
         items: [],
+        lists:[]
       }
     },
     methods: {
@@ -34,6 +35,27 @@
             this.items = response.data.data.filter((item) => {
               return item.pass === 0
             })
+            for (let i = 0; i < this.items.length; i++) {
+              let list = [
+                {
+                  label: '申请人',
+                  value: localStorage.getItem('userName')
+                },
+                {
+                  label: '起始时间',
+                  value: this.items[i].beginTime
+                },
+                {
+                  label: '结束时间',
+                  value: this.items[i].endTime
+                },
+                {
+                  label: '车辆牌照',
+                  value: this.items[i].carNumber
+                }
+              ]
+              this.lists.push(list)
+            }
           } else {
             console.log(response.data.message)
           }
