@@ -1,8 +1,9 @@
 <template>
   <div class="root">
     <div>
-      <form-preview header-label="预约状态" v-for="(item,index) of items" :header-value="item.state" :body-items="item.list"
-                    :class="item.state==='申请失败'?'history-form-red':'history-form-green'"
+      <form-preview header-label="预约状态" v-for="(item,index) of items" :header-value="stateMap(item.type,item.pass)"
+                    :body-items="item"
+                    :class="item.pass===0?'history-form-red':'history-form-green'"
                     :key="item.value"></form-preview>
     </div>
 
@@ -14,7 +15,7 @@
         layout="prev, pager, next"
         :page-size="pageSize"
         :current-page="pageNo"
-        :total="parseInt(totalcars)">
+        :total="items.length">
       </el-pagination>
     </div>
 
@@ -23,6 +24,7 @@
 
 <script>
   import {FormPreview} from 'vux'
+  import axios from 'axios'
 
   export default {
     name: "history",
@@ -34,50 +36,7 @@
         totalcars: 3,
         pageNo: 1,
         pageSize: 10,
-        items: [
-          {
-            state: "已经结束",
-            list: [
-              {
-                label: '申请人',
-                value: '李瑞轩'
-              },
-              {
-                label: '起始时间',
-                value: '2018-04-18　08:00'
-              },
-              {
-                label: '结束时间',
-                value: '2018-04-19　08:00'
-              },
-              {
-                label: '车辆牌照',
-                value: '沪A-11111'
-              }
-            ]
-          },
-          {
-            state: "申请失败",
-            list: [
-              {
-                label: '申请人',
-                value: '殷子良'
-              },
-              {
-                label: '起始时间',
-                value: '2018-04-18　19:00'
-              },
-              {
-                label: '结束时间',
-                value: '2018-04-19　08:00'
-              },
-              {
-                label: '车辆牌照',
-                value: '沪B-12345'
-              }
-            ]
-          }
-        ]
+        items: []
       }
     },
     methods: {
@@ -90,7 +49,43 @@
       currentPage(val) {
         this.pageNo = val;
       },
+      initData() {
+        axios({
+          url: '//localhost:8081/api/passenger/query/request',
+          method: 'post',
+          data: {
+            "page": this.pageNo,
+            "type": 3
+          }
+        }).then((response) => {
+          if (response.data.code === 'SUCCESS') {
+            this.items = response.data.data
+          } else {
+            console.log(response.data.message)
+          }
+        }).catch((error) => {
+          console.log(error)
+        })
+      },
+      stateMap(type, pass) {
+        if (type === 1 && pass === 0) {
+          return '正在申请'
+        } else if (item.type === 2 && pass === 1) {
+          return '正在进行'
+        }
+        else if (item.type === 3 && pass === 1) {
+          return '已经结束'
+        } else if (item.type === 4) {
+          return '申请失败'
+        } else {
+          return '未知状态'
+        }
+      }
+    },
+    created() {
+      this.initData()
     }
+
   }
 </script>
 

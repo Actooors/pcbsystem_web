@@ -1,13 +1,14 @@
 <template>
   <div>
-    <form-preview header-label="预约状态" v-for="(item,index) of items" :header-value="item.state" :body-items="item.list"
-                  :class="item.state==='正在申请'?'applying-form-green':null"
+    <form-preview header-label="预约状态" v-for="(item,index) of items" header-value="正在申请" :body-items="item"
+                  class="applying-form-green"
                   :key="item.value"></form-preview>
   </div>
 </template>
 
 <script>
   import {FormPreview} from 'vux'
+  import axios from 'axios'
 
   export default {
     name: "applying",
@@ -16,52 +17,33 @@
     },
     data() {
       return {
-        items: [
-          {
-            state: "正在申请",
-            list: [
-              {
-                label: '申请人',
-                value: '李瑞轩'
-              },
-              {
-                label: '起始时间',
-                value: '2018-04-18　08:00'
-              },
-              {
-                label: '结束时间',
-                value: '2018-04-19　08:00'
-              },
-              {
-                label: '车辆牌照',
-                value: '沪A-11111'
-              }
-            ],
-          },
-          {
-            state: "正在申请",
-            list: [
-              {
-                label: '申请人',
-                value: '殷子良'
-              },
-              {
-                label: '起始时间',
-                value: '2018-04-20　08:00'
-              },
-              {
-                label: '结束时间',
-                value: '2018-04-21　08:00'
-              },
-              {
-                label: '车辆牌照',
-                value: '沪B-12345'
-              }
-            ],
-          }
-        ],
-
+        items: [],
       }
+    },
+    methods: {
+      initData() {
+        axios({
+          url: '//localhost:8081/api/passenger/query/request',
+          method: 'post',
+          data: {
+            "page": this.pageNo,
+            "type": 1
+          }
+        }).then((response) => {
+          if (response.data.code === 'SUCCESS') {
+            this.items = response.data.data.filter((item) => {
+              return item.pass === 0
+            })
+          } else {
+            console.log(response.data.message)
+          }
+        }).catch((error) => {
+          console.log(error)
+        })
+      }
+    },
+    created(){
+      this.initData()
     }
   }
 </script>

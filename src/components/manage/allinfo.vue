@@ -1,12 +1,13 @@
 <template>
   <div>
     <div>
-      <form-preview header-label="预约状态" v-for="(item,index) of items" :header-value="item.state"
-                    :body-items="item.list"
-                    :class="{'history-form-red':item.state==='申请失败',
-                  'history-form-green':item.state==='已经结束',
-                  'progressing-form-yellow':item.state==='正在进行',
-                  'applying-form-green':item.state==='正在申请',
+      <form-preview header-label="预约状态" v-for="(item,index) of items"
+                    :header-value="stateMap(item.type,item.pass)"
+                    :body-items="item"
+                    :class="{'history-form-red':item.type===4,
+                  'history-form-green':item.type===3&&item.pass===1,
+                  'progressing-form-yellow':item.type===2&&item.pass===1,
+                  'applying-form-green':item.type===1&&item.pass===0,
                   }"
                     :key="item.value"></form-preview>
     </div>
@@ -18,7 +19,7 @@
         layout="prev, pager, next"
         :page-size="pageSize"
         :current-page="pageNo"
-        :total="parseInt(totalcars)">
+        :total="items.length">
       </el-pagination>
     </div>
   </div>
@@ -26,6 +27,7 @@
 
 <script>
   import {FormPreview, Scroller} from 'vux'
+  import axios from 'axios'
 
   export default {
     name: "all",
@@ -42,119 +44,65 @@
       },
       currentPage(val) {
         this.pageNo = val;
+      },
+      initData() {
+        axios({
+          url: '//localhost:8081/api/passenger/query/request',
+          method: 'post',
+          data: {
+            "page": this.pageNo,
+            "type": 0
+          }
+        }).then((response) => {
+          if (response.data.code === 'SUCCESS') {
+            this.items = response.data.data
+          } else {
+            console.log(response.data.message)
+          }
+        }).catch((error) => {
+          console.log(error)
+        })
+      },
+      stateMap(type, pass) {
+        if (type === 1 && pass === 0) {
+          return '正在申请'
+        } else if (item.type === 2 && pass === 1) {
+          return '正在进行'
+        }
+        else if (type === 3 && pass === 1) {
+          return '已经结束'
+        } else if (item.type === 4) {
+          return '申请失败'
+        } else {
+          return '未知状态'
+        }
       }
+    },
+    created() {
+      this.initData()
     },
     data() {
       return {
-        totalcars: 3,
         pageNo: 1,
         pageSize: 10,
         items: [
           {
-            state: "正在进行",
-            list: [
-              {
-                label: '申请人',
-                value: '李瑞轩'
-              },
-              {
-                label: '起始时间',
-                value: '2018-04-18　08:00'
-              },
-              {
-                label: '结束时间',
-                value: '2018-04-19　08:00'
-              },
-              {
-                label: '车辆牌照',
-                value: '沪A-11111'
-              }
-            ],
-          },
-          {
-            state: "已经结束",
-            list: [
-              {
-                label: '申请人',
-                value: '李瑞轩'
-              },
-              {
-                label: '起始时间',
-                value: '2018-04-17　08:00'
-              },
-              {
-                label: '结束时间',
-                value: '2018-04-18　08:00'
-              },
-              {
-                label: '车辆牌照',
-                value: '沪A-11111'
-              }
-            ],
-          },
-          {
-            state: "申请失败",
-            list: [
-              {
-                label: '申请人',
-                value: '李瑞轩'
-              },
-              {
-                label: '起始时间',
-                value: '2018-04-16　08:00'
-              },
-              {
-                label: '结束时间',
-                value: '2018-04-17　08:00'
-              },
-              {
-                label: '车辆牌照',
-                value: '沪A-11111'
-              }
-            ],
-          },
-          {
-            state: "正在申请",
-            list: [
-              {
-                label: '申请人',
-                value: '李瑞轩'
-              },
-              {
-                label: '起始时间',
-                value: '2018-04-20　08:00'
-              },
-              {
-                label: '结束时间',
-                value: '2018-04-21　08:00'
-              },
-              {
-                label: '车辆牌照',
-                value: '沪A-11111'
-              }
-            ],
-          },
-          {
-            state: "正在进行",
-            list: [
-              {
-                label: '申请人',
-                value: '李瑞轩'
-              },
-              {
-                label: '起始时间',
-                value: '2018-04-18　08:00'
-              },
-              {
-                label: '结束时间',
-                value: '2018-04-19　08:00'
-              },
-              {
-                label: '车辆牌照',
-                value: '沪A-11111'
-              }
-            ],
-          },
+            "avatar": "string",
+            "capacity": "string",
+            "cid": 0,
+            "driverPhone": "string",
+            "endDate": 0,
+            "id": 0,
+            "licence": "string",
+            "model": "string",
+            "owner": "string",
+            "pass": "string",
+            "place": "string",
+            "reason": "string",
+            "startDate": 0,
+            "userId": "string",
+            "userName": "string"
+          }
         ]
       }
     }
