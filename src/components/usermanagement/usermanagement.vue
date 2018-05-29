@@ -37,6 +37,72 @@
         </div>
       </x-dialog>
     </div>
+    <x-dialog v-model="PlusLogsPassengers" class="logs-dialog" hide-on-blur style="height: 300px; ">
+      <group title="添加乘客信息" label-width="5.5em" label-margin-right="2em" label-align="justify">
+        <x-input title="乘客姓名" v-model="passengerName"></x-input>
+        <x-input title="乘客工号" v-model="passengerId"></x-input>
+        <x-input title="乘客部门" v-model="passengerDepartment"></x-input>
+        <x-input title="乘客手机号" v-model="passengerPhoneNo"></x-input>
+      </group>
+      <div style="width: 80%; margin: 0 auto; margin-top: 20px;margin-bottom: 10px">
+        <flexbox>
+          <flexbox-item>
+            <x-button type="default" @click.native="CancelAddition(0)">取消</x-button>
+          </flexbox-item>
+          <flexbox-item>
+            <x-button type="primary" @click.native="ConfirmAddition(0)">确认添加</x-button>
+          </flexbox-item>
+        </flexbox>
+      </div>
+      <div @click="PlusLogsPassengers=false">
+        <span class="vux-close"></span>
+      </div>
+    </x-dialog>
+    <x-dialog v-model="PlusLogsDrivers" class="logs-dialog" hide-on-blur style="height: 300px">
+      <group title="添加司机信息" label-width="5.5em" label-margin-right="2em" label-align="justify">
+        <x-input title="司机姓名" v-model="driverName"></x-input>
+        <x-input title="司机工号" v-model="driverId"></x-input>
+        <x-input title="司机手机号" v-model="driverPhoneNo"></x-input>
+        <x-input title="车辆ID" v-model="carNo"></x-input>
+        <x-input title="车牌号" v-model="carLicense"></x-input>
+        <x-input title="车型" v-model="carModel"></x-input>
+        <x-input title="载客数" v-model="totalPassengers"></x-input>
+      </group>
+      <div style="width: 80%; margin: 0 auto; margin-top: 20px;margin-bottom: 10px">
+        <flexbox>
+          <flexbox-item>
+            <x-button type="default" @click.native="CancelAddition(1)">取消</x-button>
+          </flexbox-item>
+          <flexbox-item>
+            <x-button type="primary" @click.native="ConfirmAddition(1)">确认添加</x-button>
+          </flexbox-item>
+        </flexbox>
+      </div>
+      <div @click="PlusLogsDrivers=false">
+        <span class="vux-close"></span>
+      </div>
+    </x-dialog>
+    <x-dialog v-model="PlusLogsCars" class="logs-dialog" hide-on-blur style="height: 300px">
+      <group title="添加公车信息" label-width="5.5em" label-margin-right="2em" label-align="justify">
+        <x-input title="车辆品牌" v-model="carBrand"></x-input>
+        <x-input title="车辆ID" v-model="carNo"></x-input>
+        <x-input title="载客数" v-model="totalPassengers"></x-input>
+        <x-input title="司机" v-model="driverName"></x-input>
+      </group>
+      <div style="width: 80%; margin: 0 auto; margin-top: 20px;margin-bottom: 10px">
+        <flexbox>
+          <flexbox-item>
+            <x-button type="default" @click.native="CancelAddition(2)">取消</x-button>
+          </flexbox-item>
+          <flexbox-item>
+            <x-button type="primary" @click.native="ConfirmAddition(2)">确认添加</x-button>
+          </flexbox-item>
+        </flexbox>
+      </div>
+      <div @click="PlusLogsCars=false">
+        <span class="vux-close"></span>
+      </div>
+    </x-dialog>
     <div ref="operationMenus">
       <actionsheet
         v-model="showOperationMenu['passenger']"
@@ -60,7 +126,20 @@
 <script>
   import axios from 'axios'
   import InfoView from 'components/infoview/infoview'
-  import {XDialog, Actionsheet, Tab, TabItem, Swiper, SwiperItem, FormPreview} from 'vux'
+  import {
+    XDialog,
+    Actionsheet,
+    Tab,
+    TabItem,
+    Swiper,
+    SwiperItem,
+    FormPreview,
+    Group,
+    XInput,
+    XButton,
+    Flexbox,
+    FlexboxItem
+  } from 'vux'
 
   export default {
     name: "usermanagement",
@@ -72,10 +151,27 @@
       TabItem,
       Swiper,
       SwiperItem,
-      FormPreview
+      FormPreview,
+      Group,
+      XInput,
+      XButton,
+      Flexbox,
+      FlexboxItem
     },
     data() {
       return {
+        carBrand: '',
+        driverName: '',
+        driverId: '',
+        driverPhoneNo: '',
+        carNo: '',
+        carLicense: '',
+        carModel: '',
+        totalPassengers: '',
+        passengerName: '',
+        passengerId: '',
+        passengerDepartment: '',
+        passengerPhoneNo: '',
         searchInput: '',
         searchInputDriver: '',
         itemsOrigin: {
@@ -110,6 +206,9 @@
           }
         },
         inputTimer: undefined,
+        PlusLogsPassengers: false,
+        PlusLogsDrivers: false,
+        PlusLogsCars: false,
         showLogs: false,
         showOperationMenu: {
           driver: false,
@@ -149,7 +248,7 @@
       let path = this.$route.path.split('/')
       let len = path.length
       let userMap = {'passenagers': '0', 'drivers': '1', 'cars': '2'}
-      console.log(path[len-1])
+      console.log(path[len - 1])
       this.nowTab = userMap[path[len - 1]]
 //      switch (path[len - 1]) {
 //        case 'passenagers':
@@ -195,6 +294,26 @@
     }
     ,
     methods: {
+      CancelAddition(index) {
+        if (index === 0)
+          this.PlusLogsPassengers = false
+        else if (index === 1)
+          this.PlusLogsDrivers = false
+        else if (index === 2)
+          this.PlusLogsCars = false
+      },
+      ConfirmAddition(index) {
+        this.$message({
+          type: 'success',
+          message: '添加成功！'
+        });
+        if (index === 0)
+          this.PlusLogsPassengers = false
+        else if (index === 1)
+          this.PlusLogsDrivers = false
+        else if (index === 2)
+          this.PlusLogsCars = false
+      },
       handleOnLogButtonClick(index) {
         this.showLogs = true
       },
@@ -236,6 +355,12 @@
         this.$router.push({name: map[now.index]})
       },
       handleOnPlusButtonClick(index) {
+        if (index === 0)
+          this.PlusLogsPassengers = true
+        else if (index === 1)
+          this.PlusLogsDrivers = true
+        else if (index === 2)
+          this.PlusLogsCars = true
         console.log('aa' + index)
       }
     }
@@ -260,8 +385,7 @@
 <style lang="scss">
   .logs-dialog {
     .weui-dialog {
-      max-width: none;
+      max-width: 500px;
     }
   }
-
 </style>
