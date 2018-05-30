@@ -13,6 +13,7 @@ import Form from 'components/repair/form'
 import Msg from 'components/repair/msg'
 import Repair from 'components/repair/repair'
 import Admin from 'group/admin'
+import Superadmin from 'group/superadmin'
 import UserManagement from 'components/usermanagement/usermanagement'
 import MessageCenter from 'components/messagecenter/messagecenter'
 import Begin from 'components/requests/begin'
@@ -24,6 +25,7 @@ import Drivers from 'components/usermanagement/drivers'
 import Cars from 'components/usermanagement/cars'
 import ReservationRequest from 'components/messagecenter/ReservationRequest'
 import RepairRequest from 'components/messagecenter/RepairRequest'
+import Superusermanagement from 'components/superusermanagement/superusermanagement'
 import 'element-ui/lib/theme-chalk/index.css'
 import ErrorPage404 from 'components/errorpage/errorpage404'
 
@@ -176,6 +178,23 @@ const router = new Router({
           name: 'cars',
           component: Cars
         }]
+      }]
+    },
+    {
+      path:'/superadmin',
+      component: Superadmin,
+      meta:{
+        title: "公车预约系统超级管理员端",
+        requiresAuth:['superadmin']
+      },
+      children:[{
+        path:'',
+        name:'superadmin',
+        redirect:{name:'superusermanagement'}
+      },{
+        path:'superusermanagement',
+        name:'superusermanagement',
+        component: Superusermanagement
       }]
     },
     {
