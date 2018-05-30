@@ -41,8 +41,8 @@
       <group title="添加乘客信息" label-width="5.5em" label-margin-right="2em" label-align="justify">
         <x-input title="乘客姓名" v-model="passengerName"></x-input>
         <x-input title="乘客工号" v-model="passengerId"></x-input>
-        <x-input title="乘客部门" v-model="passengerDepartment"></x-input>
-        <x-input title="乘客手机号" v-model="passengerPhoneNo"></x-input>
+        <x-input title="乘客部门" v-model="department"></x-input>
+        <x-input title="乘客手机号" v-model="passengerPhone"></x-input>
       </group>
       <div style="width: 80%; margin: 0 auto; margin-top: 20px;margin-bottom: 10px">
         <flexbox>
@@ -62,11 +62,11 @@
       <group title="添加司机信息" label-width="5.5em" label-margin-right="2em" label-align="justify">
         <x-input title="司机姓名" v-model="driverName"></x-input>
         <x-input title="司机工号" v-model="driverId"></x-input>
-        <x-input title="司机手机号" v-model="driverPhoneNo"></x-input>
-        <x-input title="车辆ID" v-model="carNo"></x-input>
-        <x-input title="车牌号" v-model="carLicense"></x-input>
+        <x-input title="司机手机号" v-model="driverPhone"></x-input>
+        <x-input title="车辆ID" v-model="carId"></x-input>
+        <x-input title="车牌号" v-model="carNumber"></x-input>
         <x-input title="车型" v-model="carModel"></x-input>
-        <x-input title="载客数" v-model="totalPassengers"></x-input>
+        <x-input title="载客数" v-model="carSize"></x-input>
       </group>
       <div style="width: 80%; margin: 0 auto; margin-top: 20px;margin-bottom: 10px">
         <flexbox>
@@ -85,8 +85,8 @@
     <x-dialog v-model="PlusLogsCars" class="logs-dialog" hide-on-blur style="height: 300px">
       <group title="添加公车信息" label-width="5.5em" label-margin-right="2em" label-align="justify">
         <x-input title="车辆品牌" v-model="carBrand"></x-input>
-        <x-input title="车辆ID" v-model="carNo"></x-input>
-        <x-input title="载客数" v-model="totalPassengers"></x-input>
+        <x-input title="车辆ID" v-model="carId"></x-input>
+        <x-input title="载客数" v-model="carSize"></x-input>
         <x-input title="司机" v-model="driverName"></x-input>
       </group>
       <div style="width: 80%; margin: 0 auto; margin-top: 20px;margin-bottom: 10px">
@@ -160,18 +160,17 @@
     },
     data() {
       return {
-        carBrand: '',
-        driverName: '',
-        driverId: '',
-        driverPhoneNo: '',
-        carNo: '',
-        carLicense: '',
-        carModel: '',
-        totalPassengers: '',
-        passengerName: '',
-        passengerId: '',
-        passengerDepartment: '',
-        passengerPhoneNo: '',
+        driverName: '',       //司机姓名
+        driverId: '',         //司机工号
+        driverPhone: '',      //司机手机号（后端还没写）
+        carId: '',            //车辆ID
+        carNumber: '',        //车牌号
+        carModel: '',         //车型
+        carSize: '',          //载客数
+        passengerName: '',    //乘客姓名
+        passengerId: '',      //乘客学号
+        department: '',       //乘客部门
+        passengerPhone: '',   //乘客手机号
         searchInput: '',
         searchInputDriver: '',
         itemsOrigin: {
@@ -215,7 +214,7 @@
           passenger: false,
           car: false
         },
-        operationUsername: '',
+        operationpassengerName: '',
         operationMenuOrigin: {
           driver: [{label: '', type: 'disabled'},
             {label: ''},
@@ -321,7 +320,7 @@
         for (let key in this.operationMenuOrigin) {
           Object.assign(this.operationMenu[key], this.operationMenuOrigin[key])
         }
-        this.operationUsername = this.items[type][index].uname
+        this.operationpassengerName = this.items[type][index].uname
         let state = this.items[type][index].ustate
         let styleAppend = ''
         let nameAppend = ''
@@ -332,7 +331,7 @@
         }
         this.operationMenu[type][0].label =
           "<div style='text-align: center; font-weight: bold; font-size: 18px;" + styleAppend + "'>" +
-          this.operationUsername + nameAppend +
+          this.operationpassengerName + nameAppend +
           "</div>"
         if (state === '正常' || state === '冻结') {
           this.operationMenu[type][1].label = "<div style='text-align: center; color: #1AAD19'>" +
