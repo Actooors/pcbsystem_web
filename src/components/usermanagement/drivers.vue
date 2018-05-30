@@ -183,6 +183,89 @@
   }
 </script>
 
-<style scoped>
-  @import url('../../common/css/UserManagement.css');
+<style>
+
+  .weui-form-preview__hd .weui-form-preview__label {
+    color: #000000;
+  }
+
+  .weui-form-preview__bd .weui-form-preview__value {
+    color: #000000;
+  }
+
+  .weui-form-preview__bd .weui-form-preview__label {
+    color: black;
+  }
+
+  .weui-form-preview__hd::after {
+    left: 0;
+  }
+
+  .vux-tab-item:hover {
+    cursor: pointer;
+  }
+
+  .vux-tab .vux-tab-item.vux-tab-selected {
+    font-weight: bold;
+  }
+
+  .applying-form-green {
+    width: 100%;
+    margin: 20px auto;
+    box-shadow: 1px 0px 1px #484848;
+  }
+
+  .progressing-form-yellow {
+    width: 100%;
+    margin: 20px auto;
+    box-shadow: 1px 0px 1px #484848;
+  }
+
+  .history-form-red {
+    width: 100%;
+    margin: 20px auto;
+    box-shadow: 1px 0px 1px #484848;
+  }
+
+  .history-form-green {
+    width: 100%;
+    margin: 20px auto;
+    box-shadow: 1px 0px 1px #484848;
+  }
+
+  .applying-form-green .weui-form-preview__hd .weui-form-preview__value {
+    color: green;
+  }
+
+  .progressing-form-yellow .weui-form-preview__hd .weui-form-preview__value {
+    color: #d4bb00;
+  }
+
+  .history-form-red .weui-form-preview__hd .weui-form-preview__value {
+    color: red;
+  }
+
+  .history-form-green .weui-form-preview__hd .weui-form-preview__value {
+    color: green;
+  }
+
+  @media screen and (min-width: 1024px) {
+    .weui-dialog {
+      width: 450px;
+      max-height: 600px;
+      overflow-y: scroll;
+      overflow-x: hidden;
+    }
+  }
+
+  @media screen and (max-width: 1023px) {
+    .weui-dialog {
+      width: 300px;
+      max-height: 500px;
+      overflow-y: scroll;
+      overflow-x: hidden;
+    }
+  }
+
 </style>
+
