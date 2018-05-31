@@ -2,6 +2,7 @@
   <div class="page-wrapper">
     <div class="logo">
       <img src="../../common/image/logo.png">
+      <span class="name">公务车预约管理系统</span>
     </div>
     <div class="loginbox">
       <img src="../../common/image/jiaoxyybgimg.png" class="bgimg">
