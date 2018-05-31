@@ -84,7 +84,7 @@
     </x-dialog>
     <x-dialog v-model="PlusLogsCars" class="logs-dialog" hide-on-blur style="height: 300px">
       <group title="添加公车信息" label-width="5.5em" label-margin-right="2em" label-align="justify">
-        <x-input title="车辆品牌" v-model="carBrand"></x-input>
+        <x-input title="车辆品牌" v-model="carModel"></x-input>
         <x-input title="车辆ID" v-model="carId"></x-input>
         <x-input title="载客数" v-model="carSize"></x-input>
         <x-input title="司机" v-model="driverName"></x-input>
