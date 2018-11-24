@@ -17,14 +17,14 @@
         ></info-view>
       </el-tab-pane>
     </el-tabs>
-    <div class="logs-dialog-wrapper" v-if="showLogs">
-      <x-dialog v-model="showLogs" class="logs-dialog" hide-on-blur style="height: 800px">
+    <div class="logs-dialog-wrapper" v-transfer-dom>
+      <x-dialog v-model="showLogs" class="logs-dialog" hide-on-blur dialog-transition="">
 
         <router-view></router-view>
 
-        <div @click="showLogs=false">
-          <span class="vux-close"></span>
-        </div>
+        <!--<div @click="showLogs=false">-->
+        <!--<span class="vux-close"></span>-->
+        <!--</div>-->
       </x-dialog>
     </div>
     <div ref="operationMenus">

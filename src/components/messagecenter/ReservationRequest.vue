@@ -1,6 +1,6 @@
 <template>
   <div>
-    <p style="width: 100%;text-align: center;margin-bottom: 10px;color: #666">预约请求</p>
+    <p class="sticky-title" style="top:0;z-index:1;background:white;box-shadow:0 -25px 50px 3px black;width: 100%;text-align: center;margin-bottom: 10px;color: #666;line-height:2em;">预约请求</p>
     <p style="width: 100%;text-align: center;">共有{{requestNumber}}条请求消息</p>
     <form-preview header-label="预约状态" v-for="(item,index) in itemsProgress" :header-value="item.state"
                   :body-items="item.list"
@@ -19,7 +19,6 @@
              title="请在下框内填写拒绝理由"
              @on-cancel="onCancel1"
              @on-confirm="onConfirm1"
-             style="height: 500px !important;"
     >
     </confirm>
   </div>
@@ -27,12 +26,16 @@
 
 <script>
   import {FormPreview, Confirm} from 'vux'
+  import stickybits from 'stickybits'
 
   export default {
     name: "ReservationRequest",
     components: {
       FormPreview,
       Confirm
+    },
+    mounted() {
+      stickybits('.sticky-title', {useStickyClasses: true});
     },
     methods: {
       onConfirm() {
@@ -266,7 +269,7 @@
     }
 
     .weui-dialog > :first-child {
-      height: 600px;
+      max-height: 600px;
       overflow-y: auto;
     }
 
@@ -281,7 +284,7 @@
     }
 
     .weui-dialog > :first-child {
-      height: 500px;
+      max-height: 500px;
       overflow-y: auto;
     }
 

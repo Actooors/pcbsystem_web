@@ -16,6 +16,9 @@
     }
     .card-body {
       display: flex;
+      justify-content: space-around;
+      max-width: 300px;
+      margin: 0 auto;
       > * {
         margin-top: auto;
         margin-bottom: auto;
@@ -25,7 +28,7 @@
         max-width: 88px;
       }
       .card-pinfo {
-        margin-left: 1em;
+        //margin-left: 1em;
         .info-item {
           white-space: nowrap;
           overflow: hidden;

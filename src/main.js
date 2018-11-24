@@ -9,6 +9,9 @@ import 'element-ui/lib/theme-chalk/index.css'
 import 'common/css/base.css'
 import Fastclick from 'fastclick'
 import 'axios-http/interceptors'
+import {TransferDom} from 'vux'
+
+Vue.directive('transfer-dom', TransferDom)
 
 if (process.env.NODE_ENV === 'development')
   console.log("当前环境为:", process.env.NODE_ENV)

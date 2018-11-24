@@ -16,14 +16,13 @@
              @on-confirm="onConfirm1"
     >
     </confirm>
-    <x-dialog v-model="show3" class="dialog-demo" hide-on-blur>
-      <div class="img-box">
-        <img src="https://ws1.sinaimg.cn/large/663d3650gy1fq6824ur1dj20ia0pydlm.jpg" style="max-width:100%">
-      </div>
-      <div @click="show3=false">
-        <span class="vux-close"></span>
-      </div>
-    </x-dialog>
+    <div v-transfer-dom>
+      <x-dialog v-model="show3" class="dialog-demo" hide-on-blur>
+        <div class="img-box">
+          <img src="https://ws1.sinaimg.cn/large/663d3650gy1fq6824ur1dj20ia0pydlm.jpg" style="max-width:100%">
+        </div>
+      </x-dialog>
+    </div>
   </div>
 </template>
 
@@ -149,5 +148,8 @@
     .weui-dialog {
       width: 330px;
     }
+  }
+  .img-box{
+    display: grid;
   }
 </style>
