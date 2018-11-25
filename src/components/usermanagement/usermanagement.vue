@@ -87,7 +87,9 @@
         <x-input title="车辆品牌" v-model="carModel"></x-input>
         <x-input title="车辆ID" v-model="carId"></x-input>
         <x-input title="载客数" v-model="carSize"></x-input>
-        <x-input title="司机" v-model="driverName"></x-input>
+        <x-input title="司机姓名" v-model="driverName"></x-input>
+        <x-input title="司机工号" v-model="driverId"></x-input>
+        <x-input title="车辆备注" v-model="carRemark"></x-input>
       </group>
       <div style="width: 80%; margin: 0 auto; margin-top: 20px;margin-bottom: 10px">
         <flexbox>
@@ -173,6 +175,7 @@
         passengerPhone: '',   //乘客手机号
         searchInput: '',
         searchInputDriver: '',
+        carRemark: '',         //车辆备注
         itemsOrigin: {
           passenger: [],
           driver: [],
@@ -201,7 +204,7 @@
             cid: '车辆ID',
             license: '车牌号',
             capacity: '载客数',
-            dname: "司机"
+            dname: "司机",
           }
         },
         inputTimer: undefined,
@@ -235,10 +238,8 @@
           car: []
         },
         colorMap: {
-          '冻结':
-            '#8cc5ff',
-          '报修':
-            '#A0DB94'
+          '冻结': '#8cc5ff',
+          '报修': '#A0DB94'
         },
         nowTab: '0'
       }

@@ -26,12 +26,6 @@
   }
 </script>
 
-<style>
-  html body {
-    background: #fff;
-  }
-</style>
-
 <style lang="scss" scoped>
   .notfoundimg {
     cursor: pointer;
@@ -43,12 +37,14 @@
       margin-top: -12%;
       .notfoundimg {
         width: 50%;
+
       }
       .para {
         font-weight: bold;
         position: relative;
         top: -3em;
         font-size: 1.3em;
+        text-align: center;
       }
       .para-m {
         display: none;
