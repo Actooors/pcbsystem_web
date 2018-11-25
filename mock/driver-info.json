@@ -19,7 +19,7 @@
     "model": "凤凰",
     "capacity": 4,
     "cid": 34,
-    "ustate":"冻结"
+    "ustate":"不在职"
   },
   {
     "avatar": "http://services.shu.edu.cn/User/showPhoto.aspx",
@@ -30,6 +30,6 @@
     "model": "永久",
     "capacity": 4,
     "cid": 35,
-    "ustate":"报修"
+    "ustate":"正常"
   }
 ]

@@ -76,10 +76,10 @@
 </script>
 
 <style scoped>
-  .requests-form-red {
-    width: 100%;
-    margin: 20px auto;
-  }
+  /*.requests-form-red {*/
+    /*width: 100%;*/
+    /*margin: 20px auto;*/
+  /*}*/
 
   .requests-form-red:hover {
     box-shadow: 1px 1px 100px #e64a47;

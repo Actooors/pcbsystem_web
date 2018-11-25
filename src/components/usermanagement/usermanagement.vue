@@ -13,7 +13,7 @@
       <el-tab-pane label="司机用户">
         <info-view :items="items['driver']"
                    :item-map="itemMap['driver']"
-                   :color-map="colorMap"
+                   :color-map="colorMap2"
                    button-title="记录查询" @on-button-click="handleOnLogButtonClick"
                    button-title2="操作" @on-button-click2="handleOnOperationButtonClickDriver"
                    :plusButton=true @on-plus-button-click="handleOnPlusButtonClick(1)"></info-view>
@@ -241,6 +241,9 @@
           '冻结': '#8cc5ff',
           '报修': '#A0DB94'
         },
+        colorMap2: {
+          '不在职': '#FF0700'
+        },
         nowTab: '0'
       }
     },
@@ -317,7 +320,7 @@
       handleOnLogButtonClick(index) {
         this.showLogs = true
       },
-      handleOnOperationButtonClickDriver(index, type = "driver") {
+      handleOnOperationButtonClick(index, type) {
         for (let key in this.operationMenuOrigin) {
           Object.assign(this.operationMenu[key], this.operationMenuOrigin[key])
         }
@@ -334,20 +337,40 @@
           "<div style='text-align: center; font-weight: bold; font-size: 18px;" + styleAppend + "'>" +
           this.operationpassengerName + nameAppend +
           "</div>"
+        this.showOperationMenu[type] = true;
+      },
+      handleOnOperationButtonClickDriver(index) {
+        let type = "driver";
+        let state = this.items[type][index].ustate;
+        this.handleOnOperationButtonClick(index,type);
+        if (state === '不在职' || state === '正常') {
+          this.operationMenu[type][1].label = "<div style='text-align: center; color: #5854ad'>" +
+            (state === "不在职" ? "恢复任职" : "暂停任职") + "</div>"
+        } else {
+          this.operationMenu[type].splice(1, 1)//下标1是冻结项
+        }
+      },
+      handleOnOperationButtonClickPassenger(index) {
+        let type = "passenger";
+        let state = this.items[type][index].ustate;
+        this.handleOnOperationButtonClick(index,type);
         if (state === '正常' || state === '冻结') {
           this.operationMenu[type][1].label = "<div style='text-align: center; color: #1AAD19'>" +
             (state === "冻结" ? "解冻" : "冻结") + "</div>"
         } else {
           this.operationMenu[type].splice(1, 1)//下标1是冻结项
         }
-        this.showOperationMenu[type] = true;
-
-      },
-      handleOnOperationButtonClickPassenger(index) {
-        this.handleOnOperationButtonClickDriver(index, 'passenger')
       },
       handleOnOperationButtonClickCar(index) {
-        this.handleOnOperationButtonClickDriver(index, 'car')
+        let type = "car";
+        let state = this.items[type][index].ustate;
+        this.handleOnOperationButtonClick(index,type);
+        if (state === '正常' || state === '冻结') {
+          this.operationMenu[type][1].label = "<div style='text-align: center; color: #1AAD19'>" +
+            (state === "冻结" ? "解冻" : "冻结") + "</div>"
+        } else {
+          this.operationMenu[type].splice(1, 1)//下标1是冻结项
+        }
       },
       handleOnTabClick(now) {
         console.log(now)
