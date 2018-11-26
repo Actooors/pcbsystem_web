@@ -31,90 +31,6 @@
 
   export default {
     name: "all",
-    components: {
-      FormPreview,
-      Scroller
-    },
-    methods: {
-      handleCurrentChange(val) {
-        this.pageNo = val;
-      },
-      handleSizeChange(val) {
-        this.totalcars = val;
-      },
-      currentPage(val) {
-        this.pageNo = val;
-      },
-      initData() {
-        axios({
-          url: '//localhost:8081/api/passenger/query/request',
-          method: 'post',
-          data: {
-            "page": this.pageNo,
-            "type": 0
-          }
-        }).then((response) => {
-          if (response.data.code === 'SUCCESS') {
-            this.items = response.data.data
-            for (let i = 0; i < this.items.length; i++) {
-              let list = [
-                {
-                  label: '申请人',
-                  value: localStorage.getItem('userName')
-                },
-                {
-                  label: '起始时间',
-                  value: this.items[i].beginTime
-                },
-                {
-                  label: '结束时间',
-                  value: this.items[i].endTime
-                },
-                {
-                  label: '车辆牌照',
-                  value: this.items[i].carNumber
-                }
-              ]
-              this.lists.push(list)
-            }
-
-          } else {
-            console.log(response.data.message)
-          }
-        }).catch((error) => {
-          console.log(error)
-        })
-      },
-      stateMap(requestState, pass) {
-        // if (requestState === 1 && pass === 0) {
-        //   return '正在申请'
-        // } else if (requestState === 2 && pass === 1) {
-        //   return '正在进行'
-        // }
-        // else if (requestState === 3 && pass === 1) {
-        //   return '已经结束'
-        // } else if (requestState === 4) {
-        //   return '申请失败'
-        // } else {
-        //   return '未知状态'
-        // }
-        if (requestState === 1) {
-          return '正在申请'
-        } else if (requestState === 2) {
-          return '正在进行'
-        }
-        else if (requestState === 3) {
-          return '已经结束'
-        } else if (requestState === 4) {
-          return '申请失败'
-        } else {
-          return '未知状态'
-        }
-      }
-    },
-    created() {
-      this.initData()
-    },
     data() {
       return {
         pageNo: 1,
@@ -158,7 +74,93 @@
           }
         ]
       }
-    }
+    },
+    components: {
+      FormPreview,
+      Scroller
+    },
+    methods: {
+      handleCurrentChange(val) {
+        this.pageNo = val;
+      },
+      handleSizeChange(val) {
+        this.totalcars = val;
+      },
+      currentPage(val) {
+        this.pageNo = val;
+      },
+      initData() {
+        axios({
+          url: 'http://192.168.50.223:8081/api/passenger/query/request',
+          method: 'post',
+          data: {
+            "page": this.pageNo,
+            "type": 0
+          }
+        }).then((response) => {
+          console.log(response.data.data)
+          if (response.data.code === 'SUCCESS') {
+            this.items = response.data.data
+            for (let i = 0; i < this.items.length; i++) {
+              let list = [
+                {
+                  label: '申请人',
+                  value: localStorage.getItem('userName')
+                },
+                {
+                  label: '起始时间',
+                  value: this.items[i].startDate
+                },
+                {
+                  label: '结束时间',
+                  value: this.items[i].endDate
+                },
+                {
+                  label: '车辆牌照',
+                  value: this.items[i].licence
+                }
+              ]
+              this.lists.push(list)
+            }
+
+          } else {
+            console.log(response.data.message)
+          }
+        }).catch((error) => {
+          console.log(error)
+        })
+      },
+      stateMap(requestState, pass) {
+        // if (requestState === 1 && pass === 0) {
+        //   return '正在申请'
+        // } else if (requestState === 2 && pass === 1) {
+        //   return '正在进行'
+        // }
+        // else if (requestState === 3 && pass === 1) {
+        //   return '已经结束'
+        // } else if (requestState === 4) {
+        //   return '申请失败'
+        // } else {
+        //   return '未知状态'
+        // }
+        if (requestState === 1) {
+          return '正在申请'
+        } else if (requestState === 2) {
+          return '正在进行'
+        }
+        else if (requestState === 3) {
+          return '已经结束'
+        } else if (requestState === 4) {
+          return '申请失败'
+        } else {
+          return '未知状态'
+        }
+      }
+    },
+    created() {
+      this.initData()
+    },
+
   }
 </script>
 

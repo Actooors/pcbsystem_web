@@ -342,7 +342,7 @@
       handleOnOperationButtonClickDriver(index) {
         let type = "driver";
         let state = this.items[type][index].ustate;
-        this.handleOnOperationButtonClick(index,type);
+        this.handleOnOperationButtonClick(index, type);
         if (state === '不在职' || state === '正常') {
           this.operationMenu[type][1].label = "<div style='text-align: center; color: #5854ad'>" +
             (state === "不在职" ? "恢复任职" : "暂停任职") + "</div>"
@@ -353,7 +353,7 @@
       handleOnOperationButtonClickPassenger(index) {
         let type = "passenger";
         let state = this.items[type][index].ustate;
-        this.handleOnOperationButtonClick(index,type);
+        this.handleOnOperationButtonClick(index, type);
         if (state === '正常' || state === '冻结') {
           this.operationMenu[type][1].label = "<div style='text-align: center; color: #1AAD19'>" +
             (state === "冻结" ? "解冻" : "冻结") + "</div>"
@@ -364,7 +364,7 @@
       handleOnOperationButtonClickCar(index) {
         let type = "car";
         let state = this.items[type][index].ustate;
-        this.handleOnOperationButtonClick(index,type);
+        this.handleOnOperationButtonClick(index, type);
         if (state === '正常' || state === '冻结') {
           this.operationMenu[type][1].label = "<div style='text-align: center; color: #1AAD19'>" +
             (state === "冻结" ? "解冻" : "冻结") + "</div>"
@@ -378,13 +378,38 @@
         this.$router.push({name: map[now.index]})
       },
       handleOnPlusButtonClick(index) {
-        if (index === 0)
+        if (index === 0) {
           this.PlusLogsPassengers = true
-        else if (index === 1)
+//          axios({
+//            url: 'http://192.168.50.223:8081/api/admin/add/passenger',
+//            method: 'post',
+//            data: {
+//              "user_name": this.passengerName,
+//              "user_id": this.passengerId,
+//              "user_phone": this.passengerPhone
+//            }
+//          }).then((res)=>{
+//            console.log(res.data)
+//            if(res.data.code==="SUCCESS"){
+//
+//              this.$message({
+//                type: 'success',
+//                message: '添加成功',
+//              })
+//            }
+//          });
+        }
+
+        else if (index === 1) {
           this.PlusLogsDrivers = true
-        else if (index === 2)
+        }
+
+        else if (index === 2) {
           this.PlusLogsCars = true
+        }
+
         console.log('aa' + index)
+
       }
     }
   }

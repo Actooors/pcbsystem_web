@@ -84,7 +84,7 @@
       VerifyCellPhoneNumber() {
         this.show = true;
         axios({
-          url: '//localhost:8081/api/user/validateCode',
+          url: 'http://192.168.50.223:8081/api/user/validateCode',
           method: 'post',
           data: {
             "phoneNum": this.phoneNum
@@ -123,7 +123,7 @@
       },
       initPersonalInfo() {
         axios({
-          url: '//localhost:8081/api/user/phoneNum',
+          url: 'http://192.168.50.223:8081/api/user/phoneNum',
           method: 'get'
         }).then((res) => {
           if (res.data.code === 'FAILED') {

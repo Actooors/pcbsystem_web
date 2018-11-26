@@ -24,7 +24,7 @@
     methods: {
       initData() {
         axios({
-          url: '//localhost:8081/api/passenger/query/request',
+          url: 'http://192.168.50.223:8081/api/passenger/query/request',
           method: 'post',
           data: {
             "page": this.pageNo,

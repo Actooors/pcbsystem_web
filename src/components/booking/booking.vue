@@ -51,7 +51,7 @@
               </p>
             </div>
             <div class="operation">
-              <x-button :gradients="['#FF5E3A', '#FF9500']" class="btn-book" @click.native="handleBooking(item)" mini >预约
+              <x-button :gradients="['#FF5E3A', '#FF9500']" class="btn-book" @click.native="handleBooking(item)" mini>预约
               </x-button>
             </div>
           </div>
@@ -184,13 +184,12 @@
           this.$notify.info({title: '请先选择预约起止时间！'})
           return
         }
-
         axios({
-          url: '//localhost:8081/api/passenger/availableCar',
+          url: 'http://192.168.50.223:8081/api/passenger/availableCar',
           method: 'get',
           params: {
-            startTime: dateFormat(parseDate(this.calendarValueStart.replace('　', ' ')), 'YYYYMMDDhhmm'),
-            endTime: dateFormat(parseDate(this.calendarValueEnd.replace('　', ' ')), 'YYYYMMDDhhmm')
+            startDate: dateFormat(parseDate(this.calendarValueStart.replace('　', ' ')), 'YYYYMMDDhhmm'),
+            endDate: dateFormat(parseDate(this.calendarValueEnd.replace('　', ' ')), 'YYYYMMDDhhmm')
           }
         })
           .then((res) => {
@@ -261,14 +260,14 @@
       },
       handleOnConfirm() {
         axios({
-          url: '//localhost:8081/api/passenger/orderCar',
+          url: 'http://192.168.50.223:8081/api/passenger/orderCar',
           method: 'post',
           data: {
             "carId": this.thisItem.carId,
-            "endDate": parseDate(this.calendarValueStart.replace('　', ' ')),
+            "endDate": dateFormat(parseDate(this.calendarValueEnd.replace('　', ' ')), 'YYYYMMDDhhmm'),
             "place": this.locationOption,
             "requestReason": "用车需要",
-            "startDate": new Date().toISOString()
+            "startDate": dateFormat(parseDate(this.calendarValueStart.replace('　', ' ')), 'YYYYMMDDhhmm')
           }
         }).then((response) => {
           console.log(response.data)
@@ -280,7 +279,7 @@
           } else {
             this.$message({
               type: 'warning',
-              message: `预约失败!${response.data.message}`
+              message: response.data.message
             })
           }
         }).catch((error) => {
@@ -291,8 +290,6 @@
     },
     created() {
       this.InitDate()
-      // console.log(dateFormat(this.bDate, 'YYYY-MM-DD HH'))
-      // console.log(dateFormat(this.eDate, 'YYYY-MM-DD HH'))
     },
     watch: {
       calendarValueStart(newVal) {

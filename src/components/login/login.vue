@@ -61,7 +61,7 @@
           return !isNaN(x)
         }).join('').length
         if (this.password.length >= 6) {
-          axios.post('http://localhost:8081/login', {
+          axios.post('http://192.168.50.223:8081/login', {
             userId: this.username,
             password: this.password
           })
@@ -72,7 +72,9 @@
                 });
               else {
                 //登录成功，将token等信息添加到localStorage
+
                 let userIdentity = enumMap[res.data.data.userIdentity]
+                console.log(res.data.data.userIdentity)
                 console.log(userIdentity)
                 localStorage.setItem('userIdentity', userIdentity)
                 localStorage.setItem('userId', res.data.data.userId)
