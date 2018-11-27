@@ -1,8 +1,27 @@
 <template>
   <div>
-    <form-preview header-label="预约状态" v-for="(item,index) of items" header-value="正在申请" :body-items="item"
-                  class="applying-form-green"
-                  :key="item.value"></form-preview>
+    <div>
+      <form-preview header-label="预约状态" v-for="(item,index) of items"
+                    :header-value="stateMap(item.pass)"
+                    :body-items="lists[index]"
+                    :class="{'history-form-red':item.pass===4,
+                  'history-form-green':item.pass===3,
+                  'progressing-form-yellow':item.pass===2,
+                  'applying-form-green':item.pass===1,
+                  }"
+                    :key="item.value"
+                    v-loading="loading"></form-preview>
+    </div>
+    <div class="block" style="margin-top: 50px; margin-bottom: 100px">
+      <el-pagination
+        @size-change="handleSizeChange"
+        @current-change="handleCurrentChange"
+        layout="prev, pager, next"
+        :page-size="pageSize"
+        :current-page="pageNo"
+        :total="this.items.length">
+      </el-pagination>
+    </div>
   </div>
 </template>
 
@@ -17,11 +36,23 @@
     },
     data() {
       return {
+        pageNo: 1,
+        pageSize: 10,
         items: [],
-        lists:[]
+        lists: [],
+        loading: false
       }
     },
     methods: {
+      handleCurrentChange(val) {
+        this.pageNo = val;
+      },
+      handleSizeChange(val) {
+        this.totalcars = val;
+      },
+      currentPage(val) {
+        this.pageNo = val;
+      },
       initData() {
         axios({
           url: 'http://192.168.50.223:8081/api/passenger/query/request',
@@ -31,10 +62,10 @@
             "type": 1
           }
         }).then((response) => {
+          this.loading = true
           if (response.data.code === 'SUCCESS') {
-            this.items = response.data.data.filter((item) => {
-              return item.pass === 0
-            })
+            console.log(response.data)
+            this.items = response.data.data
             for (let i = 0; i < this.items.length; i++) {
               let list = [
                 {
@@ -43,15 +74,54 @@
                 },
                 {
                   label: '起始时间',
-                  value: this.items[i].beginTime
+                  value: this.items[i].startDate
                 },
                 {
                   label: '结束时间',
-                  value: this.items[i].endTime
+                  value: this.items[i].endDate
                 },
                 {
                   label: '车辆牌照',
-                  value: this.items[i].carNumber
+                  value: this.items[i].licence
+                }
+              ]
+              this.lists.push(list)
+            }
+            this.loading = false
+          } else {
+            console.log(response.data.message)
+          }
+        }).catch((error) => {
+          console.log(error)
+        })
+        axios({
+          url: 'http://192.168.50.223:8081/api/passenger/query/request',
+          method: 'post',
+          data: {
+            "page": this.pageNo,
+            "type": 2
+          }
+        }).then((response) => {
+          if (response.data.code === 'SUCCESS') {
+            console.log(response.data)
+            this.items = response.data.data
+            for (let i = 0; i < this.items.length; i++) {
+              let list = [
+                {
+                  label: '申请人',
+                  value: localStorage.getItem('userName')
+                },
+                {
+                  label: '起始时间',
+                  value: this.items[i].startDate
+                },
+                {
+                  label: '结束时间',
+                  value: this.items[i].endDate
+                },
+                {
+                  label: '车辆牌照',
+                  value: this.items[i].licence
                 }
               ]
               this.lists.push(list)
@@ -62,9 +132,23 @@
         }).catch((error) => {
           console.log(error)
         })
+      },
+      stateMap(requestState) {
+        if (requestState === 1) {
+          return '正在申请'
+        } else if (requestState === 2) {
+          return '正在进行'
+        }
+        else if (requestState === 3) {
+          return '审核通过'
+        } else if (requestState === 4) {
+          return '申请失败'
+        } else {
+          return '未知状态'
+        }
       }
     },
-    created(){
+    created() {
       this.initData()
     }
   }
@@ -72,16 +156,62 @@
 
 
 <style>
+  html body {
+    /*overflow-y: hidden;*/
+  }
+
+  .history-form-red {
+    width: 40%;
+    margin: 20px auto !important;
+  }
+
+  .history-form-red:hover {
+    box-shadow: 1px 1px 100px #e64a47 !important;
+  }
+
+  .history-form-green {
+    width: 40%;
+    margin: 20px auto !important;
+  }
+
+  .history-form-green:hover {
+    box-shadow: 1px 1px 100px #e64ec8 !important;
+  }
+
+  .history-form-red .weui-form-preview__hd .weui-form-preview__value {
+    color: red !important;
+  }
+
+  .history-form-green .weui-form-preview__hd .weui-form-preview__value {
+    color: #e64ec8 !important;
+  }
+
+  .progressing-form-yellow {
+    margin: 20px auto !important;
+  }
+
+  .progressing-form-yellow:hover {
+    box-shadow: 1px 1px 100px yellow !important;
+  }
+
+  .progressing-form-yellow .weui-form-preview__hd .weui-form-preview__value {
+    color: #d4bb00 !important;
+  }
+
   .applying-form-green {
-    margin: 20px auto;
+    margin: 20px auto !important;
   }
 
   .applying-form-green:hover {
-    box-shadow: 1px 1px 100px #07e629;
+    box-shadow: 1px 1px 100px #07e629 !important;
   }
 
   .applying-form-green .weui-form-preview__hd .weui-form-preview__value {
-    color: green;
+    color: green !important;
+  }
+
+  .unknown-form-black {
+    margin: 20px auto !important;
   }
 </style>
 

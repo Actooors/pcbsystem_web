@@ -2,24 +2,24 @@
   <div>
     <div>
       <form-preview header-label="预约状态" v-for="(item,index) of items"
-                    :header-value="stateMap(item.requestState,item.pass)"
+                    :header-value="stateMap(item.pass)"
                     :body-items="lists[index]"
-                    :class="{'history-form-red':item.requestState===4,
-                  'history-form-green':item.requestState===3,
-                  'progressing-form-yellow':item.requestState===2,
-                  'applying-form-green':item.requestState===1,
+                    :class="{'history-form-red':item.pass===4,
+                  'history-form-green':item.pass===3,
+                  'progressing-form-yellow':item.pass===2,
+                  'applying-form-green':item.pass===1,
                   }"
-                    :key="item.value"></form-preview>
+                    :key="item.value"
+      ></form-preview>
     </div>
     <div class="block" style="margin-top: 50px; margin-bottom: 100px">
       <el-pagination
         @size-change="handleSizeChange"
         @current-change="handleCurrentChange"
-        :current-page.sync="currentPage"
         layout="prev, pager, next"
         :page-size="pageSize"
         :current-page="pageNo"
-        :total="items.length">
+        :total="total">
       </el-pagination>
     </div>
   </div>
@@ -35,44 +35,9 @@
       return {
         pageNo: 1,
         pageSize: 10,
-        items: [
-          {
-            "avatar": "string",
-            "capacity": "string",
-            "cid": 0,
-            "driverPhone": "string",
-            "endDate": 0,
-            "id": 0,
-            "licence": "string",
-            "model": "string",
-            "owner": "string",
-            "pass": "string",
-            "place": "string",
-            "reason": "string",
-            "startDate": 0,
-            "userId": "string",
-            "userName": "string"
-          }
-        ],
+        total: 0,
+        items: [],
         lists: [],
-        list: [
-          {
-            label: '申请人',
-            value: '李瑞轩'
-          },
-          {
-            label: '起始时间',
-            value: '2018-04-17　08:00'
-          },
-          {
-            label: '结束时间',
-            value: '2018-04-18　08:00'
-          },
-          {
-            label: '车辆牌照',
-            value: '沪A-11111'
-          }
-        ]
       }
     },
     components: {
@@ -99,8 +64,15 @@
           }
         }).then((response) => {
           console.log(response.data.data)
+          const loading = this.$loading({
+            lock: true,
+            text: 'Loading',
+            spinner: 'el-icon-loading',
+            background: 'rgba(0, 0, 0, 0.7)'
+          });
           if (response.data.code === 'SUCCESS') {
             this.items = response.data.data
+            this.total += response.data.data.length
             for (let i = 0; i < this.items.length; i++) {
               let list = [
                 {
@@ -122,7 +94,7 @@
               ]
               this.lists.push(list)
             }
-
+            loading.close()
           } else {
             console.log(response.data.message)
           }
@@ -130,26 +102,14 @@
           console.log(error)
         })
       },
-      stateMap(requestState, pass) {
-        // if (requestState === 1 && pass === 0) {
-        //   return '正在申请'
-        // } else if (requestState === 2 && pass === 1) {
-        //   return '正在进行'
-        // }
-        // else if (requestState === 3 && pass === 1) {
-        //   return '已经结束'
-        // } else if (requestState === 4) {
-        //   return '申请失败'
-        // } else {
-        //   return '未知状态'
-        // }
+      stateMap(requestState) {
         if (requestState === 1) {
-          return '正在申请'
+          return '正在审核'
         } else if (requestState === 2) {
-          return '正在进行'
+          return '已经取消'
         }
         else if (requestState === 3) {
-          return '已经结束'
+          return '审核通过'
         } else if (requestState === 4) {
           return '申请失败'
         } else {
@@ -170,51 +130,52 @@
   }
 
   .history-form-red {
-    margin: 20px auto;
+    width: 40%;
+    margin: 20px auto !important;
   }
 
   .history-form-red:hover {
-    box-shadow: 1px 1px 100px #e64a47;
+    box-shadow: 1px 1px 100px #e64a47 !important;
   }
 
   .history-form-green {
-    margin: 20px auto;
+    margin: 20px auto !important;
   }
 
   .history-form-green:hover {
-    box-shadow: 1px 1px 100px #07e629;
+    box-shadow: 1px 1px 100px #e64ec8 !important;
   }
 
   .history-form-red .weui-form-preview__hd .weui-form-preview__value {
-    color: red;
+    color: red !important;
   }
 
   .history-form-green .weui-form-preview__hd .weui-form-preview__value {
-    color: green;
+    color: #e64ec8 !important;
   }
 
   .progressing-form-yellow {
-    margin: 20px auto;
+    margin: 20px auto !important;
   }
 
   .progressing-form-yellow:hover {
-    box-shadow: 1px 1px 100px yellow;
+    box-shadow: 1px 1px 100px yellow !important;
   }
 
   .progressing-form-yellow .weui-form-preview__hd .weui-form-preview__value {
-    color: #d4bb00;
+    color: #d4bb00 !important;
   }
 
   .applying-form-green {
-    margin: 20px auto;
+    margin: 20px auto !important;
   }
 
   .applying-form-green:hover {
-    box-shadow: 1px 1px 100px #07e629;
+    box-shadow: 1px 1px 100px #07e629 !important;
   }
 
   .applying-form-green .weui-form-preview__hd .weui-form-preview__value {
-    color: green;
+    color: green !important;
   }
 </style>
 

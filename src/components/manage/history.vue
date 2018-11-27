@@ -1,11 +1,16 @@
 <template>
   <div class="root">
     <div>
-      <form-preview header-label="预约状态" v-for="(item,index) of items" :header-value="stateMap(item.requestState,item.pass)"
-                    :body-items="item"
+      <form-preview header-label="预约状态" v-for="(item,index) of items"
+                    :header-value="stateMap(item.pass)"
+                    :body-items="lists[index]"
+                    :class="{'history-form-red':item.pass===4,
+                  'history-form-green':item.pass===3,
+                  'progressing-form-yellow':item.pass===2,
+                  'applying-form-green':item.pass===1,
+                  }"
                     :key="item.value"
-                    class="history-form-red"></form-preview>
-      <!--:class="item.pass===0?'history-form-red':'history-form-green'"-->
+                    v-loading="loading"></form-preview>
     </div>
 
     <div class="block" style="margin: 50px auto">
@@ -16,7 +21,7 @@
         layout="prev, pager, next"
         :page-size="pageSize"
         :current-page="pageNo"
-        :total="items.length">
+        :total="total">
       </el-pagination>
     </div>
 
@@ -34,11 +39,12 @@
     },
     data() {
       return {
-        totalcars: 3,
+        total: 0,
         pageNo: 1,
         pageSize: 10,
         items: [],
-        lists:[]
+        lists: [],
+        loading: false
       }
     },
     methods: {
@@ -60,8 +66,11 @@
             "type": 3
           }
         }).then((response) => {
+          this.loading = true
           if (response.data.code === 'SUCCESS') {
-            this.items = response.data.data
+            console.log(response.data.data)
+            this.items = response.data.data.requestInfo
+            this.total = response.data.data.total
             for (let i = 0; i < this.items.length; i++) {
               let list = [
                 {
@@ -70,19 +79,20 @@
                 },
                 {
                   label: '起始时间',
-                  value: this.items[i].beginTime
+                  value: this.items[i].startDate
                 },
                 {
                   label: '结束时间',
-                  value: this.items[i].endTime
+                  value: this.items[i].endDate
                 },
                 {
                   label: '车辆牌照',
-                  value: this.items[i].carNumber
+                  value: this.items[i].licence
                 }
               ]
               this.lists.push(list)
             }
+            this.loading = false
           } else {
             console.log(response.data.message)
           }
@@ -90,7 +100,7 @@
           console.log(error)
         })
       },
-      stateMap(requestState, pass) {
+      stateMap(requestState) {
         if (requestState === 1) {
           return '正在申请'
         } else if (requestState === 2) {
