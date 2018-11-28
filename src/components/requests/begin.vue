@@ -1,12 +1,27 @@
 <template>
   <div>
-    <form-preview header-label="状态" v-for="(item,index) of items" :header-value="item.state" :body-items="item.list"
-                  :class="item.state==='即将开始'?'requests-form-green':null"
-                  :key="item.value"></form-preview>
+    <div>
+      <form-preview header-label="状态" v-for="(item,index) of items"
+                    header-value="即将开始"
+                    :body-items="lists[index]"
+                    class='requests-form-green'
+                    :key="item.value"></form-preview>
+    </div>
+    <div class="block" style="margin-top: 50px; margin-bottom: 100px">
+      <el-pagination
+        @prev-click="handlePrevClick"
+        @next-click="handleNextClick"
+        layout="prev, pager, next"
+        :page-size="pageSize"
+        :current-page="pageNo"
+        :total="total">
+      </el-pagination>
+    </div>
   </div>
 </template>
 
 <script>
+  import axios from 'axios'
   import {FormPreview} from 'vux'
 
   export default {
@@ -16,61 +31,85 @@
     },
     data() {
       return {
-        items: [
-          {
-            state: "即将开始",
-            list:
-              [
-                {
-                  label: '申请人',
-                  value: '李瑞轩'
-                },
-                {
-                  label: '上车地点',
-                  value: '行政楼'
-                },
-                {
-                  label: '联系方式',
-                  value: '18109171575'
-                },
-                {
-                  label: '起始时间',
-                  value: '2018-04-18　08:00'
-                },
-                {
-                  label: '结束时间',
-                  value: '2018-04-19　08:00'
-                }
-              ]
-          },
-          {
-            state: "即将开始",
-            list:
-              [
-                {
-                  label: '申请人',
-                  value: '殷子良'
-                },
-                {
-                  label: '上车地点',
-                  value: '北门'
-                },
-                {
-                  label: '联系方式',
-                  value: '18916999181'
-                },
-                {
-                  label: '起始时间',
-                  value: '2018-04-18　08:00'
-                },
-                {
-                  label: '结束时间',
-                  value: '2018-04-19　08:00'
-                }
-              ]
-          }
-        ],
+        items: [],
+        lists: [],
+        total: 0,
+        pageNo: 1,
+        pageSize: 10
       }
+    },
+    methods: {
+      handlePrevClick() {
+        console.log("点击上一页")
+        this.pageNo--;
+        this.initData(this.pageNo)
+      },
+      handleNextClick() {
+        console.log("点击下一页")
+        this.pageNo++;
+        this.initData(this.pageNo)
+      },
+      initData(page) {
+        const loading = this.$loading({
+          lock: true,
+          text: 'Loading',
+          spinner: 'el-icon-loading',
+          background: 'rgba(0, 0, 0, 0.7)'
+        });
+        axios({
+          url: 'http://172.20.10.2:8081/api/driver/query/request',
+          method: 'post',
+          data: {
+            "page": page,
+            "type": 0
+          }
+        }).then((res) => {
+          console.log(res.data)
+          if (res.data.code === "SUCCESS") {
+            this.items = res.data.data.requestInfo
+            this.total = res.data.data.total
+            for (let i = 0; i < this.items.length; i++) {
+              let list = [
+                {
+                  label: '申请人',
+                  value: this.items[i].userName
+                },
+                {
+                  label: '上车地点',
+                  value: this.items[i].place
+                },
+                {
+                  label: '联系方式',
+                  value: this.items[i].passengerPhone
+                },
+                {
+                  label: '起始时间',
+                  value: this.items[i].startDate
+                },
+                {
+                  label: '结束时间',
+                  value: this.items[i].endDate
+                }
+              ]
+              this.lists.push(list)
+            }
+            loading.close()
+          } else {
+            this.$notify.error({
+              message: res.data.message
+            });
+            loading.close()
+          }
+        }).catch((err) => {
+          this.$notify.error({
+            message: err
+          });
+          loading.close()
+        })
+      }
+    },
+    created() {
+      this.initData(1)
     }
   }
 </script>

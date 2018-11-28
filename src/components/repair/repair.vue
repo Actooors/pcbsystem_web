@@ -3,11 +3,11 @@
     <router-view></router-view>
     <div class="tabbar">
       <tabbar>
-        <tabbar-item show-dot link="form">
+        <tabbar-item link="form">
           <img slot="icon" src="../../common/image/icon_nav_msg.png">
-          <span slot="label">填写表单</span>
+          <span slot="label">填写原因</span>
         </tabbar-item>
-        <tabbar-item badge="2" link="msg">
+        <tabbar-item link="msg">
           <img slot="icon" src="../../common/image/icon_nav_article.png">
           <span slot="label">报修消息</span>
         </tabbar-item>

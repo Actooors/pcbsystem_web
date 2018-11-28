@@ -1,7 +1,7 @@
 <template>
   <div>
     <div>
-      <form-preview header-label="预约状态" v-for="(item,index) of items"
+      <form-preview header-label="状态" v-for="(item,index) of items"
                     :header-value="stateMap(item.pass)"
                     :body-items="lists[index]"
                     :class="{'history-form-red':item.pass===4,
@@ -97,7 +97,9 @@
             }
             loading.close()
           } else {
-            console.log(response.data.message)
+            this.$notify.error({
+              message: response.data.message
+            });
             loading.close()
           }
         }).catch((error) => {

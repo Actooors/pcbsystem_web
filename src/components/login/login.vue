@@ -56,6 +56,12 @@
     methods: {
       handleOnLoginButtonClick() {
         console.log("点击登陆！")
+        const loading = this.$loading({
+          lock: true,
+          text: '正在登录...',
+          spinner: 'el-icon-loading',
+          background: 'rgba(0, 0, 0, 0.7)'
+        });
         this.loginfault = false
         const enumMap = [undefined, 'passenger', 'driver', 'admin']
         let lenUsername = this.username.split().filter((x) => {
@@ -67,13 +73,15 @@
             password: this.password
           })
             .then((res) => {
-              if (res.data.code === 'FAILED')
+              if (res.data.code === 'FAILED'){
                 this.$notify.error({
-                message: res.data.message
+                  message: res.data.message
                 });
+                loading.close()
+              }
               else {
                 //登录成功，将token等信息添加到localStorage
-
+                loading.close()
                 let userIdentity = enumMap[res.data.data.userIdentity]
                 console.log(res.data.data.userIdentity)
                 console.log(userIdentity)
@@ -93,12 +101,12 @@
               this.$notify.error({
               message: error
               });
+              loading.close()
             })
         }
         else {
           this.loginfault = true;
         }
-
       }
     },
     mounted() {
