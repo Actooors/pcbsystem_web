@@ -10,14 +10,13 @@
                   'applying-form-green':item.pass===1,
                   }"
                     :key="item.value"
-                    v-loading="loading"></form-preview>
+                    ></form-preview>
     </div>
 
     <div class="block" style="margin: 50px auto">
       <el-pagination
-        @size-change="handleSizeChange"
-        @current-change="handleCurrentChange"
-        :current-page.sync="currentPage"
+        @prev-click="handlePrevClick"
+        @next-click="handleNextClick"
         layout="prev, pager, next"
         :page-size="pageSize"
         :current-page="pageNo"
@@ -44,29 +43,34 @@
         pageSize: 10,
         items: [],
         lists: [],
-        loading: false
       }
     },
     methods: {
-      handleCurrentChange(val) {
-        this.pageNo = val;
+      handlePrevClick(){
+        console.log("点击上一页")
+        this.pageNo--;
+        this.initData(this.pageNo)
       },
-      handleSizeChange(val) {
-        this.totalcars = val;
+      handleNextClick(){
+        console.log("点击下一页")
+        this.pageNo++;
+        this.initData(this.pageNo)
       },
-      currentPage(val) {
-        this.pageNo = val;
-      },
-      initData() {
+      initData(page) {
+        const loading = this.$loading({
+          lock: true,
+          text: 'Loading',
+          spinner: 'el-icon-loading',
+          background: 'rgba(0, 0, 0, 0.7)'
+        });
         axios({
-          url: 'http://192.168.50.223:8081/api/passenger/query/request',
+          url: 'http://172.20.10.2:8081/api/passenger/query/request',
           method: 'post',
           data: {
-            "page": this.pageNo,
+            "page": page,
             "type": 3
           }
         }).then((response) => {
-          this.loading = true
           if (response.data.code === 'SUCCESS') {
             console.log(response.data.data)
             this.items = response.data.data.requestInfo
@@ -92,12 +96,14 @@
               ]
               this.lists.push(list)
             }
-            this.loading = false
+            loading.close()
           } else {
             console.log(response.data.message)
+            loading.close()
           }
         }).catch((error) => {
           console.log(error)
+          loading.close()
         })
       },
       stateMap(requestState) {
@@ -116,7 +122,7 @@
       }
     },
     created() {
-      this.initData()
+      this.initData(1)
     }
 
   }

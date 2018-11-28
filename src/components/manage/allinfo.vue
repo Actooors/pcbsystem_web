@@ -14,8 +14,8 @@
     </div>
     <div class="block" style="margin-top: 50px; margin-bottom: 100px">
       <el-pagination
-        @size-change="handleSizeChange"
-        @current-change="handleCurrentChange"
+        @prev-click="handlePrevClick"
+        @next-click="handleNextClick"
         layout="prev, pager, next"
         :page-size="pageSize"
         :current-page="pageNo"
@@ -45,34 +45,35 @@
       Scroller
     },
     methods: {
-      handleCurrentChange(val) {
-        this.pageNo = val;
+      handlePrevClick(){
+        console.log("点击上一页")
+        this.pageNo--;
+        this.initData(this.pageNo)
       },
-      handleSizeChange(val) {
-        this.totalcars = val;
+      handleNextClick(){
+        console.log("点击下一页")
+        this.pageNo++;
+        this.initData(this.pageNo)
       },
-      currentPage(val) {
-        this.pageNo = val;
-      },
-      initData() {
+      initData(page) {
+        const loading = this.$loading({
+          lock: true,
+          text: 'Loading',
+          spinner: 'el-icon-loading',
+          background: 'rgba(0, 0, 0, 0.7)'
+        });
         axios({
-          url: 'http://192.168.50.223:8081/api/passenger/query/request',
+          url: 'http://172.20.10.2:8081/api/passenger/query/request',
           method: 'post',
           data: {
-            "page": this.pageNo,
+            "page": page,
             "type": 0
           }
         }).then((response) => {
           console.log(response.data.data)
-          const loading = this.$loading({
-            lock: true,
-            text: 'Loading',
-            spinner: 'el-icon-loading',
-            background: 'rgba(0, 0, 0, 0.7)'
-          });
           if (response.data.code === 'SUCCESS') {
-            this.items = response.data.data
-            this.total += response.data.data.length
+            this.items = response.data.data.requestInfo
+            this.total = response.data.data.total
             for (let i = 0; i < this.items.length; i++) {
               let list = [
                 {
@@ -97,9 +98,11 @@
             loading.close()
           } else {
             console.log(response.data.message)
+            loading.close()
           }
         }).catch((error) => {
           console.log(error)
+          loading.close()
         })
       },
       stateMap(requestState) {
@@ -118,7 +121,7 @@
       }
     },
     created() {
-      this.initData()
+      this.initData(1)
     },
 
   }

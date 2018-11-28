@@ -55,13 +55,14 @@
     },
     methods: {
       handleOnLoginButtonClick() {
+        console.log("点击登陆！")
         this.loginfault = false
         const enumMap = [undefined, 'passenger', 'driver', 'admin']
         let lenUsername = this.username.split().filter((x) => {
           return !isNaN(x)
         }).join('').length
         if (this.password.length >= 6) {
-          axios.post('http://192.168.50.223:8081/login', {
+          axios.post('http://172.20.10.2:8081/login', {
             userId: this.username,
             password: this.password
           })

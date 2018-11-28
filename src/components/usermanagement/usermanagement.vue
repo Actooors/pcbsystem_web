@@ -381,7 +381,7 @@
         if (index === 0) {
           this.PlusLogsPassengers = true
 //          axios({
-//            url: 'http://192.168.50.223:8081/api/admin/add/passenger',
+//            url: 'http://172.20.10.2:8081/api/admin/add/passenger',
 //            method: 'post',
 //            data: {
 //              "user_name": this.passengerName,

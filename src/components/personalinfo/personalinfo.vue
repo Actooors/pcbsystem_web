@@ -68,7 +68,10 @@
         show: false,
         id: localStorage.getItem('userId'),
         name: localStorage.getItem('userName'),
-        phoneNum: '请输入手机号码'
+        phoneNum: '请输入手机号码',
+        hashKey: '',
+        deadline: '',
+        code: '',
       }
     },
     computed: {
@@ -84,7 +87,7 @@
       VerifyCellPhoneNumber() {
         this.show = true;
         axios({
-          url: 'http://192.168.50.223:8081/api/user/validateCode',
+          url: 'http://172.20.10.2:8081/api/user/validateCode',
           method: 'post',
           data: {
             "phoneNum": this.phoneNum
@@ -95,6 +98,15 @@
             this.$message({
               type: 'success',
               message: '短信已发送,请注意查收!'
+            })
+            this.phoneNum = res.data.data.phoneNum
+            this.code = res.data.code
+            this.deadline = res.data.data.deadline
+            this.hashKey = res.data.data.hashKey
+          } else {
+            this.$message({
+              type: 'failed',
+              message: res.data.message
             })
           }
         }).catch((error) => {
@@ -110,20 +122,36 @@
       },
       onConfirm5(value) {
         console.log("点击确定")
-      },
-      handleClick(tab, event) {
-        // console.log(tab, event);
-      },
-      handleRemove(file, fileList) {
-        // console.log(file, fileList);
-      },
-      handlePictureCardPreview(file) {
-        this.dialogImageUrl = file.url;
-        this.dialogVisible = true;
+        axios({
+          url: 'http://172.20.10.2:8081/api/user/checkValidateCodeForNewPhone',
+          method: 'post',
+          data: {
+            "code": this.code,
+            "phoneNum": this.phoneNum,
+            "deadline": this.deadline,
+            "hashKey": this.hashKey
+          }
+        }).then((res)=>{
+          if(res.data.code==="SUCCESS"){
+            this.$message({
+              type: 'success',
+              message: '手机号修改成功!'
+            })
+          }else{
+            this.$message({
+              type: 'failed',
+              message: '手机号修改失败!'
+            })
+          }
+        }).catch((err)=>{
+          this.$notify.error({
+            message: error
+          })
+        })
       },
       initPersonalInfo() {
         axios({
-          url: 'http://192.168.50.223:8081/api/user/phoneNum',
+          url: 'http://172.20.10.2:8081/api/user/phoneNum',
           method: 'get'
         }).then((res) => {
           if (res.data.code === 'FAILED') {
@@ -134,7 +162,6 @@
           else {
             this.phoneNum = res.data.data
           }
-          ;
         })
           .catch((error) => {
             this.$notify.error({
@@ -149,6 +176,7 @@
     watch: {
       phoneNum(newVal) {
         this.$nextTick(() => {
+          if(this.phoneNum!=='')
           this.phoneNum = newVal.split('').filter((x) => {
             return parseInt(x) === 0 || parseInt(x)
           }).join('')
