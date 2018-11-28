@@ -7,8 +7,8 @@
       <el-card class="box-card" v-for="(item,index) of itemsRender" :key="item.value">
         <div slot="header" class="clearfix card-header">
           <span class="uname"
-                v-text="item.ustate!=='正常'?item.uname+'('+item.ustate+')':item.uname"
-                :style="item.ustate!=='正常'?'color: '+colorMap[item.ustate]:'#000'"></span>
+                v-text="item.userState!=='正常'?item.userName+'('+item.userState+')':item.userName"
+                :style="item.userState!=='正常'?'color: '+colorMap[item.userState]:'#000'"></span>
           <el-button style="clear: right;float:right;padding: 3px 0" type="text" v-if="buttonTitle"
                      @click.native="handleOnButtonClick(index)">
             {{buttonTitle}}
@@ -65,14 +65,14 @@
     props: {
       items: {
         type: Array,
-        require: true
+        required: true
       },
       itemMap: {
         type: Object
       },
       colorMap: {
         type: Object,
-        require: true
+        required: true
       },
       searchDelay: {
         type: Number,
@@ -99,7 +99,7 @@
     },
     data() {
       return {
-        totalcars: 3,
+        totalcars: 0,
         pageNo: 1,
         pageSize: 10,
         itemsRender: this.items,
@@ -137,7 +137,8 @@
         }
         this.$forceUpdate(this.$refs.cardWrapper)
       },
-      handleOnButtonClick(index) {
+      handleOnButtonClick(index,) {
+        console.log(index,"!!!!!!")
         this.$emit('on-button-click', index)
       },
       handleOnButtonClick2(index) {

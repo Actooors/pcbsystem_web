@@ -10,7 +10,7 @@
           </div>
           <div class="info">
             <div class="username" v-text="uName"></div>
-            <div class="userid" v-text="uId"></div>
+            <div class="userid" v-text="userId"></div>
           </div>
           <div class="logout">
             <el-button size="mini" type="primary" plain @click.native="handleOnClickLogout">注销</el-button>
@@ -59,7 +59,7 @@
       uName(){
         return localStorage.getItem('userName')
       },
-      uId(){
+      userId(){
         return localStorage.getItem('userId')
       },
       photoURL(){

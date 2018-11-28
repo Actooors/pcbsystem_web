@@ -1,13 +1,14 @@
 <template>
   <div class="page-wrapper">
-    <el-tabs type="border-card" class="tabs" v-model="nowTab" @tab-click="handleOnTabClick">
+    <el-tabs type="border-card" class="tabs" v-model="nowTab" @tab-click="handleOnTabClick(...arguments,1)">
       <el-tab-pane label="乘客用户">
         <info-view :items="items['passenger']"
                    :item-map="itemMap['passenger']"
                    :color-map="colorMap"
                    button-title="记录查询" @on-button-click="handleOnLogButtonClick"
                    button-title2="操作" @on-button-click2="handleOnOperationButtonClickPassenger"
-                   :plusButton=true @on-plus-button-click="handleOnPlusButtonClick(0)">
+                   :plusButton=true @on-plus-button-click="handleOnPlusButtonClick(0)"
+        >
         </info-view>
       </el-tab-pane>
       <el-tab-pane label="司机用户">
@@ -162,6 +163,9 @@
     },
     data() {
       return {
+        pTotal: 0,           //乘客总数
+        dTotal: 0,           //司机总数
+        cTotal: 0,           //公车总数
         driverName: '',       //司机姓名
         driverId: '',         //司机工号
         driverPhone: '',      //司机手机号（后端还没写）
@@ -188,23 +192,23 @@
         },
         itemMap: {
           passenger: {//也决定了显示顺序
-            uid: '工号',
+            userId: '工号',
             department: "部门",
-            "Tel.": "手机号",
+            usePhone: "手机号",
           },
           driver: {
-            uid: '工号',
-            "Tel.": "手机号",
-            cid: '车辆ID',
-            license: '车牌号',
-            model: '车型',
-            capacity: '载客数'
+            driverId: '工号',
+            driverPhone: "手机号",
+            carId: '车辆ID',
+            carNumber: '车牌号',
+            carModel: '车型',
+            carSize: '载客数'
           },
           car: {
-            cid: '车辆ID',
-            license: '车牌号',
-            capacity: '载客数',
-            dname: "司机",
+            carId: '车辆ID',
+            carNumber: '车牌号',
+            carSize: '载客数',
+            driverName: "司机",
           }
         },
         inputTimer: undefined,
@@ -238,8 +242,8 @@
           car: []
         },
         colorMap: {
-          '冻结': '#8cc5ff',
-          '报修': '#A0DB94'
+          '冻结': '#8cc5ff',//冻结
+          '报修': '#A0DB94'//报修
         },
         colorMap2: {
           '不在职': '#FF0700'
@@ -253,42 +257,25 @@
       let userMap = {'passenagers': '0', 'drivers': '1', 'cars': '2'}
       console.log(path[len - 1])
       this.nowTab = userMap[path[len - 1]]
-//      switch (path[len - 1]) {
-//        case 'passenagers':
-//          this.nowTab = '0'
-//          break
-//        case 'drivers':
-//          this.nowTab = '1'
-//          break
-//        case 'cars':
-//          this.nowTab = '2'
-//          break
-//      }
-//      if (path[len - 1] === 'passenagers')
-//        this.nowTab = '0'
-//      else if (path[len - 1] === 'drivers')
-//        this.nowTab = '1'
-//      else
-//        this.nowTab = '2'
-      axios.get('/api/driverinfo')
+      axios.post('//192.168.50.223:8081/api/admin/query/driver', {page: 1})
         .then((res) => {
-          this.itemsOrigin['driver'] = res.data.data
+          this.itemsOrigin['driver'] = res.data.data.requestInfo
           this.items['driver'] = this.itemsOrigin['driver']
         })
         .catch((e) => {
           console.log(e)
         })
-      axios.get('/api/passengerinfo')
+      axios.post('//192.168.50.223:8081/api/admin/query/passage', {page: 1})
         .then((res) => {
-          this.itemsOrigin['passenger'] = res.data.data
+          this.itemsOrigin['passenger'] = res.data.data.requestInfo
           this.items['passenger'] = this.itemsOrigin['passenger']
         })
         .catch((e) => {
           console.log(e)
         })
-      axios.get('/api/carinfo')
+      axios.post('//192.168.50.223:8081/api/admin/query/car', {page: 1})
         .then((res) => {
-          this.itemsOrigin['car'] = res.data.data
+          this.itemsOrigin['car'] = res.data.data.requestInfo
           this.items['car'] = this.itemsOrigin['car']
         })
         .catch((e) => {
@@ -324,8 +311,8 @@
         for (let key in this.operationMenuOrigin) {
           Object.assign(this.operationMenu[key], this.operationMenuOrigin[key])
         }
-        this.operationpassengerName = this.items[type][index].uname
-        let state = this.items[type][index].ustate
+        this.operationpassengerName = this.items[type][index].userName
+        let state = this.items[type][index].userState
         let styleAppend = ''
         let nameAppend = ''
         if (this.colorMap[state]) {
@@ -341,7 +328,7 @@
       },
       handleOnOperationButtonClickDriver(index) {
         let type = "driver";
-        let state = this.items[type][index].ustate;
+        let state = this.items[type][index].userState;
         this.handleOnOperationButtonClick(index, type);
         if (state === '不在职' || state === '正常') {
           this.operationMenu[type][1].label = "<div style='text-align: center; color: #5854ad'>" +
@@ -352,7 +339,7 @@
       },
       handleOnOperationButtonClickPassenger(index) {
         let type = "passenger";
-        let state = this.items[type][index].ustate;
+        let state = this.items[type][index].userState;
         this.handleOnOperationButtonClick(index, type);
         if (state === '正常' || state === '冻结') {
           this.operationMenu[type][1].label = "<div style='text-align: center; color: #1AAD19'>" +
@@ -363,7 +350,7 @@
       },
       handleOnOperationButtonClickCar(index) {
         let type = "car";
-        let state = this.items[type][index].ustate;
+        let state = this.items[type][index].userState;
         this.handleOnOperationButtonClick(index, type);
         if (state === '正常' || state === '冻结') {
           this.operationMenu[type][1].label = "<div style='text-align: center; color: #1AAD19'>" +
@@ -372,10 +359,88 @@
           this.operationMenu[type].splice(1, 1)//下标1是冻结项
         }
       },
-      handleOnTabClick(now) {
-        console.log(now)
+      handleOnTabClick(now, event, page) {
+//        console.log("!", ...arguments)
         var map = ['passenagers', 'drivers', 'cars']
         this.$router.push({name: map[now.index]})
+        console.log(map[now.index])
+        if (map[now.index] === 'passenagers') {
+          const loading = this.$loading({
+            lock: true,
+            text: 'Loading',
+            spinner: 'el-icon-loading',
+            background: 'rgba(0, 0, 0, 0.7)'
+          });
+          axios({
+            url: 'http://192.168.50.223:8081/api/admin/query/passage',
+            method: 'post',
+            data: {
+              "page": page
+            }
+          }).then((res) => {
+            if (res.data.code === 'SUCCESS') {
+              console.log(res.data);
+              this.items.passenger = res.data.data.requestInfo
+              this.pTotal = res.data.data.total
+            } else {
+              this.$notify.error({
+                message: res.data.message
+              });
+            }
+            loading.close()
+          });
+        }
+        else if (map[now.index] === 'drivers') {
+          const loading = this.$loading({
+            lock: true,
+            text: 'Loading',
+            spinner: 'el-icon-loading',
+            background: 'rgba(0, 0, 0, 0.7)'
+          });
+          axios({
+            url: 'http://192.168.50.223:8081/api/admin/query/driver',
+            method: 'post',
+            data: {
+              "page": page
+            }
+          }).then((res) => {
+            if (res.data.code === 'SUCCESS') {
+              console.log(res.data);
+              this.items.driver = res.data.data.requestInfo
+              this.dTotal = res.data.data.total
+            } else {
+              this.$notify.error({
+                message: res.data.message
+              });
+            }
+            loading.close()
+          });
+        } else if (map[now.index] === 'cars') {
+          const loading = this.$loading({
+            lock: true,
+            text: 'Loading',
+            spinner: 'el-icon-loading',
+            background: 'rgba(0, 0, 0, 0.7)'
+          });
+          axios({
+            url: 'http://192.168.50.223:8081/api/admin/query/car',
+            method: 'post',
+            data: {
+              "page": page
+            }
+          }).then((res) => {
+            if (res.data.code === 'SUCCESS') {
+              console.log(res.data);
+              this.items.car = res.data.data.requestInfo
+              this.cTotal = res.data.data.total
+            } else {
+              this.$notify.error({
+                message: res.data.message
+              });
+            }
+            loading.close()
+          })
+        }
       },
       handleOnPlusButtonClick(index) {
         if (index === 0) {
