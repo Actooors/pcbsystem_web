@@ -29,5 +29,9 @@
 </script>
 
 <style scoped>
-
+  .tabbar {
+    width: 100%;
+    bottom: 0;
+    position: fixed;
+  }
 </style>

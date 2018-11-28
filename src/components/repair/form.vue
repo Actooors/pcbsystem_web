@@ -1,5 +1,5 @@
 <template>
-  <div style="width: 60%;margin: 0 auto">
+  <div class="form">
     <group label-width="4.5em" label-margin-right="2em" label-align="right">
       <x-textarea title="详细原因" placeholder="请填写详细原因,限制字数为100字" :show-counter="true" :max="100" autosize
                   v-model="reasons"
@@ -63,7 +63,7 @@
           background: 'rgba(0, 0, 0, 0.7)'
         });
         axios({
-          url: 'http://172.20.10.2:8081/api/driver/insert/carRequest',
+          url: 'http://192.168.50.223:8081/api/driver/insert/carRequest',
           method: 'post',
           params: {
             "reason": this.reasons
@@ -98,6 +98,10 @@
 </style>
 
 <style>
+  .form{
+    width: 60%;
+    margin: 0 auto;
+  }
   .weui-label {
     max-width: 76.5px;
     text-align: justify;
@@ -112,5 +116,11 @@
 
   .time .vux-cell-value {
     color: black;
+  }
+  @media screen and (max-width: 375px){
+    .form{
+      width: 100%;
+      margin: 0 auto;
+    }
   }
 </style>
