@@ -72,6 +72,7 @@
         hashKey: '',
         deadline: '',
         code: '',
+        // state: ''
       }
     },
     computed: {
@@ -93,14 +94,13 @@
             "phoneNum": this.phoneNum
           }
         }).then((res) => {
-          console.log(res);
+          console.log("这是validate借口的返回值：",res);
           if (res.data.code === 'SUCCESS') {
             this.$message({
               type: 'success',
               message: '短信已发送,请注意查收!'
             })
             this.phoneNum = res.data.data.phoneNum
-            this.code = res.data.code
             this.deadline = res.data.data.deadline
             this.hashKey = res.data.data.hashKey
           } else {
@@ -122,6 +122,10 @@
       },
       onConfirm5(value) {
         console.log("点击确定")
+        this.$refs.confirm5.setInputValue()
+        this.code = value
+        console.log("输入的value是" + this.code)
+        console.log("手机号是" + this.phoneNum)
         axios({
           url: 'http://172.20.10.2:8081/api/user/checkValidateCodeForNewPhone',
           method: 'post',
@@ -129,21 +133,21 @@
             "code": this.code,
             "phoneNum": this.phoneNum,
             "deadline": this.deadline,
-            "hashKey": this.hashKey
+            "hashKey": this.hashKey,
           }
-        }).then((res)=>{
-          if(res.data.code==="SUCCESS"){
+        }).then((res) => {
+          if (res.data.code === "SUCCESS") {
             this.$message({
               type: 'success',
               message: '手机号修改成功!'
             })
-          }else{
+          } else {
             this.$message({
               type: 'failed',
               message: '手机号修改失败!'
             })
           }
-        }).catch((err)=>{
+        }).catch((err) => {
           this.$notify.error({
             message: error
           })
@@ -176,10 +180,10 @@
     watch: {
       phoneNum(newVal) {
         this.$nextTick(() => {
-          if(this.phoneNum!=='')
-          this.phoneNum = newVal.split('').filter((x) => {
-            return parseInt(x) === 0 || parseInt(x)
-          }).join('')
+          if (this.phoneNum !== '')
+            this.phoneNum = newVal.split('').filter((x) => {
+              return parseInt(x) === 0 || parseInt(x)
+            }).join('')
         })
       }
     }
