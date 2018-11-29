@@ -171,7 +171,7 @@
         cTotal: 0,           //公车总数
         driverName: '',       //司机姓名
         driverId: '',         //司机工号
-        driverPhone: '',      //司机手机号（后端还没写）
+        driverPhone: '',      //司机手机号
         carId: '',            //车辆ID
         carNumber: '',        //车牌号
         carModel: '',         //车型
@@ -518,36 +518,14 @@
       handleOnPlusButtonClick(index) {
         if (index === 0) {
           this.PlusLogsPassengers = true
-//          axios({
-//            url: 'http://192.168.50.223:8081/api/admin/add/passenger',
-//            method: 'post',
-//            data: {
-//              "user_name": this.passengerName,
-//              "user_id": this.passengerId,
-//              "user_phone": this.passengerPhone
-//            }
-//          }).then((res)=>{
-//            console.log(res.data)
-//            if(res.data.code==="SUCCESS"){
-//
-//              this.$message({
-//                type: 'success',
-//                message: '添加成功',
-//              })
-//            }
-//          });
         }
-
         else if (index === 1) {
           this.PlusLogsDrivers = true
         }
-
         else if (index === 2) {
           this.PlusLogsCars = true
         }
-
         console.log('aa' + index)
-
       }
     }
   }

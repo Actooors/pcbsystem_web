@@ -1,22 +1,27 @@
 <template>
   <div>
-    <p class="sticky-title" style="top:0;z-index:1;background:white;box-shadow:0 -25px 50px 3px black;width: 100%;text-align: center;margin-bottom: 10px;color: #666;line-height:2em;">预约请求</p>
+    <p class="sticky-title"
+       style="top:0;z-index:1;background:white;box-shadow:0 -25px 50px 3px black;width: 100%;text-align: center;margin-bottom: 10px;color: #666;line-height:2em;">
+      预约请求</p>
     <p style="width: 100%;text-align: center;">共有{{requestNumber}}条请求消息</p>
-    <form-preview header-label="预约状态" v-for="(item,index) in itemsProgress" :header-value="item.state"
-                  :body-items="item.list"
-                  :class="item.state==='正在进行'?'progressing-form-yellow':null"
+    <form-preview header-label="预约状态" v-for="(item,index) in items"
+                  :header-value="stateMap(item.pass)"
+                  :body-items="lists[index]"
+                  ::class="{'history-form-red':item.pass===4,
+                  'history-form-green':item.pass===3,
+                  'progressing-form-yellow':item.pass===2,
+                  'applying-form-green':item.pass===1,
+                  }"
                   :key="item.value"
                   :footer-buttons="buttons"></form-preview>
     <confirm v-model="show1"
-             title="通过该申请将会拒绝以下申请，确定吗？"
+             title="通过该申请，确定吗？"
              @on-cancel="onCancel"
              @on-confirm="onConfirm"
     >
     </confirm>
     <confirm v-model="show2"
-             show-input
-             ref="confirm5"
-             title="请在下框内填写拒绝理由"
+             title="拒绝该申请，确定吗？"
              @on-cancel="onCancel1"
              @on-confirm="onConfirm1"
     >
@@ -27,12 +32,45 @@
 <script>
   import {FormPreview, Confirm} from 'vux'
   import stickybits from 'stickybits'
+  import axios from 'axios'
+  import Vue from 'vue';
+  import Vuex from 'vuex'
+  import store from "../../store/store";
 
+  store
+  Vue.use(Vuex)
   export default {
     name: "ReservationRequest",
     components: {
       FormPreview,
       Confirm
+    },
+    data() {
+      return {
+        show1: false,
+        show2: false,
+        requestNumber: 0,
+        lists: [],
+        items: [],
+        buttons: [
+          {
+            style: 'default',
+            text: '拒绝申请',
+            onButtonClick: () => {
+              console.log("拒绝申请");
+              this.show2 = true;
+            }
+          },
+          {
+            style: 'primary',
+            text: '通过申请',
+            onButtonClick: () => {
+              this.show1 = true;
+              console.log("通过申请");
+            }
+          }
+        ]
+      }
     },
     mounted() {
       stickybits('.sticky-title', {useStickyClasses: true});
@@ -58,180 +96,74 @@
           message: "发送成功！"
         });
         this.show2 = false;
-      }
-    },
-    data() {
-      return {
-        show1: false,
-        show2: false,
-        requestNumber: 5,
-        itemsProgress: [
-          {
-            state: "正在进行",
-            list: [
-              {
-                label: "乘客姓名",
-                value: "喜羊羊"
-              },
-              {
-                label: "乘客联系方式",
-                value: "18100000000"
-              },
-              {
-                label: "上车地点",
-                value: "北门"
-              },
-              {
-                label: "起始时间",
-                value: "2018-04-18 08:00"
-              },
-              {
-                label: "结束时间",
-                value: "2018-04-19 08:00"
-              },
-              {
-                label: "预约原因",
-                value: "外出游玩"
-              }
-            ]
-          },
-          {
-            state: "正在进行",
-            list: [
-              {
-                label: "乘客姓名",
-                value: "灰太狼"
-              },
-              {
-                label: "乘客联系方式",
-                value: "18011111111"
-              },
-              {
-                label: "上车地点",
-                value: "行政楼"
-              },
-              {
-                label: "起始时间",
-                value: "2018-04-18 08:00"
-              },
-              {
-                label: "结束时间",
-                value: "2018-04-19 08:00"
-              },
-              {
-                label: "预约原因",
-                value: "前往羊村"
-              }
-            ]
-          },
-          {
-            state: "正在进行",
-            list: [
-              {
-                label: "乘客姓名",
-                value: "灰太狼"
-              },
-              {
-                label: "乘客联系方式",
-                value: "18011111111"
-              },
-              {
-                label: "上车地点",
-                value: "行政楼"
-              },
-              {
-                label: "起始时间",
-                value: "2018-04-18 08:00"
-              },
-              {
-                label: "结束时间",
-                value: "2018-04-19 08:00"
-              },
-              {
-                label: "预约原因",
-                value: "前往羊村"
-              }
-            ]
-          },
-          {
-            state: "正在进行",
-            list: [
-              {
-                label: "乘客姓名",
-                value: "灰太狼"
-              },
-              {
-                label: "乘客联系方式",
-                value: "18011111111"
-              },
-              {
-                label: "上车地点",
-                value: "行政楼"
-              },
-              {
-                label: "起始时间",
-                value: "2018-04-18 08:00"
-              },
-              {
-                label: "结束时间",
-                value: "2018-04-19 08:00"
-              },
-              {
-                label: "预约原因",
-                value: "前往羊村"
-              }
-            ]
-          },
-          {
-            state: "正在进行",
-            list: [
-              {
-                label: "乘客姓名",
-                value: "灰太狼"
-              },
-              {
-                label: "乘客联系方式",
-                value: "18011111111"
-              },
-              {
-                label: "上车地点",
-                value: "行政楼"
-              },
-              {
-                label: "起始时间",
-                value: "2018-04-18 08:00"
-              },
-              {
-                label: "结束时间",
-                value: "2018-04-19 08:00"
-              },
-              {
-                label: "预约原因",
-                value: "前往羊村"
-              }
-            ]
-          },
-        ],
-        buttons: [
-          {
-            style: 'default',
-            text: '拒绝申请',
-            onButtonClick: () => {
-              console.log("拒绝申请");
-              this.show2 = true;
-            }
-          },
-          {
-            style: 'primary',
-            text: '通过申请',
-            onButtonClick: () => {
-              this.show1 = true;
-              console.log("通过申请");
-            }
+      },
+      stateMap(requestState) {
+        if (requestState === 1) {
+          return '待审核'
+        } else if (requestState === 2) {
+          return '已经取消'
+        }
+        else if (requestState === 3) {
+          return '审核通过'
+        } else if (requestState === 4) {
+          return '申请失败'
+        } else {
+          return '未知状态'
+        }
+      },
+      initData() {
+        console.log("传进来车辆的ID是" + store.state.carId)
+        const loading = this.$loading({
+          lock: true,
+          text: 'Loading',
+          spinner: 'el-icon-loading',
+          background: 'rgba(0, 0, 0, 0.7)'
+        });
+        axios({
+          url: 'http://192.168.50.223:8081/api/admin/query/car/request',
+          method: 'get',
+          params: {
+            "carId": store.state.carId
           }
-        ]
-      }
+        }).then((res) => {
+          if (res.data.code === 'SUCCESS') {
+            console.log(res.data);
+            this.itemsProgress = res.data.data
+            this.requestNumber = res.data.data.length;
+            console.log(this.requestNumber)
+            for (let i = 0; i < this.itemsProgress.length; i++) {
+              let list = [
+                {
+                  label: '申请人',
+                  value: this.itemsProgress[i].userName
+                },
+                {
+                  label: '起始时间',
+                  value: this.itemsProgress[i].startDate
+                },
+                {
+                  label: '结束时间',
+                  value: this.itemsProgress[i].endDate
+                },
+                {
+                  label: '车辆牌照',
+                  value: this.itemsProgress[i].licence
+                }
+              ]
+              this.listsProgress.push(list)
+            }
+          } else {
+            this.$notify.error({
+              message: response.data.message
+            });
+          }
+          loading.close()
+        });
+      },
     },
+//    created() {
+//      this.initData()
+//    }
   }
 </script>
 

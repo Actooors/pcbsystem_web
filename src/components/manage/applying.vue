@@ -10,7 +10,7 @@
                   'applying-form-green':item.pass===1,
                   }"
                     :key="item.value"
-                    ></form-preview>
+      ></form-preview>
     </div>
     <div class="block" style="margin-top: 50px; margin-bottom: 100px">
       <el-pagination
@@ -44,12 +44,12 @@
       }
     },
     methods: {
-      handlePrevClick(){
+      handlePrevClick() {
         console.log("点击上一页")
         this.pageNo--;
         this.initData(this.pageNo)
       },
-      handleNextClick(){
+      handleNextClick() {
         console.log("点击下一页")
         this.pageNo++;
         this.initData(this.pageNo)
@@ -94,10 +94,8 @@
               ]
               this.lists.push(list)
             }
-
           } else {
             console.log(response.data.message)
-
           }
         }).catch((error) => {
           console.log(error)
@@ -135,11 +133,10 @@
               ]
               this.lists.push(list)
             }
-            loading.close()
           } else {
             console.log(response.data.message)
-            loading.close()
           }
+          loading.close()
         }).catch((error) => {
           console.log(error)
           loading.close()
@@ -182,7 +179,6 @@
   }
 
   .history-form-green {
-    width: 40%;
     margin: 20px auto !important;
   }
 
@@ -234,6 +230,10 @@
     }
 
     .applying-form-green {
+      width: 40%;
+    }
+
+    .history-form-green {
       width: 40%;
     }
   }

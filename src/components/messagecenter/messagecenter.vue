@@ -1,11 +1,11 @@
 <template>
   <div class="page-wrapper">
-    <el-tabs type="border-card" class="tabs" v-model="nowTab" @tab-click="handleOnTabClick">
+    <el-tabs type="border-card" class="tabs" v-model="nowTab" @tab-click="handleOnTabClick(...arguments,1)">
       <el-tab-pane label="预约请求">
         <info-view :items="items['car']"
                    :item-map="itemMap['car']"
                    :color-map="colorMap"
-                   button-title="查看详细信息" @on-button-click="handleOnLogButtonClick"
+                   button-title="查看详细信息" @on-button-click="handleOnLogButtonClick(...arguments,'car')"
         >
         </info-view>
       </el-tab-pane>
@@ -13,7 +13,7 @@
         <info-view :items="items['car']"
                    :item-map="itemMap['car']"
                    :color-map="colorMap"
-                   button-title="查看详细信息" @on-button-click="handleOnLogButtonClick"
+                   button-title="查看详细信息" @on-button-click="handleOnLogButtonClick(...arguments,'car')"
         ></info-view>
       </el-tab-pane>
     </el-tabs>
@@ -38,7 +38,12 @@
   import axios from 'axios'
   import InfoView from 'components/infoview/infoview'
   import {XDialog, Actionsheet, Tab, TabItem, Swiper, SwiperItem, FormPreview} from 'vux'
+  import Vue from 'vue';
+  import Vuex from 'vuex'
+  import store from "../../store/store";
 
+  store
+  Vue.use(Vuex)
   export default {
     name: "messagecenter",
     components: {
@@ -53,6 +58,17 @@
     },
     data() {
       return {
+        itemsProgress: [],
+        listsProgress: [],
+        cTotal: 0,           //公车总数
+        driverName: '',       //司机姓名
+        driverId: '',         //司机工号
+        driverPhone: '',      //司机手机号
+        carId: '',            //车辆ID
+        carNumber: '',        //车牌号
+        carModel: '',         //车型
+        carSize: '',          //载客数
+        carRemark: '',         //车辆备注
         searchInput: '',
         searchInputDriver: '',
         itemsOrigin: {
@@ -66,24 +82,12 @@
           car: []
         },
         itemMap: {
-          passenger: {//也决定了显示顺序
-            uid: '工号',
-            department: "部门",
-            "Tel.": "手机号",
-          },
-          driver: {
-            uid: '工号',
-            "Tel.": "手机号",
-            cid: '车辆ID',
-            license: '车牌号',
-            model: '车型',
-            capacity: '载客数'
-          },
+          //也决定了显示顺序
           car: {
-            cid: '车辆ID',
-            license: '车牌号',
-            capacity: '载客数',
-            dname: "司机"
+            carId: '车辆ID',
+            carNumber: '车牌号',
+            carSize: '载客数',
+            driverName: "司机",
           }
         },
         inputTimer: undefined,
@@ -127,75 +131,54 @@
       let len = path.length
       let userMap = {'ReservationRequest': '0', 'RepairRequest': '1'}
       this.nowTab = userMap[path[len - 1]]
-      axios.get('/api/driverinfo')
+      axios.post('//192.168.50.223:8081/api/admin/query/car', {page: 1})
         .then((res) => {
-          this.itemsOrigin['driver'] = res.data.data
-          this.items['driver'] = this.itemsOrigin['driver']
-        })
-        .catch((e) => {
-          console.log(e)
-        })
-      axios.get('/api/passengerinfo')
-        .then((res) => {
-          this.itemsOrigin['passenger'] = res.data.data
-          this.items['passenger'] = this.itemsOrigin['passenger']
-        })
-        .catch((e) => {
-          console.log(e)
-        })
-      axios.get('/api/carinfo')
-        .then((res) => {
-          this.itemsOrigin['car'] = res.data.data
+          this.itemsOrigin['car'] = res.data.data.requestInfo
           this.items['car'] = this.itemsOrigin['car']
         })
         .catch((e) => {
           console.log(e)
         })
-    }
-    ,
+    },
     methods: {
-      handleOnLogButtonClick(index) {
+      handleOnLogButtonClick(index, type) {
+        console.log(type, this.items[type][index].carId)
+        store.commit('setCarId', this.items[type][index].carId)
         this.showLogs = true
       },
-      handleOnOperationButtonClickDriver(index, type = "driver") {
-        for (let key in this.operationMenuOrigin) {
-          Object.assign(this.operationMenu[key], this.operationMenuOrigin[key])
-        }
-        this.operationUsername = this.items[type][index].uname
-        let state = this.items[type][index].ustate
-        let styleAppend = ''
-        let nameAppend = ''
-        if (this.colorMap[state]) {
-          let color = this.colorMap[state]
-          styleAppend = 'color: ' + color + ';'
-          nameAppend = '(' + state + ')'
-        }
-        this.operationMenu[type][0].label =
-          "<div style='text-align: center; font-weight: bold; font-size: 18px;" + styleAppend + "'>" +
-          this.operationUsername + nameAppend +
-          "</div>"
-        if (state === '正常' || state === '冻结') {
-          this.operationMenu[type][1].label = "<div style='text-align: center; color: #1AAD19'>" +
-            (state === "冻结" ? "解冻" : "冻结") + "</div>"
-        } else {
-          this.operationMenu[type].splice(1, 1)//下标1是冻结项
-        }
-        this.showOperationMenu[type] = true;
-
-      },
-      handleOnOperationButtonClickPassenger(index) {
-        this.handleOnOperationButtonClickDriver(index, 'passenger')
-      },
-      handleOnOperationButtonClickCar(index) {
-        this.handleOnOperationButtonClickDriver(index, 'car')
-      },
-      handleOnTabClick(now) {
-        console.log(now)
+      handleOnTabClick(now, event, page) {
+        console.log(now.index)
         var map = ['ReservationRequest', 'RepairRequest']
         this.$router.push({name: map[now.index]})
+        if (map[now.index] === 'ReservationRequest' || map[now.index] === 'RepairRequest') {
+          const loading = this.$loading({
+            lock: true,
+            text: 'Loading',
+            spinner: 'el-icon-loading',
+            background: 'rgba(0, 0, 0, 0.7)'
+          });
+          axios({
+            url: 'http://192.168.50.223:8081/api/admin/query/car',
+            method: 'post',
+            data: {
+              "page": page
+            }
+          }).then((res) => {
+            if (res.data.code === 'SUCCESS') {
+              console.log(res.data);
+              this.items.car = res.data.data.requestInfo
+              this.cTotal = res.data.data.total
+            } else {
+              this.$notify.error({
+                message: res.data.message
+              });
+            }
+            loading.close()
+          });
+        }
       },
     }
-  }
+  };
 </script>
 
 <style lang="scss" scoped>

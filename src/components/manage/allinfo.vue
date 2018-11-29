@@ -45,12 +45,12 @@
       Scroller
     },
     methods: {
-      handlePrevClick(){
+      handlePrevClick() {
         console.log("点击上一页")
         this.pageNo--;
         this.initData(this.pageNo)
       },
-      handleNextClick(){
+      handleNextClick() {
         console.log("点击下一页")
         this.pageNo++;
         this.initData(this.pageNo)
@@ -135,24 +135,23 @@
   }
 
   .history-form-red {
-    width: 40%;
-    margin: 20px auto !important;
+    margin: 20px auto;
   }
 
   .history-form-red:hover {
-    box-shadow: 1px 1px 100px #e64a47 !important;
+    box-shadow: 1px 1px 100px #e64a47 ;
   }
 
   .history-form-green {
-    margin: 20px auto !important;
+    margin: 20px auto;
   }
 
   .history-form-green:hover {
-    box-shadow: 1px 1px 100px #e64ec8 !important;
+    box-shadow: 1px 1px 100px #e64ec8;
   }
 
   .history-form-red .weui-form-preview__hd .weui-form-preview__value {
-    color: red !important;
+    color: red ;
   }
 
   .history-form-green .weui-form-preview__hd .weui-form-preview__value {
@@ -185,7 +184,7 @@
 </style>
 
 <style scoped>
-  @media screen and (min-width: 1025px) {
+  @media screen and (min-width: 1024px) {
     .progressing-form-yellow {
       width: 40%;
     }

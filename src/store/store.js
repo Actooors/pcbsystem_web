@@ -12,7 +12,8 @@ export default new Vuex.Store({
     where: '行政楼',
     bDate: undefined,
     eDate: undefined,
-    userId: null
+    userId: null,
+    carId: null
   },
   mutations: {
     InitDate(state) {
@@ -29,6 +30,9 @@ export default new Vuex.Store({
     },
     setUserId(state, val) {
       state.userId = val
+    },
+    setCarId(state, val) {
+      state.carId = val
     }
   }
 })

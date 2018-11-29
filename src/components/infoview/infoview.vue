@@ -137,7 +137,7 @@
         }
         this.$forceUpdate(this.$refs.cardWrapper)
       },
-      handleOnButtonClick(index,) {
+      handleOnButtonClick(index) {
         console.log(index,"!!!!!!")
         this.$emit('on-button-click', index)
       },
