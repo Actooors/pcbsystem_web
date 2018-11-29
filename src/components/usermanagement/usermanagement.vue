@@ -29,16 +29,15 @@
       </el-tab-pane>
     </el-tabs>
     <div class="logs-dialog-wrapper" v-if="showLogs">
-      <x-dialog v-model="showLogs" class="logs-dialog" hide-on-blur style="height: 800px">
+      <x-dialog v-model="showLogs" class="logs-dialog" hide-on-blur>
 
         <router-view></router-view>
 
         <div @click="showLogs=false">
-          <span class="vux-close"></span>
         </div>
       </x-dialog>
     </div>
-    <x-dialog v-model="PlusLogsPassengers" class="logs-dialog" hide-on-blur style="height: 300px; ">
+    <x-dialog v-model="PlusLogsPassengers" class="logs-dialog" hide-on-blur dialog-transition="">
       <group title="添加乘客信息" label-width="5.5em" label-margin-right="2em" label-align="justify">
         <x-input title="乘客姓名" v-model="passengerName"></x-input>
         <x-input title="乘客工号" v-model="passengerId"></x-input>
@@ -56,7 +55,6 @@
         </flexbox>
       </div>
       <div @click="PlusLogsPassengers=false">
-        <span class="vux-close"></span>
       </div>
     </x-dialog>
     <x-dialog v-model="PlusLogsDrivers" class="logs-dialog" hide-on-blur style="height: 300px">
@@ -80,7 +78,6 @@
         </flexbox>
       </div>
       <div @click="PlusLogsDrivers=false">
-        <span class="vux-close"></span>
       </div>
     </x-dialog>
     <x-dialog v-model="PlusLogsCars" class="logs-dialog" hide-on-blur style="height: 300px">
@@ -103,7 +100,6 @@
         </flexbox>
       </div>
       <div @click="PlusLogsCars=false">
-        <span class="vux-close"></span>
       </div>
     </x-dialog>
     <div ref="operationMenus">
@@ -281,8 +277,7 @@
         .catch((e) => {
           console.log(e)
         })
-    }
-    ,
+    },
     methods: {
       CancelAddition(index) {
         if (index === 0)
@@ -500,5 +495,13 @@
     .weui-dialog {
       max-width: 500px;
     }
+  }
+
+  .logs-dialog-wrapper {
+    max-height: 650px !important;
+  }
+  .weui-dialog > :first-child {
+    max-height: 600px;
+    overflow-y: auto;
   }
 </style>

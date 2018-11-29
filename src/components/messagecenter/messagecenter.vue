@@ -22,9 +22,6 @@
 
         <router-view></router-view>
 
-        <!--<div @click="showLogs=false">-->
-        <!--<span class="vux-close"></span>-->
-        <!--</div>-->
       </x-dialog>
     </div>
     <div ref="operationMenus">

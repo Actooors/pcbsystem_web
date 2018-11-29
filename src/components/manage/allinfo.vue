@@ -120,7 +120,7 @@
         } else {
           return '未知状态'
         }
-      }
+      },
     },
     created() {
       this.initData(1)
