@@ -5,7 +5,7 @@
         <info-view :items="items['passenger']"
                    :item-map="itemMap['passenger']"
                    :color-map="colorMap"
-                   button-title="记录查询" @on-button-click="handleOnLogButtonClick"
+                   button-title="记录查询" @on-button-click="handleOnLogButtonClick(...arguments,'passenger')"
                    button-title2="操作" @on-button-click2="handleOnOperationButtonClickPassenger"
                    :plusButton=true @on-plus-button-click="handleOnPlusButtonClick(0)"
         >
@@ -15,7 +15,7 @@
         <info-view :items="items['driver']"
                    :item-map="itemMap['driver']"
                    :color-map="colorMap2"
-                   button-title="记录查询" @on-button-click="handleOnLogButtonClick"
+                   button-title="记录查询" @on-button-click="handleOnLogButtonClick(...arguments,'driver')"
                    button-title2="操作" @on-button-click2="handleOnOperationButtonClickDriver"
                    :plusButton=true @on-plus-button-click="handleOnPlusButtonClick(1)"></info-view>
       </el-tab-pane>
@@ -23,7 +23,7 @@
         <info-view :items="items['car']"
                    :item-map="itemMap['car']"
                    :color-map="colorMap"
-                   button-title="记录查询" @on-button-click="handleOnLogButtonClick"
+                   button-title="记录查询" @on-button-click="handleOnLogButtonClick(...arguments,'car')"
                    button-title2="操作" @on-button-click2="handleOnOperationButtonClickCar"
                    :plusButton=true @on-plus-button-click="handleOnPlusButtonClick(2)"></info-view>
       </el-tab-pane>
@@ -124,6 +124,8 @@
 </template>
 <script>
   import axios from 'axios'
+  import Vue from 'vue'
+  store
   import InfoView from 'components/infoview/infoview'
   import {
     XDialog,
@@ -139,6 +141,9 @@
     Flexbox,
     FlexboxItem
   } from 'vux'
+  import store from "../../store/store";
+  import Vuex from 'vuex'
+  Vue.use(Vuex)
 
   export default {
     name: "usermanagement",
@@ -299,7 +304,9 @@
         else if (index === 2)
           this.PlusLogsCars = false
       },
-      handleOnLogButtonClick(index) {
+      handleOnLogButtonClick(index,type) {
+        console.log(this.items[type][index].userId)
+        store.commit('setUserId',this.items[type][index].userId)
         this.showLogs = true
       },
       handleOnOperationButtonClick(index, type) {

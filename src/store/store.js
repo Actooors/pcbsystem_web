@@ -12,6 +12,7 @@ export default new Vuex.Store({
     where: '行政楼',
     bDate: undefined,
     eDate: undefined,
+    userId: null
   },
   mutations: {
     InitDate(state) {
@@ -25,6 +26,9 @@ export default new Vuex.Store({
     },
     updateLoadingStatus(state, payload) {
       state.isLoading = payload.isLoading
+    },
+    setUserId(state, val) {
+      state.userId = val
     }
   }
 })

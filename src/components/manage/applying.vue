@@ -113,6 +113,7 @@
           if (response.data.code === 'SUCCESS') {
             console.log(response.data)
             this.items = response.data.data
+            this.total += response.data.data.total
             for (let i = 0; i < this.items.length; i++) {
               let list = [
                 {
