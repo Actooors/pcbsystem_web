@@ -185,7 +185,7 @@
           background: 'rgba(0, 0, 0, 0.7)'
         });
         axios({
-          url: 'http://192.168.50.223:8081/api/admin/query/requestInfo',
+          url: 'http://192.168.50.223:8081/api/admin/query/requestInfo/passenger',
           method: 'post',
           data: {
             "userId": store.state.userId,
@@ -235,7 +235,7 @@
           background: 'rgba(0, 0, 0, 0.7)'
         });
         axios({
-          url: 'http://192.168.50.223:8081/api/admin/query/requestInfo',
+          url: 'http://192.168.50.223:8081/api/admin/query/requestInfo/passenger',
           method: 'post',
           data: {
             "userId": store.state.userId,
@@ -275,7 +275,7 @@
           }
         })
         axios({
-          url: 'http://192.168.50.223:8081/api/admin/query/requestInfo',
+          url: 'http://192.168.50.223:8081/api/admin/query/requestInfo/passenger',
           method: 'post',
           data: {
             "userId": store.state.userId,
@@ -324,7 +324,7 @@
           background: 'rgba(0, 0, 0, 0.7)'
         });
         axios({
-          url: 'http://192.168.50.223:8081/api/admin/query/requestInfo',
+          url: 'http://192.168.50.223:8081/api/admin/query/requestInfo/passenger',
           method: 'post',
           data: {
             "userId": store.state.userId,

@@ -41,7 +41,7 @@
       <group title="添加乘客信息" label-width="5.5em" label-margin-right="2em" label-align="justify">
         <x-input title="乘客姓名" v-model="passengerName"></x-input>
         <x-input title="乘客工号" v-model="passengerId"></x-input>
-        <x-input title="乘客部门" v-model="department"></x-input>
+        <!--<x-input title="乘客部门" v-model="department"></x-input>-->
         <x-input title="乘客手机号" v-model="passengerPhone"></x-input>
       </group>
       <div style="width: 80%; margin: 0 auto; margin-top: 20px;margin-bottom: 10px">
@@ -62,10 +62,10 @@
         <x-input title="司机姓名" v-model="driverName"></x-input>
         <x-input title="司机工号" v-model="driverId"></x-input>
         <x-input title="司机手机号" v-model="driverPhone"></x-input>
-        <x-input title="车辆ID" v-model="carId"></x-input>
-        <x-input title="车牌号" v-model="carNumber"></x-input>
-        <x-input title="车型" v-model="carModel"></x-input>
-        <x-input title="载客数" v-model="carSize"></x-input>
+        <!--<x-input title="车辆ID" v-model="carId"></x-input>-->
+        <!--<x-input title="车牌号" v-model="carNumber"></x-input>-->
+        <!--<x-input title="车型" v-model="carModel"></x-input>-->
+        <!--<x-input title="载客数" v-model="carSize"></x-input>-->
       </group>
       <div style="width: 80%; margin: 0 auto; margin-top: 20px;margin-bottom: 10px">
         <flexbox>
@@ -83,7 +83,7 @@
     <x-dialog v-model="PlusLogsCars" class="logs-dialog" hide-on-blur style="height: 300px">
       <group title="添加公车信息" label-width="5.5em" label-margin-right="2em" label-align="justify">
         <x-input title="车辆品牌" v-model="carModel"></x-input>
-        <x-input title="车辆ID" v-model="carId"></x-input>
+        <x-input title="车辆牌照" v-model="carNumber"></x-input>
         <x-input title="载客数" v-model="carSize"></x-input>
         <x-input title="司机姓名" v-model="driverName"></x-input>
         <x-input title="司机工号" v-model="driverId"></x-input>
@@ -125,6 +125,7 @@
 <script>
   import axios from 'axios'
   import Vue from 'vue'
+
   store
   import InfoView from 'components/infoview/infoview'
   import {
@@ -143,6 +144,7 @@
   } from 'vux'
   import store from "../../store/store";
   import Vuex from 'vuex'
+
   Vue.use(Vuex)
 
   export default {
@@ -293,20 +295,89 @@
           this.PlusLogsCars = false
       },
       ConfirmAddition(index) {
-        this.$message({
-          type: 'success',
-          message: '添加成功！'
-        });
-        if (index === 0)
+        if (index === 0) {
+          axios({
+            url: 'http://192.168.50.223:8081/api/admin/add/passenger',
+            method: 'post',
+            data: {
+              "userId": this.passengerId,
+              "userName": this.passengerName,
+              "userPhone": this.passengerPhone
+            }
+          }).then((res) => {
+            if (res.data.code === 'SUCCESS') {
+              console.log(res.data);
+              this.$message({
+                type: 'success',
+                message: '添加成功！'
+              });
+            } else {
+              this.$message({
+                type: 'failed',
+                message: '添加失败！'
+              });
+            }
+          });
           this.PlusLogsPassengers = false
-        else if (index === 1)
+        } else if (index === 1) {
+          axios({
+            url: 'http://192.168.50.223:8081/api/admin/add/driver',
+            method: 'post',
+            data: {
+              "driverId": this.driverId,
+              "driverName": this.driverName,
+              "driverPhone": this.driverPhone
+            }
+          }).then((res) => {
+            if (res.data.code === 'SUCCESS') {
+              console.log(res.data);
+              this.$message({
+                type: 'success',
+                message: '添加成功！'
+              });
+            } else {
+              this.$message({
+                type: 'failed',
+                message: '添加失败！'
+              });
+            }
+          });
           this.PlusLogsDrivers = false
-        else if (index === 2)
-          this.PlusLogsCars = false
+        } else if (index === 2) {
+          axios({
+            url: 'http://192.168.50.223:8081/api/admin/add/carInfo',
+            method: 'post',
+            data: {
+              "carNumber": this.carNumber,
+              "carRemark": this.carRemark,
+              "carSize": this.carSize,
+              "driverId": this.driverId,
+              "drivetName": this.driverName,
+              "model": this.carModel
+            }
+          }).then((res) => {
+            if (res.data.code === 'SUCCESS') {
+              console.log(res.data);
+              this.$message({
+                type: 'success',
+                message: '添加成功！'
+              });
+            } else {
+              this.$message({
+                type: 'failed',
+                message: '添加失败！'
+              });
+            }
+          });
+        }
+        this.PlusLogsCars = false
       },
-      handleOnLogButtonClick(index,type) {
-        console.log(this.items[type][index].userId)
-        store.commit('setUserId',this.items[type][index].userId)
+      handleOnLogButtonClick(index, type) {
+        console.log(type, this.items[type][index].userId)
+        if (type === 'passenger')
+          store.commit('setUserId', this.items[type][index].userId)
+        else if (type === 'driver')
+          store.commit('setUserId', this.items[type][index].driverId)
         this.showLogs = true
       },
       handleOnOperationButtonClick(index, type) {
@@ -507,8 +578,9 @@
   .logs-dialog-wrapper {
     max-height: 650px !important;
   }
+
   .weui-dialog > :first-child {
-    max-height: 600px;
+    max-height: 500px;
     overflow-y: auto;
   }
 </style>
