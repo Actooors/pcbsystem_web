@@ -5,22 +5,24 @@
       预约请求</p>
     <p style="width: 100%;text-align: center;">共有{{requestNumber}}条请求消息</p>
     <form-preview header-label="预约状态" v-for="(item,index) in items"
-                  :header-value="stateMap(item.pass)"
+                  :header-value="stateMap(item.requestState)"
                   :body-items="lists[index]"
-                  ::class="{'history-form-red':item.pass===4,
-                  'history-form-green':item.pass===3,
-                  'progressing-form-yellow':item.pass===2,
-                  'applying-form-green':item.pass===1,
+                  ::class="{'history-form-red':item.requestState===4,
+                  'history-form-green':item.requestState===3,
+                  'progressing-form-yellow':item.requestState===2,
+                  'applying-form-green':item.requestState===1,
                   }"
                   :key="item.value"
                   :footer-buttons="buttons"></form-preview>
     <confirm v-model="show1"
+             hide-on-blur
              title="通过该申请，确定吗？"
              @on-cancel="onCancel"
              @on-confirm="onConfirm"
     >
     </confirm>
     <confirm v-model="show2"
+             hide-on-blur
              title="拒绝该申请，确定吗？"
              @on-cancel="onCancel1"
              @on-confirm="onConfirm1"
@@ -128,30 +130,34 @@
           }
         }).then((res) => {
           if (res.data.code === 'SUCCESS') {
-            console.log(res.data);
-            this.itemsProgress = res.data.data
+            console.log(res.data.data);
+            this.items = res.data.data
             this.requestNumber = res.data.data.length;
             console.log(this.requestNumber)
-            for (let i = 0; i < this.itemsProgress.length; i++) {
+            for (let i = 0; i < this.items.length; i++) {
               let list = [
                 {
-                  label: '申请人',
-                  value: this.itemsProgress[i].userName
+                  label: '申请人学号',
+                  value: this.items[i].passengerId
                 },
                 {
                   label: '起始时间',
-                  value: this.itemsProgress[i].startDate
+                  value: this.items[i].beginTime
                 },
                 {
                   label: '结束时间',
-                  value: this.itemsProgress[i].endDate
+                  value: this.items[i].endTime
                 },
                 {
-                  label: '车辆牌照',
-                  value: this.itemsProgress[i].licence
+                  label: '上车地点',
+                  value: this.items[i].place
+                },
+                {
+                  label: '用车原因',
+                  value: this.items[i].requestReason
                 }
               ]
-              this.listsProgress.push(list)
+              this.lists.push(list)
             }
           } else {
             this.$notify.error({
@@ -180,6 +186,9 @@
     color: #d4bb00;
   }
 
+  .applying-form-green .weui-form-preview__value{
+    color: green;
+  }
   .weui-form-preview__hd .weui-form-preview__label {
     color: black;
   }
