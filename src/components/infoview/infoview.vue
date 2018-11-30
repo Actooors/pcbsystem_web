@@ -121,11 +121,13 @@
         if (val !== '') {
           let result = Object.assign([], this.items.filter((obj) => {
             for (let key in obj) {
+              if(!obj[key]){
+                continue;
+              }
               if (typeof(obj[key]) !== 'string') {
                 if (obj[key].toString().indexOf(val) !== -1)
                   return true
-              }
-              else if (obj[key].indexOf(val) !== -1) {
+              }else if (obj[key].indexOf(val) !== -1) {
                 return true
               }
             }

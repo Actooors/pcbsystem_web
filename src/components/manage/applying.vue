@@ -19,7 +19,7 @@
         layout="prev, pager, next"
         :page-size="pageSize"
         :current-page="pageNo"
-        :total="this.items.length">
+        :total="total">
       </el-pagination>
     </div>
   </div>
@@ -110,7 +110,7 @@
         }).then((response) => {
           if (response.data.code === 'SUCCESS') {
             console.log(response.data)
-            this.items = response.data.data
+            this.items = response.data.data.requestInfo
             this.total += response.data.data.total
             for (let i = 0; i < this.items.length; i++) {
               let list = [

@@ -18,7 +18,7 @@
       </el-tab-pane>
     </el-tabs>
     <div class="logs-dialog-wrapper" v-transfer-dom>
-      <x-dialog v-model="showLogs" class="logs-dialog" hide-on-blur dialog-transition="">
+      <x-dialog v-if="showLogs" v-model="showLogs" class="logs-dialog" hide-on-blur dialog-transition="">
 
         <router-view></router-view>
 

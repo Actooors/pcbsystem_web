@@ -74,6 +74,7 @@
     },
     mounted() {
       stickybits('.sticky-title', {useStickyClasses: true});
+      this.initData();
     },
     methods: {
       onConfirm() {
