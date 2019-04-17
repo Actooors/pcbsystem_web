@@ -88,7 +88,7 @@
       VerifyCellPhoneNumber() {
         this.show = true;
         axios({
-          url: 'http://192.168.50.223:8081/api/user/validateCode',
+          url: 'http://118.25.130.89:8082/api/user/validateCode',
           method: 'post',
           data: {
             "phoneNum": this.phoneNum
@@ -127,7 +127,7 @@
         console.log("输入的value是" + this.code)
         console.log("手机号是" + this.phoneNum)
         axios({
-          url: 'http://192.168.50.223:8081/api/user/checkValidateCodeForNewPhone',
+          url: 'http://118.25.130.89:8082/api/user/checkValidateCodeForNewPhone',
           method: 'post',
           data: {
             "code": this.code,
@@ -155,7 +155,7 @@
       },
       initPersonalInfo() {
         axios({
-          url: 'http://192.168.50.223:8081/api/user/phoneNum',
+          url: 'http://118.25.130.89:8082/api/user/phoneNum',
           method: 'get'
         }).then((res) => {
           if (res.data.code === 'FAILED') {

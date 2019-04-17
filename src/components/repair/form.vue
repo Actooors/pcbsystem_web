@@ -63,7 +63,7 @@
           background: 'rgba(0, 0, 0, 0.7)'
         });
         axios({
-          url: 'http://192.168.50.223:8081/api/driver/insert/carRequest',
+          url: 'http://118.25.130.89:8082/api/driver/insert/carRequest',
           method: 'post',
           params: {
             "reason": this.reasons

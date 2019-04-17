@@ -189,7 +189,7 @@
           background: 'rgba(0, 0, 0, 0.7)'
         });
         axios({
-          url: 'http://192.168.50.223:8081/api/admin/query/requestInfo/driver',
+          url: 'http://118.25.130.89:8082/api/admin/query/requestInfo/driver',
           method:'post',
           data:{
             "userId": store.state.userId,
@@ -239,7 +239,7 @@
           background: 'rgba(0, 0, 0, 0.7)'
         });
         axios({
-          url: 'http://192.168.50.223:8081/api/admin/query/requestInfo/driver',
+          url: 'http://118.25.130.89:8082/api/admin/query/requestInfo/driver',
           method: 'post',
           data: {
             "userId": store.state.userId,
@@ -289,7 +289,7 @@
           background: 'rgba(0, 0, 0, 0.7)'
         });
         axios({
-          url: 'http://192.168.50.223:8081/api/admin/query/requestInfo/driver',
+          url: 'http://118.25.130.89:8082/api/admin/query/requestInfo/driver',
           method: 'post',
           data: {
             "userId": store.state.userId,

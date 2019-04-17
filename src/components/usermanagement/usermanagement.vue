@@ -297,7 +297,7 @@
       ConfirmAddition(index) {
         if (index === 0) {
           axios({
-            url: 'http://192.168.50.223:8081/api/admin/add/passenger',
+            url: 'http://118.25.130.89:8082/api/admin/add/passenger',
             method: 'post',
             data: {
               "userId": this.passengerId,
@@ -321,7 +321,7 @@
           this.PlusLogsPassengers = false
         } else if (index === 1) {
           axios({
-            url: 'http://192.168.50.223:8081/api/admin/add/driver',
+            url: 'http://118.25.130.89:8082/api/admin/add/driver',
             method: 'post',
             data: {
               "driverId": this.driverId,
@@ -345,7 +345,7 @@
           this.PlusLogsDrivers = false
         } else if (index === 2) {
           axios({
-            url: 'http://192.168.50.223:8081/api/admin/add/carInfo',
+            url: 'http://118.25.130.89:8082/api/admin/add/carInfo',
             method: 'post',
             data: {
               "carNumber": this.carNumber,
@@ -445,7 +445,7 @@
             background: 'rgba(0, 0, 0, 0.7)'
           });
           axios({
-            url: 'http://192.168.50.223:8081/api/admin/query/passage',
+            url: 'http://118.25.130.89:8082/api/admin/query/passage',
             method: 'post',
             data: {
               "page": page
@@ -471,7 +471,7 @@
             background: 'rgba(0, 0, 0, 0.7)'
           });
           axios({
-            url: 'http://192.168.50.223:8081/api/admin/query/driver',
+            url: 'http://118.25.130.89:8082/api/admin/query/driver',
             method: 'post',
             data: {
               "page": page
@@ -496,7 +496,7 @@
             background: 'rgba(0, 0, 0, 0.7)'
           });
           axios({
-            url: 'http://192.168.50.223:8081/api/admin/query/car',
+            url: 'http://118.25.130.89:8082/api/admin/query/car',
             method: 'post',
             data: {
               "page": page

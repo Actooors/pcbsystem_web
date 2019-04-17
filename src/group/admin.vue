@@ -46,7 +46,7 @@
 <style lang="scss">
   .sidebarIcon {
     cursor: pointer;
-    position: absolute;
+    position: relative;
     top: 0;
     bottom: 0;
     display: table;

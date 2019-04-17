@@ -123,7 +123,7 @@
           background: 'rgba(0, 0, 0, 0.7)'
         });
         axios({
-          url: 'http://192.168.50.223:8081/api/admin/query/car/request',
+          url: 'http://118.25.130.89:8082/api/admin/query/car/request',
           method: 'get',
           params: {
             "carId": store.state.carId

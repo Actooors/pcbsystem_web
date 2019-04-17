@@ -68,14 +68,14 @@
           return !isNaN(x)
         }).join('').length
         if (this.password.length >= 6) {
-          axios.post('http://192.168.50.223:8081/login', {
+          axios.post('http://118.25.130.89:8082/login', {
             userId: this.username,
             password: this.password
           })
             .then((res) => {
               if (res.data.code === 'FAILED'){
                 this.$notify.error({
-                  message: res.data.message
+                  message: res.data.data
                 });
                 loading.close()
               }

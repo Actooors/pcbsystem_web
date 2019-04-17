@@ -189,7 +189,7 @@
           return
         }
         axios({
-          url: 'http://192.168.50.223:8081/api/passenger/availableCar',
+          url: 'http://118.25.130.89:8082/api/passenger/availableCar',
           method: 'get',
           params: {
             startDate: dateFormat(parseDate(this.calendarValueStart.replace('　', ' ')), 'YYYYMMDDhhmm'),
@@ -264,7 +264,7 @@
       },
       handleOnConfirm() {
         axios({
-          url: 'http://192.168.50.223:8081/api/passenger/orderCar',
+          url: 'http://118.25.130.89:8082/api/passenger/orderCar',
           method: 'post',
           data: {
             "carId": this.thisItem.carId,
