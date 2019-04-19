@@ -65,7 +65,7 @@
     position: absolute;
     top: 0;
     bottom: 0;
-    display: table;
+    display: table !important;
     margin: auto 2px;
     color: white;
     font-size: 1em;
@@ -73,7 +73,7 @@
 
   @media screen and (min-width: 1024px) {
     .sidebarIcon, #sidebarMobile {
-      display: none;
+      display: none !important;
     }
   }
 
