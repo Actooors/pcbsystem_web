@@ -1,11 +1,16 @@
 <template>
   <div>
-    <m-header title="公车预约系统司机端">
+<!--    <m-header title="公车预约系统司机端">-->
+<!--      <i @click="showSideBar" class="el-icon-caret-right sidebarIcon">Menu</i>-->
+<!--    </m-header>-->
+<!--    <sidebar-->
+<!--      v-model="ifShowSideBar"-->
+<!--      :items="sidebarItems"></sidebar>-->
+    <m-header title="上海大学公车预约系统">
       <i @click="showSideBar" class="el-icon-caret-right sidebarIcon">Menu</i>
     </m-header>
-    <sidebar
-      v-model="ifShowSideBar"
-      :items="sidebarItems"></sidebar>
+    <sidebar :value=true :items="sidebarItems" :overlay=false id="sidebarDesk"></sidebar>
+    <sidebar v-model="ifShowSideBar" :items="sidebarItems" id="sidebarMobile"></sidebar>
     <router-view></router-view>
   </div>
 </template>
@@ -55,7 +60,7 @@
   }
 </script>
 
-<style>
+<style lang="scss">
   .sidebarIcon {
     cursor: pointer;
     position: absolute;
@@ -66,9 +71,20 @@
     color: white;
     font-size: 1em;
   }
+  /*@media screen and (min-width: 1024px) {*/
+  /*  .sidebarIcon {*/
+  /*    left:2%*/
+  /*  }*/
+  /*}*/
   @media screen and (min-width: 1024px) {
-    .sidebarIcon {
-      left:2%
+    .sidebarIcon, #sidebarMobile {
+      display: none !important;
+    }
+  }
+
+  @media screen and (max-width: 1023px) {
+    #sidebarDesk {
+      display: none;
     }
   }
 </style>

@@ -13,19 +13,19 @@
                   'applying-form-green':item.requestState===1,
                   }"
                   :key="item.value"
-                  :footer-buttons="buttons"></form-preview>
+                  :footer-buttons="buttons" :name="index"></form-preview>
     <confirm v-model="show1"
              hide-on-blur
              title="通过该申请，确定吗？"
-             @on-cancel="onCancel"
-             @on-confirm="onConfirm"
+             @on-cancel="onCancel(index)"
+             @on-confirm="onConfirm(index)"
     >
     </confirm>
     <confirm v-model="show2"
              hide-on-blur
              title="拒绝该申请，确定吗？"
-             @on-cancel="onCancel1"
-             @on-confirm="onConfirm1"
+             @on-cancel="onCancel1(index)"
+             @on-confirm="onConfirm1(index)"
     >
     </confirm>
   </div>
@@ -54,20 +54,23 @@
         requestNumber: 0,
         lists: [],
         items: [],
+        index: null,
         buttons: [
           {
             style: 'default',
             text: '拒绝申请',
-            onButtonClick: () => {
+            onButtonClick: (index) => {
               console.log("拒绝申请");
+              this.index = index
               this.show2 = true;
             }
           },
           {
             style: 'primary',
             text: '通过申请',
-            onButtonClick: () => {
+            onButtonClick: (index) => {
               this.show1 = true;
+              this.index = index
               console.log("通过申请");
             }
           }
@@ -80,12 +83,27 @@
     },
     methods: {
       onConfirm() {
-        this.$message({
-          type: 'success',
-          message: "预约成功！"
-        });
-        console.log("预约成功！");
-        this.show = false;
+        axios({
+          url: 'http://118.25.130.89:8082/api/admin/check/request',
+          method: 'post',
+          data: {
+            requestId: this.items[this.index].requestId,
+            requestState: 3
+          }
+        }).then(res=>{
+          if (res.data.code === "SUCCESS") {
+            this.$message({
+              type: 'success',
+              message: "预约成功！"
+            });
+            this.show = false;
+          } else {
+            this.$message({
+              type: 'error',
+              message: "预约失败！"
+            });
+          }
+        })
       },
       onCancel() {
         console.log("取消！");
@@ -94,19 +112,34 @@
         console.log("取消！");
       },
       onConfirm1() {
-        this.$message({
-          type: 'success',
-          message: "发送成功！"
-        });
-        this.show2 = false;
+        axios({
+          url: 'http://118.25.130.89:8082/api/admin/check/request',
+          method: 'post',
+          data: {
+            requestId: this.items[this.index].requestId,
+            requestState: 4
+          }
+        }).then(res=>{
+          if (res.data.code === "SUCCESS") {
+            this.$message({
+              type: 'success',
+              message: "预约成功！"
+            });
+            this.show2 = false;
+          } else {
+            this.$message({
+              type: 'error',
+              message: "发送失败！"
+            });
+          }
+        })
       },
       stateMap(requestState) {
         if (requestState === 1) {
           return '待审核'
         } else if (requestState === 2) {
           return '已经取消'
-        }
-        else if (requestState === 3) {
+        } else if (requestState === 3) {
           return '审核通过'
         } else if (requestState === 4) {
           return '申请失败'
@@ -179,16 +212,16 @@
   .progressing-form-yellow {
     width: 100%;
     margin: 20px auto;
-    box-shadow: 1px 0px 1px #484848;
   }
 
   .progressing-form-yellow .weui-form-preview__hd .weui-form-preview__value {
     color: #d4bb00;
   }
 
-  .applying-form-green .weui-form-preview__value{
+  .applying-form-green .weui-form-preview__value {
     color: green;
   }
+
   .weui-form-preview__hd .weui-form-preview__label {
     color: black;
   }

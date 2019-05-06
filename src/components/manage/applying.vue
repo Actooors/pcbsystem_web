@@ -147,8 +147,7 @@
           return '正在申请'
         } else if (requestState === 2) {
           return '正在进行'
-        }
-        else if (requestState === 3) {
+        } else if (requestState === 3) {
           return '审核通过'
         } else if (requestState === 4) {
           return '申请失败'
@@ -170,7 +169,6 @@
   }
 
   .history-form-red {
-    width: 40%;
     margin: 20px auto !important;
   }
 
@@ -233,9 +231,18 @@
       width: 40%;
     }
 
+    .history-form-red {
+      width: 40%;
+    }
+
     .history-form-green {
       width: 40%;
     }
+
+    .progressing-form-yellow {
+      width: 40%;
+    }
+
   }
 </style>
 

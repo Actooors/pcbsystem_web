@@ -94,13 +94,9 @@
 </script>
 
 <style scoped>
-
-</style>
-
-<style>
   .form{
-    width: 60%;
-    margin: 0 auto;
+    width: 50%;
+    margin: 5% auto 0 auto;
   }
   .weui-label {
     max-width: 76.5px;

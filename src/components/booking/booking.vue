@@ -108,23 +108,23 @@
   var recommends = [
     {
       "url": "http://www.shu.edu.cn/",
-      "img": "https://ws1.sinaimg.cn/large/006rvSvvgy1fxqacrl07uj31hd0iyjy5.jpg",
+      "img": "http://www.shu.edu.cn/2019pic/20190430-4.jpg",
       "id": 15017
     }, {
       "url": "http://www.shu.edu.cn/",
-      "img": "https://ws1.sinaimg.cn/large/006rvSvvgy1fxqacy95dlj31hd0iydld.jpg",
+      "img": "http://www.shu.edu.cn/2019pic/20190505.jpg",
       "id": 15039
     }, {
       "url": "http://www.shu.edu.cn/",
-      "img": "https://ws1.sinaimg.cn/large/006rvSvvgy1fxqad6f30rj31hd0iydju.jpg",
+      "img": "http://www.shu.edu.cn/2019pic/20190505-2.jpg",
       "id": 15014
     }, {
       "url": "http://www.shu.edu.cn/",
-      "img": "https://ws1.sinaimg.cn/large/006rvSvvgy1fxqadcsv9nj31hd0iyqa7.jpg",
+      "img": "http://www.shu.edu.cn/2019pic/20190506-2.jpg",
       "id": 15044
     }, {
       "url": "http://www.shu.edu.cn/",
-      "img": "https://ws1.sinaimg.cn/large/006rvSvvgy1fxqadhc3m6j31hd0iygpo.jpg",
+      "img": "http://www.shu.edu.cn/2019pic/20190506.jpg",
       "id": 15046
     }
   ]
